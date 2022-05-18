@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
+import 'package:my_khairat_admin/pages/home/home.dart';
+import 'package:my_khairat_admin/pages/members/members.dart';
+import 'package:my_khairat_admin/pages/profile/profile.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:sizer/sizer.dart';
 
@@ -11,6 +15,7 @@ class Nav extends StatefulWidget {
 
 class _NavState extends State<Nav> {
   int selectedPage = 0;
+  final PageController _pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +33,25 @@ class _NavState extends State<Nav> {
           ),
         ),
       ),
-      body: PageView(),
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: (val) {
+          setState(() {
+            selectedPage = val;
+          });
+        },
+        children: const [
+          Home(),
+          Members(),
+          Profile(),
+        ],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: selectedPage,
         onTap: (val) {
           setState(() {
             selectedPage = val;
+            _pageController.jumpToPage(val);
           });
         },
         iconSize: 20.sp,
@@ -43,18 +61,18 @@ class _NavState extends State<Nav> {
         items: const [
           BottomNavigationBarItem(
             label: 'Halaman Utama',
-            icon: Icon(Icons.person_outline),
-            activeIcon: Icon(Icons.person),
+            icon: Icon(Ionicons.grid_outline),
+            activeIcon: Icon(Ionicons.grid),
           ),
           BottomNavigationBarItem(
             label: 'Ahli Kariah',
-            icon: Icon(Icons.person_outline),
-            activeIcon: Icon(Icons.person),
+            icon: Icon(Ionicons.people_outline),
+            activeIcon: Icon(Ionicons.people),
           ),
           BottomNavigationBarItem(
             label: 'Profil',
-            icon: Icon(Icons.person_outline),
-            activeIcon: Icon(Icons.person),
+            icon: Icon(Ionicons.person_outline),
+            activeIcon: Icon(Ionicons.person),
           ),
         ],
       ),

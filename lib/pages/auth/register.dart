@@ -116,6 +116,7 @@ class _RegisterState extends State<Register> {
                               FocusScope.of(context).unfocus();
                               if (_formKey.currentState!.validate()) {
                                 // Register logic
+
                               }
                             },
                           ),
