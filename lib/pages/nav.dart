@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:my_khairat_admin/pages/home/home.dart';
 import 'package:my_khairat_admin/pages/members/members.dart';
-import 'package:my_khairat_admin/pages/profile/profile.dart';
+import 'package:my_khairat_admin/pages/profile/setting.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:sizer/sizer.dart';
 
@@ -35,6 +35,7 @@ class _NavState extends State<Nav> {
       ),
       body: PageView(
         controller: _pageController,
+        physics: const NeverScrollableScrollPhysics(),
         onPageChanged: (val) {
           setState(() {
             selectedPage = val;
@@ -43,7 +44,7 @@ class _NavState extends State<Nav> {
         children: const [
           Home(),
           Members(),
-          Profile(),
+          Setting(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -70,9 +71,9 @@ class _NavState extends State<Nav> {
             activeIcon: Icon(Ionicons.people),
           ),
           BottomNavigationBarItem(
-            label: 'Profil',
-            icon: Icon(Ionicons.person_outline),
-            activeIcon: Icon(Ionicons.person),
+            label: 'Tetapan',
+            icon: Icon(Ionicons.cog_outline),
+            activeIcon: Icon(Ionicons.cog),
           ),
         ],
       ),
