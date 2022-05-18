@@ -25,7 +25,10 @@ class _SettingState extends State<Setting> {
             children: [
               Container(
                 width: 100.w,
-                padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 5.w,
+                  vertical: 1.h,
+                ),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
@@ -39,6 +42,24 @@ class _SettingState extends State<Setting> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    Container(
+                      alignment: Alignment.centerRight,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          const Text(
+                            'Kemaskini',
+                            style: TextStyle(color: Colors.purple),
+                          ),
+                          SizedBox(width: 1.w),
+                          Icon(
+                            Ionicons.pencil_outline,
+                            color: Colors.purple,
+                            size: 12.sp,
+                          )
+                        ],
+                      ),
+                    ),
                     CircleAvatar(
                       radius: 35.sp,
                     ),
@@ -88,38 +109,7 @@ class _SettingState extends State<Setting> {
                                 Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(3.w),
-                                    color: Colors.yellow,
-                                  ),
-                                  padding: EdgeInsets.all(2.w),
-                                  child: Icon(
-                                    Ionicons.clipboard_outline,
-                                    color: Colors.white,
-                                    size: 14.sp,
-                                  ),
-                                ),
-                                SizedBox(width: 3.w),
-                                Expanded(
-                                  child: Text(
-                                    'Pelan',
-                                    style: TextStyle(
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                ),
-                                Icon(
-                                  Ionicons.chevron_forward,
-                                  size: 14.sp,
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 1.h),
-                            Row(
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(3.w),
-                                    color: Colors.yellow,
+                                    color: Colors.blueGrey,
                                   ),
                                   padding: EdgeInsets.all(2.w),
                                   child: Icon(
@@ -157,11 +147,11 @@ class _SettingState extends State<Setting> {
                                 Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(3.w),
-                                    color: Colors.yellow,
+                                    color: Colors.blueAccent,
                                   ),
                                   padding: EdgeInsets.all(2.w),
                                   child: Icon(
-                                    Ionicons.clipboard_outline,
+                                    Ionicons.help_outline,
                                     color: Colors.white,
                                     size: 14.sp,
                                   ),
@@ -169,7 +159,7 @@ class _SettingState extends State<Setting> {
                                 SizedBox(width: 3.w),
                                 Expanded(
                                   child: Text(
-                                    'Pelan',
+                                    'Bantuan',
                                     style: TextStyle(
                                       fontSize: 12.sp,
                                       fontWeight: FontWeight.w400,
@@ -188,11 +178,11 @@ class _SettingState extends State<Setting> {
                                 Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(3.w),
-                                    color: Colors.yellow,
+                                    color: Colors.redAccent,
                                   ),
                                   padding: EdgeInsets.all(2.w),
                                   child: Icon(
-                                    Ionicons.clipboard_outline,
+                                    Ionicons.information_outline,
                                     color: Colors.white,
                                     size: 14.sp,
                                   ),
@@ -200,7 +190,7 @@ class _SettingState extends State<Setting> {
                                 SizedBox(width: 3.w),
                                 Expanded(
                                   child: Text(
-                                    'Pelan',
+                                    'Soalan Lazim',
                                     style: TextStyle(
                                       fontSize: 12.sp,
                                       fontWeight: FontWeight.w400,
