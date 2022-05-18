@@ -9,6 +9,7 @@ class WidgetConstants {
     required IconData icon,
     required TextEditingController controller,
     required FocusNode focusNode,
+    required String? Function(String? text) validator,
     bool isObscured = false,
   }) =>
       TextFormField(
@@ -36,6 +37,7 @@ class WidgetConstants {
         controller: controller,
         focusNode: focusNode,
         obscureText: isObscured,
+        validator: validator,
       );
 
   // custom text button

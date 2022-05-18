@@ -78,6 +78,11 @@ class _LoginState extends State<Login> {
                             icon: Ionicons.mail_outline,
                             controller: _emailController,
                             focusNode: _emailFocus,
+                            validator: (text) =>
+                                RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                        .hasMatch(text!)
+                                    ? null
+                                    : 'Emel tidak sah!',
                           ),
                           SizedBox(height: 2.h),
                           WidgetConstants.customTextFormField(
@@ -86,12 +91,18 @@ class _LoginState extends State<Login> {
                             controller: _passwordController,
                             focusNode: _passwordFocus,
                             isObscured: true,
+                            validator: (text) => text!.length >= 6
+                                ? null
+                                : 'Kata laluan hendaklah sekurangnya 6 angka!',
                           ),
                           SizedBox(height: 10.h),
                           WidgetConstants.customTextButton(
                             label: 'Log Masuk',
                             onPressed: () {
                               FocusScope.of(context).unfocus();
+                              if (_formKey.currentState!.validate()) {
+                                // Login logic
+                              }
                             },
                           ),
                           SizedBox(height: 1.h),

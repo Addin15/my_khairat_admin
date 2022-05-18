@@ -81,6 +81,11 @@ class _RegisterState extends State<Register> {
                             icon: Ionicons.mail_outline,
                             controller: _emailController,
                             focusNode: _emailFocus,
+                            validator: (text) =>
+                                RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                        .hasMatch(text!)
+                                    ? null
+                                    : 'Emel tidak sah!',
                           ),
                           SizedBox(height: 2.h),
                           WidgetConstants.customTextFormField(
@@ -89,6 +94,9 @@ class _RegisterState extends State<Register> {
                             controller: _passwordController,
                             focusNode: _passwordFocus,
                             isObscured: true,
+                            validator: (text) => text!.length >= 6
+                                ? null
+                                : 'Kata laluan hendaklah sekurangnya 6 angka!',
                           ),
                           SizedBox(height: 2.h),
                           WidgetConstants.customTextFormField(
@@ -97,12 +105,18 @@ class _RegisterState extends State<Register> {
                             controller: _confirmPasswordController,
                             focusNode: _confirmPasswordFocus,
                             isObscured: true,
+                            validator: (text) => text!.length >= 6
+                                ? null
+                                : 'Kata laluan hendaklah sekurangnya 6 angka!',
                           ),
                           SizedBox(height: 10.h),
                           WidgetConstants.customTextButton(
                             label: 'Daftar',
                             onPressed: () {
                               FocusScope.of(context).unfocus();
+                              if (_formKey.currentState!.validate()) {
+                                // Register logic
+                              }
                             },
                           ),
                           SizedBox(height: 1.h),
