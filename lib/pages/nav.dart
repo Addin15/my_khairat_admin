@@ -66,7 +66,7 @@ class _NavState extends State<Nav> {
             activeIcon: Icon(Ionicons.grid),
           ),
           BottomNavigationBarItem(
-            label: 'Ahli Kariah',
+            label: 'Ahli Khairat',
             icon: Icon(Ionicons.people_outline),
             activeIcon: Icon(Ionicons.people),
           ),
