@@ -30,7 +30,7 @@ class _NavState extends State<Nav> {
       villages: [
         Village(
           id: '0',
-          name: 'Village 1',
+          name: 'Village 3',
         ),
         Village(
           id: '1',
