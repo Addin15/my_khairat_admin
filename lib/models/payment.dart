@@ -3,8 +3,10 @@ class Payment {
   String? payerID;
   String? payerName;
   String? paymentDate;
-  String? startMonth;
-  String? endMonth;
+  int? startMonth;
+  int? startYear;
+  int? endMonth;
+  int? endYear;
   double? amount;
   String? proveURL;
 
@@ -14,7 +16,9 @@ class Payment {
     this.payerName,
     this.paymentDate,
     this.startMonth,
+    this.startYear,
     this.endMonth,
+    this.endYear,
     this.amount,
     this.proveURL,
   });
@@ -25,7 +29,9 @@ class Payment {
         payerName: map['payer_name'],
         paymentDate: map['payment_date'],
         startMonth: map['start_month'],
+        startYear: map['start_year'],
         endMonth: map['end_month'],
+        endYear: map['end_year'],
         amount: map['amount'],
         proveURL: map['prove_url'],
       );
@@ -36,7 +42,9 @@ class Payment {
         'payer_name': payerName,
         'payment_date': paymentDate,
         'start_month': startMonth,
+        'start_year': startYear,
         'end_month': endMonth,
+        'end_year': endYear,
         'amount': amount,
         'prove_url': proveURL,
       };
