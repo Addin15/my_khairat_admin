@@ -39,12 +39,12 @@ class _MembersState extends State<Members> {
                 children: [
                   MenuBox(
                     icon: 'assets/members/consent.png',
-                    label: 'Semak Pendaftaran',
+                    label: 'Semak Pendaftaran Ahli Baharu',
                     onTap: () {},
                   ),
                   MenuBox(
                     icon: 'assets/members/consent.png',
-                    label: 'Semak Pendaftaran',
+                    label: 'Semak Pendaftaran Tanggungan',
                     onTap: () {},
                   ),
                 ],
