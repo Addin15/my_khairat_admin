@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:my_khairat_admin/constants/widget_constants.dart';
+import 'package:my_khairat_admin/models/village.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 
-class ViewPayment extends StatefulWidget {
-  const ViewPayment({Key? key}) : super(key: key);
+class PageGrave extends StatefulWidget {
+  const PageGrave({Key? key}) : super(key: key);
 
   @override
-  State<ViewPayment> createState() => _ViewPaymentState();
+  State<PageGrave> createState() => _PageGraveState();
 }
 
-class _ViewPaymentState extends State<ViewPayment> {
+class _PageGraveState extends State<PageGrave> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: WidgetConstants.customAppBar(
         context,
         Text(
-          'Rekod Pembayaran',
+          'Kemaskini Kubur',
           style: TextStyle(
             color: AppColor.primary,
           ),

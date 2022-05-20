@@ -7,16 +7,16 @@ import 'package:my_khairat_admin/models/village.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:sizer/sizer.dart';
 
-class ViewVillage extends StatefulWidget {
-  const ViewVillage({required this.villages, Key? key}) : super(key: key);
+class PageVillage extends StatefulWidget {
+  const PageVillage({required this.villages, Key? key}) : super(key: key);
 
   final List<Village> villages;
 
   @override
-  State<ViewVillage> createState() => _ViewVillageState();
+  State<PageVillage> createState() => _PageVillageState();
 }
 
-class _ViewVillageState extends State<ViewVillage> {
+class _PageVillageState extends State<PageVillage> {
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchFocus = FocusNode();
 

@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:my_khairat_admin/constants/widget_constants.dart';
-import 'package:my_khairat_admin/models/village.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 
-class ViewGrave extends StatefulWidget {
-  const ViewGrave({Key? key}) : super(key: key);
+class PageClaim extends StatefulWidget {
+  const PageClaim({Key? key}) : super(key: key);
 
   @override
-  State<ViewGrave> createState() => _ViewGraveState();
+  State<PageClaim> createState() => _PageClaimState();
 }
 
-class _ViewGraveState extends State<ViewGrave> {
+class _PageClaimState extends State<PageClaim> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: WidgetConstants.customAppBar(
         context,
         Text(
-          'Kemaskini Kubur',
+          'Semak Tuntutan',
           style: TextStyle(
             color: AppColor.primary,
           ),

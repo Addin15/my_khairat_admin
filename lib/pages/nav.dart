@@ -42,82 +42,70 @@ class _NavState extends State<Nav> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: getUserData(),
-      builder: (context, AsyncSnapshot<Mosque> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Container(
-              color: Colors.white,
-              child: SpinKitChasingDots(
-                color: AppColor.primary,
-              ));
-        } else {
-          Mosque mosque = snapshot.data!;
-          return Provider<Mosque>.value(
-            value: mosque,
-            child: Scaffold(
-              appBar: AppBar(
-                centerTitle: true,
-                elevation: 0.0,
-                backgroundColor: Colors.white,
-                title: Text(
-                  'myKhairat',
-                  style: TextStyle(
-                    color: AppColor.primary,
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
+    return FutureProvider<Mosque>.value(
+        value: getUserData(),
+        initialData: Mosque(),
+        builder: (context, child) {
+          return Scaffold(
+            appBar: AppBar(
+              centerTitle: true,
+              elevation: 0.0,
+              backgroundColor: Colors.white,
+              title: Text(
+                'myKhairat',
+                style: TextStyle(
+                  color: AppColor.primary,
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              body: PageView(
-                controller: _pageController,
-                physics: const NeverScrollableScrollPhysics(),
-                onPageChanged: (val) {
-                  setState(() {
-                    selectedPage = val;
-                  });
-                },
-                children: const [
-                  Home(),
-                  Members(),
-                  Setting(),
-                ],
-              ),
-              bottomNavigationBar: BottomNavigationBar(
-                currentIndex: selectedPage,
-                onTap: (val) {
-                  setState(() {
-                    selectedPage = val;
-                    _pageController.jumpToPage(val);
-                  });
-                },
-                iconSize: 20.sp,
-                selectedFontSize: 10.sp,
-                unselectedFontSize: 9.sp,
-                selectedItemColor: AppColor.primary,
-                type: BottomNavigationBarType.fixed,
-                items: const [
-                  BottomNavigationBarItem(
-                    label: 'Halaman Utama',
-                    icon: Icon(Ionicons.grid_outline),
-                    activeIcon: Icon(Ionicons.grid),
-                  ),
-                  BottomNavigationBarItem(
-                    label: 'Ahli Khairat',
-                    icon: Icon(Ionicons.people_outline),
-                    activeIcon: Icon(Ionicons.people),
-                  ),
-                  BottomNavigationBarItem(
-                    label: 'Tetapan',
-                    icon: Icon(Ionicons.cog_outline),
-                    activeIcon: Icon(Ionicons.cog),
-                  ),
-                ],
-              ),
+            ),
+            body: PageView(
+              controller: _pageController,
+              physics: const NeverScrollableScrollPhysics(),
+              onPageChanged: (val) {
+                setState(() {
+                  selectedPage = val;
+                });
+              },
+              children: const [
+                Home(),
+                Members(),
+                Setting(),
+              ],
+            ),
+            bottomNavigationBar: BottomNavigationBar(
+              currentIndex: selectedPage,
+              onTap: (val) {
+                setState(() {
+                  selectedPage = val;
+                  _pageController.jumpToPage(val);
+                });
+              },
+              iconSize: 20.sp,
+              selectedFontSize: 10.sp,
+              unselectedFontSize: 9.sp,
+              selectedItemColor: AppColor.primary,
+              type: BottomNavigationBarType.fixed,
+              items: const [
+                BottomNavigationBarItem(
+                  label: 'Halaman Utama',
+                  icon: Icon(Ionicons.grid_outline),
+                  activeIcon: Icon(Ionicons.grid),
+                ),
+                BottomNavigationBarItem(
+                  label: 'Ahli Khairat',
+                  icon: Icon(Ionicons.people_outline),
+                  activeIcon: Icon(Ionicons.people),
+                ),
+                BottomNavigationBarItem(
+                  label: 'Tetapan',
+                  icon: Icon(Ionicons.cog_outline),
+                  activeIcon: Icon(Ionicons.cog),
+                ),
+              ],
             ),
           );
-        }
-      },
-    );
+        });
   }
 }
