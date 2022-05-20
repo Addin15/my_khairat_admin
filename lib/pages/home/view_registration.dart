@@ -3,14 +3,14 @@ import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:sizer/sizer.dart';
 
-class CheckRegistration extends StatefulWidget {
-  const CheckRegistration({Key? key}) : super(key: key);
+class ViewRegistration extends StatefulWidget {
+  const ViewRegistration({Key? key}) : super(key: key);
 
   @override
-  State<CheckRegistration> createState() => _CheckRegistrationState();
+  State<ViewRegistration> createState() => _ViewRegistrationState();
 }
 
-class _CheckRegistrationState extends State<CheckRegistration> {
+class _ViewRegistrationState extends State<ViewRegistration> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,25 +31,68 @@ class _CheckRegistrationState extends State<CheckRegistration> {
       body: Column(
         children: [
           SizedBox(
-            height: 3.h,
+            height: 2.h,
           ),
           HeaderPage(),
           SizedBox(
-            height: 3.h,
+            height: 2.h,
           ),
-          Card(
-            elevation: 5,
-            margin: EdgeInsets.symmetric(horizontal: 7.h),
-            color: Colors.white,
-            shadowColor: Colors.black,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            child: SizedBox(
-              height: 10.h,
-              child: Center(child: Text('Ahmad ibrahim')),
-            ),
-          ),
+          Expanded(
+              child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  itemCount: 10,
+                  //physics: NeverScrollableScrollPhysics(),
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                        padding: EdgeInsets.all(1.h), child: namecard());
+                  })),
         ],
+      ),
+    );
+  }
+}
+
+class namecard extends StatelessWidget {
+  const namecard({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 13.h,
+      child: Card(
+        elevation: 5,
+        margin: EdgeInsets.symmetric(horizontal: 7.h),
+        color: Colors.white,
+        shadowColor: Colors.black,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        child: Container(
+          padding: EdgeInsets.all(2.h),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Center(child: Text('Ahmad ibrahim  ')),
+              SizedBox(
+                height: 1.h,
+              ),
+              SizedBox(
+                height: 3.h,
+                width: 14.h,
+                child: ElevatedButton(
+                  onPressed: () {},
+                  child: Text('Lihat butiran'),
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(AppColor.primary),
+                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(2.h)))),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -74,8 +117,8 @@ class HeaderPage extends StatelessWidget {
               boxShadow: [
                 BoxShadow(
                   color: Colors.grey,
-                  spreadRadius: 3,
-                  blurRadius: 4,
+                  spreadRadius: 1,
+                  blurRadius: 3,
                   offset: Offset(0, 2),
                 ),
               ],

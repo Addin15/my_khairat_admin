@@ -1,7 +1,8 @@
 import 'dart:developer';
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:my_khairat_admin/pages/home/view_registration.dart';
 import 'package:my_khairat_admin/pages/home/home.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:sizer/sizer.dart';
@@ -40,7 +41,10 @@ class _MembersState extends State<Members> {
                   MenuBox(
                     icon: 'assets/members/consent.png',
                     label: 'Semak Pendaftaran Ahli Baharu',
-                    onTap: () {},
+                    onTap: () => Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                            builder: (context) => const ViewRegistration())),
                   ),
                   MenuBox(
                     icon: 'assets/members/consent.png',
