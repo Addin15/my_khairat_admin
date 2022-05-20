@@ -1,9 +1,12 @@
 import 'dart:developer';
 
+import 'package:badges/badges.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:my_khairat_admin/constants/widget_constants.dart';
 import 'package:my_khairat_admin/models/payment.dart';
+import 'package:my_khairat_admin/pages/home/payment/view_pending_payment.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:sizer/sizer.dart';
 
@@ -20,11 +23,23 @@ class _PagePaymentState extends State<PagePayment> {
 
   List<Payment> payments = [];
   List<Payment> filteredPayments = [];
+  List<Payment> pendingPayments = [];
+
+  filterPendingPayments() {
+    pendingPayments.clear();
+    for (var payment in payments) {
+      if (payment.status == 'pending') {
+        pendingPayments.add(payment);
+      }
+    }
+    setState(() {});
+  }
 
   filterPayments() {
     filteredPayments.clear();
     for (var payment in payments) {
-      if (DateTime.parse(payment.paymentDate!).month == selectedMonth) {
+      if (DateTime.parse(payment.paymentDate!).month == selectedMonth &&
+          payment.status == 'completed') {
         filteredPayments.add(payment);
       }
     }
@@ -45,6 +60,7 @@ class _PagePaymentState extends State<PagePayment> {
         endMonth: 7,
         endYear: 2022,
         amount: 20,
+        status: 'completed',
       ),
       Payment(
         id: '0',
@@ -56,228 +72,10 @@ class _PagePaymentState extends State<PagePayment> {
         endMonth: 3,
         endYear: 2022,
         amount: 10,
-      ),
-      Payment(
-        id: '0',
-        payerID: '0',
-        payerName: 'Ahmad Najmi',
-        paymentDate: DateTime.now().toIso8601String(),
-        startMonth: 5,
-        startYear: 2022,
-        endMonth: 7,
-        endYear: 2022,
-        amount: 20,
-      ),
-      Payment(
-        id: '0',
-        payerID: '0',
-        payerName: 'Aiman Hakim',
-        paymentDate: DateTime.now().toIso8601String(),
-        startMonth: 3,
-        startYear: 2022,
-        endMonth: 3,
-        endYear: 2022,
-        amount: 10,
-      ),
-      Payment(
-        id: '0',
-        payerID: '0',
-        payerName: 'Ahmad Najmi',
-        paymentDate: DateTime.now().toIso8601String(),
-        startMonth: 5,
-        startYear: 2022,
-        endMonth: 7,
-        endYear: 2022,
-        amount: 20,
-      ),
-      Payment(
-        id: '0',
-        payerID: '0',
-        payerName: 'Aiman Hakim',
-        paymentDate: DateTime.now().toIso8601String(),
-        startMonth: 3,
-        startYear: 2022,
-        endMonth: 3,
-        endYear: 2022,
-        amount: 10,
-      ),
-      Payment(
-        id: '0',
-        payerID: '0',
-        payerName: 'Ahmad Najmi',
-        paymentDate: DateTime.now().toIso8601String(),
-        startMonth: 5,
-        startYear: 2022,
-        endMonth: 7,
-        endYear: 2022,
-        amount: 20,
-      ),
-      Payment(
-        id: '0',
-        payerID: '0',
-        payerName: 'Aiman Hakim',
-        paymentDate: DateTime.now().toIso8601String(),
-        startMonth: 3,
-        startYear: 2022,
-        endMonth: 3,
-        endYear: 2022,
-        amount: 10,
-      ),
-      Payment(
-        id: '0',
-        payerID: '0',
-        payerName: 'Ahmad Najmi',
-        paymentDate: DateTime.now().toIso8601String(),
-        startMonth: 5,
-        startYear: 2022,
-        endMonth: 7,
-        endYear: 2022,
-        amount: 20,
-      ),
-      Payment(
-        id: '0',
-        payerID: '0',
-        payerName: 'Aiman Hakim',
-        paymentDate: DateTime.now().toIso8601String(),
-        startMonth: 3,
-        startYear: 2022,
-        endMonth: 3,
-        endYear: 2022,
-        amount: 10,
-      ),
-      Payment(
-        id: '0',
-        payerID: '0',
-        payerName: 'Ahmad Najmi',
-        paymentDate: DateTime.now().toIso8601String(),
-        startMonth: 5,
-        startYear: 2022,
-        endMonth: 7,
-        endYear: 2022,
-        amount: 20,
-      ),
-      Payment(
-        id: '0',
-        payerID: '0',
-        payerName: 'Aiman Hakim',
-        paymentDate: DateTime.now().toIso8601String(),
-        startMonth: 3,
-        startYear: 2022,
-        endMonth: 3,
-        endYear: 2022,
-        amount: 10,
-      ),
-      Payment(
-        id: '0',
-        payerID: '0',
-        payerName: 'Ahmad Najmi',
-        paymentDate: DateTime.now().toIso8601String(),
-        startMonth: 5,
-        startYear: 2022,
-        endMonth: 7,
-        endYear: 2022,
-        amount: 20,
-      ),
-      Payment(
-        id: '0',
-        payerID: '0',
-        payerName: 'Aiman Hakim',
-        paymentDate: DateTime.now().toIso8601String(),
-        startMonth: 3,
-        startYear: 2022,
-        endMonth: 3,
-        endYear: 2022,
-        amount: 10,
-      ),
-      Payment(
-        id: '0',
-        payerID: '0',
-        payerName: 'Ahmad Najmi',
-        paymentDate: DateTime.now().toIso8601String(),
-        startMonth: 5,
-        startYear: 2022,
-        endMonth: 7,
-        endYear: 2022,
-        amount: 20,
-      ),
-      Payment(
-        id: '0',
-        payerID: '0',
-        payerName: 'Aiman Hakim',
-        paymentDate: DateTime.now().toIso8601String(),
-        startMonth: 3,
-        startYear: 2022,
-        endMonth: 3,
-        endYear: 2022,
-        amount: 10,
-      ),
-      Payment(
-        id: '0',
-        payerID: '0',
-        payerName: 'Ahmad Najmi',
-        paymentDate: DateTime.now().toIso8601String(),
-        startMonth: 5,
-        startYear: 2022,
-        endMonth: 7,
-        endYear: 2022,
-        amount: 20,
-      ),
-      Payment(
-        id: '0',
-        payerID: '0',
-        payerName: 'Aiman Hakim',
-        paymentDate: DateTime.now().toIso8601String(),
-        startMonth: 3,
-        startYear: 2022,
-        endMonth: 3,
-        endYear: 2022,
-        amount: 10,
-      ),
-      Payment(
-        id: '0',
-        payerID: '0',
-        payerName: 'Ahmad Najmi',
-        paymentDate: DateTime.now().toIso8601String(),
-        startMonth: 5,
-        startYear: 2022,
-        endMonth: 7,
-        endYear: 2022,
-        amount: 20,
-      ),
-      Payment(
-        id: '0',
-        payerID: '0',
-        payerName: 'Aiman Hakim',
-        paymentDate: DateTime.now().toIso8601String(),
-        startMonth: 3,
-        startYear: 2022,
-        endMonth: 3,
-        endYear: 2022,
-        amount: 10,
-      ),
-      Payment(
-        id: '0',
-        payerID: '0',
-        payerName: 'Ahmad Najmi',
-        paymentDate: DateTime.now().toIso8601String(),
-        startMonth: 5,
-        startYear: 2022,
-        endMonth: 7,
-        endYear: 2022,
-        amount: 20,
-      ),
-      Payment(
-        id: '0',
-        payerID: '0',
-        payerName: 'Aiman Hakim',
-        paymentDate: DateTime.now().toIso8601String(),
-        startMonth: 3,
-        startYear: 2022,
-        endMonth: 3,
-        endYear: 2022,
-        amount: 10,
+        status: 'pending',
       ),
     ]);
+    filterPendingPayments();
     filterPayments();
     super.initState();
   }
@@ -300,19 +98,36 @@ class _PagePaymentState extends State<PagePayment> {
           children: [
             Container(
               margin: EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.h),
-              child: TextButton(
-                onPressed: () {},
-                style: TextButton.styleFrom(
-                  minimumSize: Size(double.infinity, 6.h),
-                  backgroundColor: Colors.white,
-                  side: BorderSide(color: AppColor.primary),
-                ),
-                child: Text(
-                  'Semak Pembayaran',
-                  style: TextStyle(
-                    color: Colors.black54,
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.bold,
+              child: Badge(
+                badgeContent: pendingPayments.isNotEmpty
+                    ? Text(
+                        pendingPayments.length.toString(),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    : const SizedBox.shrink(),
+                position: BadgePosition(end: 2.w),
+                padding: EdgeInsets.all(8.sp),
+                child: TextButton(
+                  onPressed: () => Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => ViewPendingPayment(
+                              pendingPayments: pendingPayments))),
+                  style: TextButton.styleFrom(
+                    minimumSize: Size(double.infinity, 6.h),
+                    backgroundColor: Colors.white,
+                    side: BorderSide(color: AppColor.primary),
+                  ),
+                  child: Text(
+                    'Semak Pembayaran',
+                    style: TextStyle(
+                      color: Colors.black54,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
@@ -420,48 +235,53 @@ class _PagePaymentState extends State<PagePayment> {
               ),
             ),
             Expanded(
-              child: ListView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: filteredPayments.length,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 2.h, horizontal: 2.w),
-                      margin: EdgeInsets.only(bottom: 0.2.h),
-                      color: Colors.grey.shade400,
-                      child: Row(
-                        children: [
-                          Expanded(
-                              child: Text(filteredPayments[index].payerName!,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.bold,
-                                  ))),
-                          SizedBox(width: 1.5.w),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            crossAxisAlignment: CrossAxisAlignment.end,
+              child: filteredPayments.isEmpty
+                  ? const Center(child: Text('Tiada rekod'))
+                  : ListView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      itemCount: filteredPayments.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 2.h, horizontal: 2.w),
+                          margin: EdgeInsets.only(bottom: 0.2.h),
+                          color: Colors.grey.shade400,
+                          child: Row(
                             children: [
-                              Text(
-                                'RM${filteredPayments[index].amount!.toStringAsFixed(2)}',
-                                style: TextStyle(
-                                  color: Colors.green,
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(
-                                DateFormat('dd/MM/yyyy').format(DateTime.parse(
-                                    filteredPayments[index].paymentDate!)),
-                                style: const TextStyle(color: Colors.white),
+                              Expanded(
+                                  child:
+                                      Text(filteredPayments[index].payerName!,
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.bold,
+                                          ))),
+                              SizedBox(width: 1.5.w),
+                              Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    'RM${filteredPayments[index].amount!.toStringAsFixed(2)}',
+                                    style: TextStyle(
+                                      color: Colors.green,
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    DateFormat('dd/MM/yyyy').format(
+                                        DateTime.parse(filteredPayments[index]
+                                            .paymentDate!)),
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                        ],
-                      ),
-                    );
-                  }),
+                        );
+                      }),
             )
           ],
         ),
