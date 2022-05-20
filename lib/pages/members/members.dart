@@ -2,10 +2,11 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:my_khairat_admin/pages/home/view_registration.dart';
+import 'package:my_khairat_admin/pages/register/view_registration.dart';
 import 'package:my_khairat_admin/pages/home/home.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:sizer/sizer.dart';
+
 
 class Members extends StatefulWidget {
   const Members({Key? key}) : super(key: key);
@@ -87,3 +88,4 @@ class _MembersState extends State<Members> {
     );
   }
 }
+

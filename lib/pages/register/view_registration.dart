@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:my_khairat_admin/pages/register/check_registration.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:sizer/sizer.dart';
+import 'package:flutter/cupertino.dart';
 
 class ViewRegistration extends StatefulWidget {
   const ViewRegistration({Key? key}) : super(key: key);
@@ -81,7 +83,10 @@ class namecard extends StatelessWidget {
                 height: 3.h,
                 width: 14.h,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () => Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => const CheckRegistration())),
                   child: Text('Lihat butiran'),
                   style: ButtonStyle(
                       backgroundColor:
