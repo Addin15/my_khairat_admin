@@ -64,7 +64,7 @@ class _HomeState extends State<Home> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Text(
-                            'Masjid A',
+                            '${mosque.name}',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 18.sp,
