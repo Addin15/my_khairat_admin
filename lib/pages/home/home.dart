@@ -1,12 +1,16 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:my_khairat_admin/models/mosque.dart';
 import 'package:my_khairat_admin/pages/home/view_announcement.dart';
 import 'package:my_khairat_admin/pages/home/view_claim.dart';
 import 'package:my_khairat_admin/pages/home/view_grave.dart';
 import 'package:my_khairat_admin/pages/home/view_payment.dart';
 import 'package:my_khairat_admin/pages/home/view_village.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 class Home extends StatefulWidget {
@@ -19,6 +23,10 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
+    Mosque mosque = Provider.of<Mosque>(context);
+
+    log(mosque.name!);
+
     return Container(
       width: 100.w,
       padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
@@ -66,7 +74,8 @@ class _HomeState extends State<Home> {
                           onPressed: () => Navigator.push(
                               context,
                               CupertinoPageRoute(
-                                  builder: (context) => const ViewVillage())),
+                                  builder: (context) =>
+                                      ViewVillage(villages: mosque.villages!))),
                           child: Text(
                             'Tiada kariah',
                             style: TextStyle(

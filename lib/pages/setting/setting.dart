@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:my_khairat_admin/pages/setting/view_plan.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:sizer/sizer.dart';
 
@@ -84,35 +87,53 @@ class _SettingState extends State<Setting> {
                     color: Colors.white,
                     child: Column(
                       children: [
-                        Row(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(3.w),
-                                color: Colors.teal,
+                        GestureDetector(
+                          onTap: () {
+                            // Click on plan
+                            Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                    builder: (context) => const ViewPlan()));
+                          },
+                          child: Row(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(3.w),
+                                  color: Colors.teal,
+                                ),
+                                padding: EdgeInsets.all(2.w),
+                                child: Icon(
+                                  Ionicons.clipboard_outline,
+                                  color: Colors.white,
+                                  size: 14.sp,
+                                ),
                               ),
-                              padding: EdgeInsets.all(2.w),
-                              child: Icon(
-                                Ionicons.clipboard_outline,
-                                color: Colors.white,
-                                size: 14.sp,
+                              SizedBox(width: 3.w),
+                              Expanded(
+                                child: Text(
+                                  'Pelan',
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
                               ),
-                            ),
-                            SizedBox(width: 3.w),
-                            Expanded(
-                              child: Text(
-                                'Pelan',
+                              Text(
+                                '${DateFormat('dd/MM/yyyy').format(DateTime.now())}',
                                 style: TextStyle(
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w400,
+                                  color: Colors.grey,
                                 ),
                               ),
-                            ),
-                            Icon(
-                              Ionicons.chevron_forward,
-                              size: 14.sp,
-                            ),
-                          ],
+                              SizedBox(width: 1.w),
+                              Icon(
+                                Ionicons.chevron_forward,
+                                size: 14.sp,
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
