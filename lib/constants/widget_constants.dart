@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:sizer/sizer.dart';
 
@@ -65,5 +66,20 @@ class WidgetConstants {
             fontWeight: FontWeight.w600,
           ),
         ),
+      );
+
+  // Custom app bar
+  static customAppBar(BuildContext context, Widget title) => AppBar(
+        leading: IconButton(
+          icon: Icon(
+            Ionicons.chevron_back,
+            color: AppColor.primary,
+          ),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: title,
+        elevation: 0.0,
+        backgroundColor: Colors.white,
+        centerTitle: true,
       );
 }

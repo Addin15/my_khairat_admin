@@ -59,6 +59,7 @@ class _NavState extends State<Nav> {
         selectedFontSize: 10.sp,
         unselectedFontSize: 9.sp,
         selectedItemColor: AppColor.primary,
+        type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(
             label: 'Halaman Utama',

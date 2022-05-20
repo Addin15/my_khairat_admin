@@ -1,5 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:my_khairat_admin/pages/home/view_announcement.dart';
+import 'package:my_khairat_admin/pages/home/view_claim.dart';
+import 'package:my_khairat_admin/pages/home/view_grave.dart';
+import 'package:my_khairat_admin/pages/home/view_payment.dart';
+import 'package:my_khairat_admin/pages/home/view_village.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:sizer/sizer.dart';
 
@@ -40,13 +46,36 @@ class _HomeState extends State<Home> {
                 Expanded(
                   child: Container(
                     alignment: Alignment.center,
-                    child: Text(
-                      'Masjid A',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          'Masjid A',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 1.h),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            padding: EdgeInsets.symmetric(horizontal: 10.w),
+                            backgroundColor: Colors.white,
+                          ),
+                          onPressed: () => Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                  builder: (context) => const ViewVillage())),
+                          child: Text(
+                            'Tiada kariah',
+                            style: TextStyle(
+                              color: AppColor.primary,
+                              fontSize: 12.sp,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -69,22 +98,34 @@ class _HomeState extends State<Home> {
               MenuBox(
                 icon: 'assets/menu/edit.png',
                 label: 'Kemaskini Kubur',
-                onTap: () {},
+                onTap: () => Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                        builder: (context) => const ViewGrave())),
               ),
               MenuBox(
                 icon: 'assets/menu/announcement.png',
                 label: 'Tambah Pengunguman',
-                onTap: () {},
+                onTap: () => Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                        builder: (context) => const ViewAnnouncement())),
               ),
               MenuBox(
                 icon: 'assets/menu/record.png',
                 label: 'Rekod Pembayaran',
-                onTap: () {},
+                onTap: () => Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                        builder: (context) => const ViewPayment())),
               ),
               MenuBox(
                 icon: 'assets/menu/claim.png',
                 label: 'Semak Tuntutan',
-                onTap: () {},
+                onTap: () => Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                        builder: (context) => const ViewClaim())),
               ),
             ],
           ),

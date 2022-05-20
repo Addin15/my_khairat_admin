@@ -33,6 +33,7 @@ class _MembersState extends State<Members> {
             children: [
               GridView(
                 shrinkWrap: true,
+                physics: const BouncingScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2),
                 children: [
