@@ -9,6 +9,7 @@ class Payment {
   int? endYear;
   double? amount;
   String? proveURL;
+  String? status;
 
   Payment({
     this.id,
@@ -21,6 +22,7 @@ class Payment {
     this.endYear,
     this.amount,
     this.proveURL,
+    this.status,
   });
 
   factory Payment.fromMap(Map<String, dynamic> map) => Payment(
@@ -34,6 +36,7 @@ class Payment {
         endYear: map['end_year'],
         amount: map['amount'],
         proveURL: map['prove_url'],
+        status: map['status'],
       );
 
   Map<String, dynamic> toMap() => {
@@ -47,5 +50,6 @@ class Payment {
         'end_year': endYear,
         'amount': amount,
         'prove_url': proveURL,
+        'status': status,
       };
 }

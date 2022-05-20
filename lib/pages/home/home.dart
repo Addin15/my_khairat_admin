@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:my_khairat_admin/models/mosque.dart';
-import 'package:my_khairat_admin/pages/home/view_announcement.dart';
+import 'package:my_khairat_admin/pages/home/announcement/page_announcement.dart';
 import 'package:my_khairat_admin/pages/home/claim/page_claim.dart';
 import 'package:my_khairat_admin/pages/home/grave/page_grave.dart';
 import 'package:my_khairat_admin/pages/home/payment/page_payment.dart';
@@ -127,7 +127,7 @@ class _HomeState extends State<Home> {
                   onTap: () => Navigator.push(
                       context,
                       CupertinoPageRoute(
-                          builder: (context) => const ViewAnnouncement())),
+                          builder: (context) => const PageAnnouncement())),
                 ),
                 MenuBox(
                   icon: 'assets/menu/record.png',
