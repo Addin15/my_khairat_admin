@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_khairat_admin/constants/widget_constants.dart';
+import 'package:my_khairat_admin/pages/home/announcement/edit_announcement.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:sizer/sizer.dart';
 
@@ -86,7 +88,12 @@ class _ViewAnnouncementState extends State<ViewAnnouncement> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                            builder: (context) => EditAnnouncement()));
+                  },
                   child: Text("Ubah"),
                   style: ButtonStyle(
                     backgroundColor:
