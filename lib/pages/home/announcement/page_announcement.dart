@@ -83,18 +83,36 @@ class _PageAnnouncementState extends State<PageAnnouncement> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
                           child: Container(
+                            decoration: new BoxDecoration(
+                                border: new Border(
+                                    right: new BorderSide(
+                                        width: 1.0, color: Colors.white24))),
                             padding: EdgeInsets.all(3.h),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text(
-                                  'Pengubahan Tarikh Bayaran',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 15.0,
-                                      fontFamily: "Reem Kufi"),
-                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Icon(Icons.campaign,
+                                        color: AppColor.primary),
+                                    SizedBox(
+                                      width: 50,
+                                    ),
+                                    Text(
+                                      'Selamat Hari Raya',
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 17.0,
+                                          fontFamily: "Reem Kufi"),
+                                    ),
+                                    SizedBox(
+                                      width: 30,
+                                    ),
+                                    Icon(Icons.keyboard_arrow_right,
+                                        color: AppColor.primary, size: 30.0),
+                                  ],
+                                )
                               ],
                             ),
                           ),
