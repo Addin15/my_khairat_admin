@@ -61,7 +61,7 @@ class _PageAnnouncementState extends State<PageAnnouncement> {
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: 2.h,
               ),
               Expanded(
                 child: ListView.builder(
@@ -76,43 +76,42 @@ class _PageAnnouncementState extends State<PageAnnouncement> {
                         );
                       },
                       child: Container(
-                        padding: EdgeInsets.all(8),
+                        padding: EdgeInsets.all(8.sp),
                         child: Card(
                           elevation: 5,
-                          margin: EdgeInsets.symmetric(horizontal: 1.h),
+                          margin: EdgeInsets.symmetric(horizontal: 2.w),
                           color: Colors.white,
                           shadowColor: Colors.black,
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
+                              borderRadius: BorderRadius.circular(8.sp)),
                           child: Container(
-                            decoration: new BoxDecoration(
-                                border: new Border(
-                                    right: new BorderSide(
-                                        width: 1.0, color: Colors.white24))),
                             padding: EdgeInsets.all(3.h),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 Row(
                                   children: <Widget>[
-                                    Icon(Icons.campaign,
-                                        color: AppColor.primary),
-                                    SizedBox(
-                                      width: 50,
-                                    ),
-                                    Text(
-                                      'Selamat Hari Raya',
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 17.0,
-                                          fontFamily: "Reem Kufi"),
+                                    Icon(
+                                      Icons.campaign,
+                                      color: AppColor.primary,
+                                      size: 24.sp,
                                     ),
                                     SizedBox(
-                                      width: 30,
+                                      width: 5.w,
+                                    ),
+                                    SizedBox(
+                                      width: 50.w,
+                                      child: Text(
+                                        'Selamat Hari Raya',
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 14.0.sp,
+                                            fontFamily: "Reem Kufi"),
+                                      ),
                                     ),
                                     Icon(Icons.keyboard_arrow_right,
-                                        color: AppColor.primary, size: 30.0),
+                                        color: AppColor.primary, size: 26.0.sp),
                                   ],
                                 )
                               ],
@@ -133,7 +132,10 @@ class _PageAnnouncementState extends State<PageAnnouncement> {
                 CupertinoPageRoute(builder: (context) => AddAnnouncement()));
           },
           backgroundColor: AppColor.primary,
-          child: (Icon(Icons.add)),
+          child: (Icon(
+            Icons.add,
+            size: 24.sp,
+          )),
         ),
       ),
     );

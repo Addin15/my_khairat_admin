@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:my_khairat_admin/constants/widget_constants.dart';
 import 'package:my_khairat_admin/pages/home/announcement/edit_announcement.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
@@ -35,39 +36,41 @@ class _ViewAnnouncementState extends State<ViewAnnouncement> {
             Container(
               child: Center(
                 child: Container(
-                  height: 500,
-                  width: 300,
+                  height: 70.h,
+                  width: 70.w,
                   decoration: BoxDecoration(color: AppColor.primary),
                   child: Column(
                     children: [
                       Container(
-                        padding: EdgeInsets.all(10),
-                        width: 300.0,
-                        height: 500.0,
+                        padding: EdgeInsets.all(5.sp),
+                        width: 70.w,
+                        height: 70.h,
                         child: Column(
                           children: [
-                            Image.asset('assets/menu/hariraya.jpg'),
+                            Image.network(
+                                'https://static.vecteezy.com/system/resources/previews/000/524/905/original/hari-raya-vector.jpg'),
                             SizedBox(
-                              height: 10,
+                              height: 2.h,
                             ),
                             Center(
                               child: Text(
                                 'Selamat Hari Raya',
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 23.0,
+                                    fontSize: 17.sp,
+                                    fontWeight: FontWeight.bold,
                                     fontFamily: "Reem Kufi"),
                               ),
                             ),
                             SizedBox(
-                              height: 10,
+                              height: 2.h,
                             ),
                             Center(
                               child: Text(
                                 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 12.0,
+                                    fontSize: 10.sp,
                                     fontFamily: "Reem Kufi"),
                                 textAlign: TextAlign.center,
                               ),
@@ -81,7 +84,7 @@ class _ViewAnnouncementState extends State<ViewAnnouncement> {
               ),
             ),
             SizedBox(
-              height: 10,
+              height: 1.h,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -105,7 +108,7 @@ class _ViewAnnouncementState extends State<ViewAnnouncement> {
                   ),
                 ),
                 SizedBox(
-                  width: 10,
+                  width: 5.w,
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -117,7 +120,7 @@ class _ViewAnnouncementState extends State<ViewAnnouncement> {
                                 'Sahkan Padam',
                                 style: TextStyle(
                                     color: Colors.black,
-                                    fontSize: 20.0,
+                                    fontSize: 14.sp,
                                     fontFamily: "Reem Kufi"),
                                 textAlign: TextAlign.center,
                               ),
@@ -125,7 +128,7 @@ class _ViewAnnouncementState extends State<ViewAnnouncement> {
                                 'Anda pasti memadam pengumuman ini?',
                                 style: TextStyle(
                                     color: Colors.black,
-                                    fontSize: 13.0,
+                                    fontSize: 10.sp,
                                     fontFamily: "Reem Kufi"),
                                 textAlign: TextAlign.center,
                               ),
@@ -138,7 +141,7 @@ class _ViewAnnouncementState extends State<ViewAnnouncement> {
                                     "Kembali",
                                     style: TextStyle(
                                         color: Colors.black,
-                                        fontSize: 12.0,
+                                        fontSize: 10.0.sp,
                                         fontFamily: "Reem Kufi"),
                                     textAlign: TextAlign.center,
                                   ),
@@ -160,7 +163,7 @@ class _ViewAnnouncementState extends State<ViewAnnouncement> {
                                     "Padam",
                                     style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: 12.0,
+                                        fontSize: 10.0.sp,
                                         fontFamily: "Reem Kufi"),
                                     textAlign: TextAlign.center,
                                   ),

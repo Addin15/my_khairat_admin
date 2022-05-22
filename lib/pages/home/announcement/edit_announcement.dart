@@ -29,7 +29,7 @@ class _EditAnnouncementState extends State<EditAnnouncement> {
               clipper: MyClipper(),
               child: Container(
                 width: double.infinity,
-                height: 350.0,
+                height: 50.h,
                 color: AppColor.primary,
               ),
             ),
@@ -40,25 +40,25 @@ class _EditAnnouncementState extends State<EditAnnouncement> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: 20,
+                      height: 2.h,
                     ),
                     Text(
                       'Ubah Pengumuman',
                       style: TextStyle(
                         fontFamily: "Reem Kufi",
                         color: Colors.white,
-                        fontSize: 25,
+                        fontSize: 17.sp,
                         fontWeight: FontWeight.bold,
                       ),
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(
-                      height: 10,
+                      height: 2.h,
                     ),
                     Container(
-                      padding: EdgeInsets.all(10),
-                      width: 300,
-                      height: 500,
+                      padding: EdgeInsets.all(1.h),
+                      width: 80.w,
+                      height: 65.h,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
@@ -72,38 +72,39 @@ class _EditAnnouncementState extends State<EditAnnouncement> {
                       child: Column(
                         children: [
                           SizedBox(
-                            height: 10,
+                            height: 1.h,
                           ),
                           Padding(
                             padding: const EdgeInsets.all(2.0),
                             child: Container(
-                              width: 500,
+                              width: 80.w,
                               decoration: BoxDecoration(
                                 color: Colors.grey,
-                                borderRadius: new BorderRadius.circular(10.0),
+                                borderRadius:
+                                    new BorderRadius.circular(10.0.sp),
                               ),
                               child: Padding(
                                 padding: EdgeInsets.only(
-                                    left: 15, right: 15, top: 5),
+                                    left: 15.sp, right: 15.sp, top: 5.sp),
                                 child: TextFormField(
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
                                       labelText: 'Tajuk',
-                                      labelStyle:
-                                          TextStyle(color: Colors.white),
+                                      labelStyle: TextStyle(
+                                          color: Colors.white, fontSize: 12.sp),
                                       fillColor: Colors.white),
                                 ),
                               ),
                             ),
                           ),
                           SizedBox(
-                            height: 10,
+                            height: 2.h,
                           ),
                           Container(
-                            padding: EdgeInsets.all(10),
+                            padding: EdgeInsets.all(8.sp),
                             decoration: BoxDecoration(
                               color: Colors.grey,
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(10.sp),
                             ),
                             child: TextField(
                               textInputAction: TextInputAction.newline,
@@ -113,24 +114,31 @@ class _EditAnnouncementState extends State<EditAnnouncement> {
                                   border: InputBorder.none,
                                   hintText: 'Ubah maklumat pengumuman',
                                   hintStyle: TextStyle(
+                                    fontSize: 12.sp,
                                     color: Colors.white,
                                   )),
                             ),
                           ),
                           SizedBox(
-                            height: 10,
+                            height: 1.h,
                           ),
                           SizedBox(
-                            width: 300,
-                            height: 70,
+                            width: 80.w,
+                            height: 10.h,
                             child: ElevatedButton.icon(
-                              icon: Icon(Icons.add_a_photo_outlined),
+                              icon: Icon(
+                                Icons.add_a_photo_outlined,
+                                size: 24.sp,
+                              ),
                               onPressed: () {},
-                              label: Text('Ubah Gambar'),
+                              label: Text(
+                                'Ubah Gambar',
+                                style: TextStyle(fontSize: 12.sp),
+                              ),
                             ),
                           ),
                           SizedBox(
-                            height: 10,
+                            height: 1.h,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -146,7 +154,7 @@ class _EditAnnouncementState extends State<EditAnnouncement> {
                                               'Sahkan Pengubahan',
                                               style: TextStyle(
                                                   color: Colors.black,
-                                                  fontSize: 20.0,
+                                                  fontSize: 14.sp,
                                                   fontFamily: "Reem Kufi"),
                                               textAlign: TextAlign.center,
                                             ),
@@ -154,7 +162,7 @@ class _EditAnnouncementState extends State<EditAnnouncement> {
                                               'Anda pasti mengubah pengumuman ini?',
                                               style: TextStyle(
                                                   color: Colors.black,
-                                                  fontSize: 13.0,
+                                                  fontSize: 10.0.sp,
                                                   fontFamily: "Reem Kufi"),
                                               textAlign: TextAlign.center,
                                             ),
@@ -167,7 +175,7 @@ class _EditAnnouncementState extends State<EditAnnouncement> {
                                                   "Kembali",
                                                   style: TextStyle(
                                                       color: Colors.black,
-                                                      fontSize: 12.0,
+                                                      fontSize: 10.0.sp,
                                                       fontFamily: "Reem Kufi"),
                                                   textAlign: TextAlign.center,
                                                 ),
@@ -192,7 +200,7 @@ class _EditAnnouncementState extends State<EditAnnouncement> {
                                                   "Ubah",
                                                   style: TextStyle(
                                                       color: Colors.white,
-                                                      fontSize: 12.0,
+                                                      fontSize: 10.0.sp,
                                                       fontFamily: "Reem Kufi"),
                                                   textAlign: TextAlign.center,
                                                 ),
