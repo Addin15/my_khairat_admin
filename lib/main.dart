@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:my_khairat_admin/pages/auth/complete_profile.dart';
 import 'package:my_khairat_admin/pages/auth/login.dart';
+import 'package:my_khairat_admin/pages/auth/register.dart';
 import 'package:my_khairat_admin/pages/nav.dart';
 import 'package:sizer/sizer.dart';
 
