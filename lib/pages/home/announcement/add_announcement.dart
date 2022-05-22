@@ -136,7 +136,84 @@ class _AddAnnouncementState extends State<AddAnnouncement> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  showDialog(
+                                      builder: (BuildContext context) {
+                                        return Expanded(
+                                          child: AlertDialog(
+                                            title: Text(
+                                              'Tambah Pengumuman',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 20.0,
+                                                  fontFamily: "Reem Kufi"),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            content: Text(
+                                              'Anda pasti menambah pengumuman ini?',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 13.0,
+                                                  fontFamily: "Reem Kufi"),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            actions: [
+                                              ElevatedButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text(
+                                                  "Kembali",
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 12.0,
+                                                      fontFamily: "Reem Kufi"),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                                style: ButtonStyle(
+                                                  backgroundColor:
+                                                      MaterialStateProperty.all(
+                                                          Colors.white),
+                                                  shape:
+                                                      MaterialStateProperty.all(
+                                                    RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(2.h)),
+                                                  ),
+                                                ),
+                                              ),
+                                              ElevatedButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text(
+                                                  "Tambah",
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 12.0,
+                                                      fontFamily: "Reem Kufi"),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                                style: ButtonStyle(
+                                                  backgroundColor:
+                                                      MaterialStateProperty.all(
+                                                          AppColor.primary),
+                                                  shape:
+                                                      MaterialStateProperty.all(
+                                                    RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(2.h)),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                      context: context);
+                                },
                                 child: Text("Tambah"),
                                 style: ButtonStyle(
                                   backgroundColor: MaterialStateProperty.all(

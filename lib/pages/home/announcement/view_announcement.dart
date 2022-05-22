@@ -108,8 +108,79 @@ class _ViewAnnouncementState extends State<ViewAnnouncement> {
                   width: 10,
                 ),
                 ElevatedButton(
-                  onPressed: () {},
-                  child: Text("Buang"),
+                  onPressed: () {
+                    showDialog(
+                        builder: (BuildContext context) {
+                          return Expanded(
+                            child: AlertDialog(
+                              title: Text(
+                                'Sahkan Padam',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20.0,
+                                    fontFamily: "Reem Kufi"),
+                                textAlign: TextAlign.center,
+                              ),
+                              content: Text(
+                                'Anda pasti memadam pengumuman ini?',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13.0,
+                                    fontFamily: "Reem Kufi"),
+                                textAlign: TextAlign.center,
+                              ),
+                              actions: [
+                                ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text(
+                                    "Kembali",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 12.0,
+                                        fontFamily: "Reem Kufi"),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all(Colors.white),
+                                    shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(2.h)),
+                                    ),
+                                  ),
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text(
+                                    "Padam",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 12.0,
+                                        fontFamily: "Reem Kufi"),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(
+                                        Colors.red[900]),
+                                    shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(2.h)),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                        context: context);
+                  },
+                  child: Text("Padam"),
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.red[800]),
                     shape: MaterialStateProperty.all(
