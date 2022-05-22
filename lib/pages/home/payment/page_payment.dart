@@ -84,8 +84,8 @@ class _PagePaymentState extends State<PagePayment> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: WidgetConstants.customAppBar(
-        context,
-        Text(
+        context: context,
+        title: Text(
           'Rekod Pembayaran',
           style: TextStyle(
             color: AppColor.primary,
@@ -111,11 +111,13 @@ class _PagePaymentState extends State<PagePayment> {
                 position: BadgePosition(end: 2.w),
                 padding: EdgeInsets.all(8.sp),
                 child: TextButton(
-                  onPressed: () => Navigator.push(
-                      context,
-                      CupertinoPageRoute(
-                          builder: (context) => ViewPendingPayment(
-                              pendingPayments: pendingPayments))),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                            builder: (context) => ViewPendingPayment(
+                                pendingPayments: pendingPayments)));
+                  },
                   style: TextButton.styleFrom(
                     minimumSize: Size(double.infinity, 6.h),
                     backgroundColor: Colors.white,

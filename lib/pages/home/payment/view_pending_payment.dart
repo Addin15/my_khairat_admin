@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -5,6 +7,7 @@ import 'package:my_khairat_admin/constants/widget_constants.dart';
 import 'package:my_khairat_admin/models/payment.dart';
 import 'package:my_khairat_admin/pages/home/payment/view_payment.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 class ViewPendingPayment extends StatefulWidget {
@@ -20,6 +23,18 @@ class ViewPendingPayment extends StatefulWidget {
 class _ViewPendingPaymentState extends State<ViewPendingPayment> {
   List<Payment> pendingPayments = [];
 
+  refresh() {
+    List<Payment> temp = pendingPayments;
+    pendingPayments.clear();
+    for (var payment in temp) {
+      if (payment.status == 'pending') {
+        pendingPayments.add(payment);
+      }
+    }
+
+    setState(() {});
+  }
+
   @override
   void initState() {
     pendingPayments = widget.pendingPayments;
@@ -30,8 +45,8 @@ class _ViewPendingPaymentState extends State<ViewPendingPayment> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: WidgetConstants.customAppBar(
-        context,
-        Text(
+        context: context,
+        title: Text(
           'Semak Pembayaran',
           style: TextStyle(
             color: AppColor.primary,
@@ -54,10 +69,20 @@ class _ViewPendingPaymentState extends State<ViewPendingPayment> {
                   style: TextStyle(color: Colors.grey.shade600),
                 ),
                 GestureDetector(
-                  onTap: () => Navigator.push(
-                      context,
-                      CupertinoPageRoute(
-                          builder: (context) => ViewPayment(payment: p))),
+                  onTap: () {
+                    Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                                builder: (context) => ViewPayment(payment: p)))
+                        .then((value) {
+                      if (value != null) {
+                        if (value) {
+                          pendingPayments[index].status == 'completed';
+                          refresh();
+                        }
+                      }
+                    });
+                  },
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12.sp),

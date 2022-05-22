@@ -17,8 +17,8 @@ class _PageClaimState extends State<PageClaim> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: WidgetConstants.customAppBar(
-        context,
-        Text(
+        context: context,
+        title: Text(
           'Semak Tuntutan',
           style: TextStyle(
             color: AppColor.primary,

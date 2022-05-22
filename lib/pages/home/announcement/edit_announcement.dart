@@ -14,8 +14,8 @@ class _EditAnnouncementState extends State<EditAnnouncement> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: WidgetConstants.customAppBar(
-        context,
-        Text(
+        context: context,
+        title: Text(
           'Pengumuman',
           style: TextStyle(
             color: AppColor.primary,

@@ -27,8 +27,8 @@ class _PageAnnouncementState extends State<PageAnnouncement> {
       },
       child: Scaffold(
         appBar: WidgetConstants.customAppBar(
-          context,
-          Text(
+          context: context,
+          title: Text(
             'Pengumuman',
             style: TextStyle(
               color: AppColor.primary,

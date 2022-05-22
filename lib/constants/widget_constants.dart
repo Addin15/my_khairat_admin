@@ -46,6 +46,7 @@ class WidgetConstants {
     required String label,
     required Function() onPressed,
     Color? labelColor,
+    Color? borderColor,
     Color? backgroundColor,
   }) =>
       TextButton(
@@ -54,7 +55,10 @@ class WidgetConstants {
           padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 1.7.h),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
-            side: BorderSide(color: AppColor.primary, width: 2),
+            side: BorderSide(
+              color: borderColor ?? AppColor.primary,
+              width: 2,
+            ),
           ),
         ),
         onPressed: onPressed,
@@ -69,13 +73,18 @@ class WidgetConstants {
       );
 
   // Custom app bar
-  static customAppBar(BuildContext context, Widget title) => AppBar(
+  static customAppBar({
+    BuildContext? context,
+    Widget? title,
+    Function()? onBackPressed,
+  }) =>
+      AppBar(
         leading: IconButton(
           icon: Icon(
             Ionicons.chevron_back,
             color: AppColor.primary,
           ),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => onBackPressed ?? Navigator.pop(context!),
         ),
         title: title,
         elevation: 0.0,
