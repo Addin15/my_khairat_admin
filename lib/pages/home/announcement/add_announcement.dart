@@ -13,8 +13,8 @@ class _AddAnnouncementState extends State<AddAnnouncement> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: WidgetConstants.customAppBar(
-        context,
-        Text(
+        context: context,
+        title: Text(
           'Tambah Pengumuman',
           style: TextStyle(
             color: AppColor.primary,

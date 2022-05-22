@@ -33,8 +33,8 @@ class _PageVillageState extends State<PageVillage> {
     log(villages.length.toString());
     return Scaffold(
       appBar: WidgetConstants.customAppBar(
-        context,
-        Text(
+        context: context,
+        title: Text(
           'Kariah',
           style: TextStyle(
             color: AppColor.primary,

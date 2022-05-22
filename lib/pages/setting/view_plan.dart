@@ -14,8 +14,8 @@ class _ViewPlanState extends State<ViewPlan> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: WidgetConstants.customAppBar(
-        context,
-        Text(
+        context: context,
+        title: Text(
           'Pelan',
           style: TextStyle(color: AppColor.primary),
         ),

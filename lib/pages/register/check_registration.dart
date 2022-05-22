@@ -16,8 +16,8 @@ class _CheckRegistrationState extends State<CheckRegistration> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: WidgetConstants.customAppBar(
-        context,
-        Text(
+        context: context,
+        title: Text(
           'Pendaftaran Baru',
           style: TextStyle(
             color: AppColor.primary,
