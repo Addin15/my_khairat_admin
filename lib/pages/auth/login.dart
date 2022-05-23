@@ -79,7 +79,7 @@ class _LoginState extends State<Login> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          widget.status!.isEmpty
+                          widget.status == null
                               ? const SizedBox.shrink()
                               : Container(
                                   decoration: BoxDecoration(
