@@ -48,7 +48,7 @@ class Mosque extends HiveObject {
       postcode: map['profile']['mosque_postcode'] ?? '',
       state: map['profile']['mosque_state'] ?? '',
       address: map['profile']['mosque_address'] ?? '',
-      villages: (map['villages'] as List).isEmpty
+      villages: map['villages'] == null
           ? []
           : (map['villages'] as List)
               .map((village) => Village.fromMap(village))
