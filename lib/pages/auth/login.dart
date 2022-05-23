@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:my_khairat_admin/auth.dart';
 import 'package:my_khairat_admin/constants/widget_constants.dart';
@@ -11,9 +12,7 @@ import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:sizer/sizer.dart';
 
 class Login extends StatefulWidget {
-  const Login({this.status, Key? key}) : super(key: key);
-
-  final String? status;
+  const Login({Key? key}) : super(key: key);
 
   @override
   State<Login> createState() => _LoginState();
@@ -28,153 +27,181 @@ class _LoginState extends State<Login> {
   final FocusNode _emailFocus = FocusNode();
   final FocusNode _passwordFocus = FocusNode();
 
+  String? error;
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-      },
-      child: Container(
-        color: Colors.white,
-        child: SafeArea(
-          child: Scaffold(
-            body: Container(
-              padding: EdgeInsets.only(left: 5.w, right: 5.w, top: 6.h),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+    return Stack(
+      children: [
+        GestureDetector(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
+          child: Container(
+            color: Colors.white,
+            child: SafeArea(
+              child: Scaffold(
+                body: Container(
+                  padding: EdgeInsets.only(left: 5.w, right: 5.w, top: 6.h),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
-                        'my',
-                        style: TextStyle(
-                          color: AppColor.primary,
-                          fontWeight: FontWeight.normal,
-                          fontSize: 24.sp,
-                        ),
-                      ),
-                      Text(
-                        'Khairat',
-                        style: TextStyle(
-                          color: AppColor.primary,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24.sp,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 1.h),
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'LOG MASUK',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 15.sp),
-                    ),
-                  ),
-                  Form(
-                    key: _formKey,
-                    child: Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          widget.status == null
-                              ? const SizedBox.shrink()
-                              : Container(
-                                  width: double.infinity,
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12.sp),
-                                    border: Border.all(color: AppColor.primary),
-                                    color: AppColor.primary.withOpacity(0.4),
-                                  ),
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 5.w, vertical: 2.h),
-                                  child: Text(
-                                    widget.status!,
-                                    style: TextStyle(
-                                      fontSize: 12.sp,
-                                    ),
-                                  ),
-                                ),
-                          SizedBox(height: 2.h),
-                          customTextFormField(
-                            hintText: 'E-mel',
-                            icon: Ionicons.mail_outline,
-                            controller: _emailController,
-                            focusNode: _emailFocus,
-                            validator: (text) =>
-                                RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                        .hasMatch(text!)
-                                    ? null
-                                    : 'Emel tidak sah!',
+                          Text(
+                            'my',
+                            style: TextStyle(
+                              color: AppColor.primary,
+                              fontWeight: FontWeight.normal,
+                              fontSize: 24.sp,
+                            ),
                           ),
-                          SizedBox(height: 2.h),
-                          customTextFormField(
-                            hintText: 'Kata Laluan',
-                            icon: Ionicons.key_outline,
-                            controller: _passwordController,
-                            focusNode: _passwordFocus,
-                            isObscured: true,
-                            validator: (text) => text!.length >= 6
-                                ? null
-                                : 'Kata laluan hendaklah sekurangnya 6 angka!',
+                          Text(
+                            'Khairat',
+                            style: TextStyle(
+                              color: AppColor.primary,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24.sp,
+                            ),
                           ),
-                          SizedBox(height: 10.h),
-                          customTextButton(
-                            label: 'Log Masuk',
-                            onPressed: () async {
-                              FocusScope.of(context).unfocus();
-                              if (_formKey.currentState!.validate()) {
-                                // Login logic
-                                bool res = await AuthController.login(
-                                    email: _emailController.text,
-                                    password: _passwordController.text);
-
-                                if (res) {
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => const Auth()));
-                                }
-                              }
-                            },
-                          ),
-                          SizedBox(height: 1.h),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text('atau'),
-                              SizedBox(width: 1.w),
-                              GestureDetector(
-                                onTap: () {
-                                  FocusScope.of(context).unfocus();
-                                  Navigator.pushReplacement(
-                                      context,
-                                      CupertinoPageRoute(
-                                          builder: (context) =>
-                                              const Register()));
-                                },
-                                child: Text(
-                                  'Daftar',
-                                  style: TextStyle(
-                                      color: AppColor.primary,
-                                      fontWeight: FontWeight.w800),
-                                ),
-                              )
-                            ],
-                          )
                         ],
                       ),
-                    ),
-                  )
-                ],
+                      Container(
+                        margin: EdgeInsets.only(top: 1.h),
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'LOG MASUK',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 15.sp),
+                        ),
+                      ),
+                      Form(
+                        key: _formKey,
+                        child: Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              error == null
+                                  ? const SizedBox.shrink()
+                                  : Container(
+                                      width: double.infinity,
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(12.sp),
+                                        border: Border.all(color: Colors.red),
+                                        color: Colors.red.withOpacity(0.4),
+                                      ),
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 5.w, vertical: 2.h),
+                                      child: Text(
+                                        error!,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 12.sp,
+                                        ),
+                                      ),
+                                    ),
+                              SizedBox(height: 2.h),
+                              customTextFormField(
+                                hintText: 'E-mel',
+                                icon: Ionicons.mail_outline,
+                                controller: _emailController,
+                                focusNode: _emailFocus,
+                                validator: (text) =>
+                                    RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                            .hasMatch(text!)
+                                        ? null
+                                        : 'Emel tidak sah!',
+                              ),
+                              SizedBox(height: 2.h),
+                              customTextFormField(
+                                hintText: 'Kata Laluan',
+                                icon: Ionicons.key_outline,
+                                controller: _passwordController,
+                                focusNode: _passwordFocus,
+                                isObscured: true,
+                                validator: (text) => text!.length >= 6
+                                    ? null
+                                    : 'Kata laluan hendaklah sekurangnya 6 angka!',
+                              ),
+                              SizedBox(height: 10.h),
+                              customTextButton(
+                                label: 'Log Masuk',
+                                onPressed: () async {
+                                  FocusScope.of(context).unfocus();
+                                  setState(() {
+                                    isLoading = true;
+                                  });
+                                  if (_formKey.currentState!.validate()) {
+                                    // Login logic
+                                    bool res = await AuthController.login(
+                                        email: _emailController.text,
+                                        password: _passwordController.text);
+
+                                    log(res.toString());
+                                    if (res) {
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const Auth()));
+                                    } else {
+                                      error =
+                                          'Akaun tidak wujud! Sila daftar terlebih dahulu';
+                                    }
+                                  }
+
+                                  setState(() {
+                                    isLoading = false;
+                                  });
+                                },
+                              ),
+                              SizedBox(height: 1.h),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Text('atau'),
+                                  SizedBox(width: 1.w),
+                                  GestureDetector(
+                                    onTap: () {
+                                      FocusScope.of(context).unfocus();
+                                      Navigator.pushReplacement(
+                                          context,
+                                          CupertinoPageRoute(
+                                              builder: (context) =>
+                                                  const Register()));
+                                    },
+                                    child: Text(
+                                      'Daftar',
+                                      style: TextStyle(
+                                          color: AppColor.primary,
+                                          fontWeight: FontWeight.w800),
+                                    ),
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
               ),
             ),
           ),
         ),
-      ),
+        isLoading
+            ? Container(
+                color: Colors.white.withOpacity(0.3),
+                alignment: Alignment.center,
+                child: SpinKitChasingDots(color: AppColor.primary),
+              )
+            : const SizedBox.shrink(),
+      ],
     );
   }
 }
