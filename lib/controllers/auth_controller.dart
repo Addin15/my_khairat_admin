@@ -5,6 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart';
 import 'package:my_khairat_admin/config/config.dart';
 import 'package:my_khairat_admin/config/secure_storage.dart';
+import 'package:my_khairat_admin/constants/headers.dart';
 import 'package:my_khairat_admin/models/mosque.dart';
 
 class AuthController {
@@ -19,10 +20,7 @@ class AuthController {
             'email': email,
             'password': password,
           }),
-          headers: {
-            'Accept': 'application/json',
-            'Content-type': 'application/json',
-          });
+          headers: headersWithoutToken());
 
       if (response.statusCode == 201) {
         Map<String, dynamic> data = jsonDecode(response.body);
@@ -60,10 +58,7 @@ class AuthController {
             'email': email,
             'password': password,
           }),
-          headers: {
-            'Accept': 'application/json',
-            'Content-type': 'application/json',
-          });
+          headers: headersWithoutToken());
 
       if (response.statusCode == 200) {
         Map<String, dynamic> data = jsonDecode(response.body);
@@ -97,12 +92,11 @@ class AuthController {
       String _token = await _secureStorage.read('token');
       String url = '${Config.hostName}/committee/complete';
 
-      var response =
-          await put(Uri.parse(url), body: jsonEncode(mosque.toMap()), headers: {
-        'Accept': 'application/json',
-        'Content-type': 'application/json',
-        'Authorization': 'Bearer ' + _token,
-      });
+      var response = await put(
+        Uri.parse(url),
+        body: jsonEncode(mosque.toMap()),
+        headers: headerswithToken(_token),
+      );
 
       if (response.statusCode == 201) {
         if (jsonDecode(response.body) == 1) return true;
@@ -124,11 +118,7 @@ class AuthController {
 
       var response = await post(
         Uri.parse(url),
-        headers: {
-          'Accept': 'application/json',
-          'Content-type': 'application/json',
-          'Authorization': 'Bearer ' + _token,
-        },
+        headers: headerswithToken(_token),
       );
 
       if (response.statusCode == 200) {

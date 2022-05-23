@@ -18,20 +18,23 @@ class VillageAdapter extends TypeAdapter<Village> {
     };
     return Village(
       id: fields[0] as String?,
-      name: fields[1] as String?,
-      address: fields[2] as String?,
+      mosque: fields[1] as String?,
+      name: fields[2] as String?,
+      address: fields[3] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Village obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.name)
+      ..write(obj.mosque)
       ..writeByte(2)
+      ..write(obj.name)
+      ..writeByte(3)
       ..write(obj.address);
   }
 
