@@ -1,9 +1,11 @@
 import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:my_khairat_admin/constants/widget_constants.dart';
 import 'package:my_khairat_admin/models/village.dart';
+import 'package:my_khairat_admin/pages/home/village/add_village.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:sizer/sizer.dart';
 
@@ -30,7 +32,6 @@ class _PageVillageState extends State<PageVillage> {
 
   @override
   Widget build(BuildContext context) {
-    log(villages.length.toString());
     return Scaffold(
       appBar: customAppBar(
         context: context,
@@ -49,7 +50,10 @@ class _PageVillageState extends State<PageVillage> {
               width: double.infinity,
               margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
               child: TextButton.icon(
-                onPressed: () {},
+                onPressed: () => Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                        builder: (context) => const AddVillage())),
                 style: TextButton.styleFrom(
                   backgroundColor: AppColor.primary,
                 ),

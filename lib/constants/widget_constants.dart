@@ -73,8 +73,8 @@ customTextButton({
 
 // Custom app bar
 customAppBar({
-  BuildContext? context,
-  Widget? title,
+  required BuildContext context,
+  required Widget title,
 }) =>
     AppBar(
       leading: IconButton(
@@ -82,7 +82,7 @@ customAppBar({
           Ionicons.chevron_back,
           color: AppColor.primary,
         ),
-        onPressed: () => Navigator.pop(context!),
+        onPressed: () => Navigator.pop(context),
       ),
       title: title,
       elevation: 0.0,
