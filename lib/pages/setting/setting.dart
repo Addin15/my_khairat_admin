@@ -1,9 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:my_khairat_admin/config/secure_storage.dart';
+import 'package:my_khairat_admin/controllers/auth_controller.dart';
 import 'package:my_khairat_admin/models/mosque.dart';
+import 'package:my_khairat_admin/pages/auth/login.dart';
 import 'package:my_khairat_admin/pages/setting/view_plan.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:provider/provider.dart';
@@ -229,35 +233,53 @@ class _SettingState extends State<Setting> {
                         horizontal: 3.w,
                         vertical: 1.h,
                       ),
-                      child: Row(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(3.w),
-                              color: Colors.red,
-                            ),
-                            padding: EdgeInsets.all(2.w),
-                            child: Icon(
-                              Ionicons.log_out_outline,
-                              color: Colors.white,
-                              size: 14.sp,
-                            ),
-                          ),
-                          SizedBox(width: 3.w),
-                          Expanded(
-                            child: Text(
-                              'Log Keluar',
-                              style: TextStyle(
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w400,
+                      child: GestureDetector(
+                        onTap: () async {
+                          // LOGOUT
+                          await AuthController.logout();
+
+                          // Clear token and mosque cache
+                          SecureStorage _secureStorage = SecureStorage();
+                          _secureStorage.deleteAll();
+                          Box _mosqueBox = await Hive.openBox('mosque');
+                          await _mosqueBox.clear();
+                          await _mosqueBox.close();
+
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const Login()));
+                        },
+                        child: Row(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(3.w),
+                                color: Colors.red,
+                              ),
+                              padding: EdgeInsets.all(2.w),
+                              child: Icon(
+                                Ionicons.log_out_outline,
+                                color: Colors.white,
+                                size: 14.sp,
                               ),
                             ),
-                          ),
-                          Icon(
-                            Ionicons.chevron_forward,
-                            size: 14.sp,
-                          ),
-                        ],
+                            SizedBox(width: 3.w),
+                            Expanded(
+                              child: Text(
+                                'Log Keluar',
+                                style: TextStyle(
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                            Icon(
+                              Ionicons.chevron_forward,
+                              size: 14.sp,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],

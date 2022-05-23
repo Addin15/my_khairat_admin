@@ -11,7 +11,9 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 class Nav extends StatefulWidget {
-  const Nav({Key? key}) : super(key: key);
+  const Nav({required this.mosque, Key? key}) : super(key: key);
+
+  final Mosque mosque;
 
   @override
   State<Nav> createState() => _NavState();
@@ -21,30 +23,10 @@ class _NavState extends State<Nav> {
   int selectedPage = 0;
   final PageController _pageController = PageController();
 
-  Future<Mosque> getUserData() async {
-    await Future.delayed(const Duration(seconds: 2));
-    return Mosque(
-      id: '0',
-      name: 'Masjid Abu Bakar',
-      address: 'Kuala Lumpur, Malaysia',
-      villages: [
-        Village(
-          id: '0',
-          name: 'Village 3',
-        ),
-        Village(
-          id: '1',
-          name: 'Village 2',
-        ),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return FutureProvider<Mosque>.value(
-        value: getUserData(),
-        initialData: Mosque(),
+    return Provider<Mosque>.value(
+        value: widget.mosque,
         builder: (context, child) {
           return Scaffold(
             appBar: AppBar(

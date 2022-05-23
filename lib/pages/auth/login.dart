@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:my_khairat_admin/auth.dart';
 import 'package:my_khairat_admin/constants/widget_constants.dart';
+import 'package:my_khairat_admin/controllers/auth_controller.dart';
 import 'package:my_khairat_admin/pages/auth/register.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:sizer/sizer.dart';
@@ -98,10 +100,20 @@ class _LoginState extends State<Login> {
                           SizedBox(height: 10.h),
                           WidgetConstants.customTextButton(
                             label: 'Log Masuk',
-                            onPressed: () {
+                            onPressed: () async {
                               FocusScope.of(context).unfocus();
                               if (_formKey.currentState!.validate()) {
                                 // Login logic
+                                bool res = await AuthController.login(
+                                    email: _emailController.text,
+                                    password: _passwordController.text);
+
+                                if (res) {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => const Auth()));
+                                }
                               }
                             },
                           ),

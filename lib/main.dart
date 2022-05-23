@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:my_khairat_admin/auth.dart';
+import 'package:my_khairat_admin/models/mosque.dart';
+import 'package:my_khairat_admin/models/village.dart';
 import 'package:my_khairat_admin/pages/auth/complete_profile.dart';
 import 'package:my_khairat_admin/pages/auth/login.dart';
 import 'package:my_khairat_admin/pages/auth/register.dart';
 import 'package:my_khairat_admin/pages/nav.dart';
 import 'package:sizer/sizer.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  Hive
+    ..registerAdapter(MosqueAdapter())
+    ..registerAdapter(VillageAdapter());
   runApp(const MyApp());
 }
 
@@ -23,7 +32,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          home: const Nav(),
+          home: const Auth(),
         );
       },
     );

@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:my_khairat_admin/auth.dart';
 import 'package:my_khairat_admin/constants/widget_constants.dart';
+import 'package:my_khairat_admin/controllers/auth_controller.dart';
 import 'package:my_khairat_admin/pages/auth/login.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:sizer/sizer.dart';
@@ -112,11 +114,20 @@ class _RegisterState extends State<Register> {
                           SizedBox(height: 10.h),
                           WidgetConstants.customTextButton(
                             label: 'Daftar',
-                            onPressed: () {
+                            onPressed: () async {
                               FocusScope.of(context).unfocus();
                               if (_formKey.currentState!.validate()) {
                                 // Register logic
+                                bool res = await AuthController.register(
+                                    email: _emailController.text,
+                                    password: _passwordController.text);
 
+                                if (res) {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => const Auth()));
+                                }
                               }
                             },
                           ),

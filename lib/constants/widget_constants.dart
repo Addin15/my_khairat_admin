@@ -76,7 +76,6 @@ class WidgetConstants {
   static customAppBar({
     BuildContext? context,
     Widget? title,
-    Function()? onBackPressed,
   }) =>
       AppBar(
         leading: IconButton(
@@ -84,7 +83,7 @@ class WidgetConstants {
             Ionicons.chevron_back,
             color: AppColor.primary,
           ),
-          onPressed: () => onBackPressed ?? Navigator.pop(context!),
+          onPressed: () => Navigator.pop(context!),
         ),
         title: title,
         elevation: 0.0,

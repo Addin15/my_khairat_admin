@@ -1,6 +1,16 @@
-class Village {
+import 'package:hive/hive.dart';
+
+part 'village.g.dart';
+
+@HiveType(typeId: 1)
+class Village extends HiveObject {
+  @HiveField(0)
   String? id;
+
+  @HiveField(1)
   String? name;
+
+  @HiveField(2)
   String? address;
 
   Village({this.id, this.name, this.address});
