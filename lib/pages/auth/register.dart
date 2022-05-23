@@ -9,9 +9,9 @@ import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:sizer/sizer.dart';
 
 class Register extends StatefulWidget {
-  const Register({this.status, Key? key}) : super(key: key);
+  const Register({this.error, Key? key}) : super(key: key);
 
-  final String? status;
+  final String? error;
 
   @override
   State<Register> createState() => _RegisterState();
@@ -80,16 +80,20 @@ class _RegisterState extends State<Register> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          widget.status == null
+                          widget.error == null
                               ? const SizedBox.shrink()
                               : Container(
+                                  width: double.infinity,
+                                  alignment: Alignment.center,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(12.sp),
-                                    border: Border.all(color: AppColor.primary),
-                                    color: AppColor.primary.withOpacity(0.4),
+                                    border: Border.all(color: Colors.red),
+                                    color: Colors.red.withOpacity(0.4),
                                   ),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 5.w, vertical: 2.h),
                                   child: Text(
-                                    widget.status!,
+                                    widget.error!,
                                     style: TextStyle(
                                       fontSize: 12.sp,
                                     ),

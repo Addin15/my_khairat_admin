@@ -82,11 +82,15 @@ class _LoginState extends State<Login> {
                           widget.status == null
                               ? const SizedBox.shrink()
                               : Container(
+                                  width: double.infinity,
+                                  alignment: Alignment.center,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(12.sp),
                                     border: Border.all(color: AppColor.primary),
                                     color: AppColor.primary.withOpacity(0.4),
                                   ),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 5.w, vertical: 2.h),
                                   child: Text(
                                     widget.status!,
                                     style: TextStyle(
@@ -94,7 +98,7 @@ class _LoginState extends State<Login> {
                                     ),
                                   ),
                                 ),
-                          SizedBox(height: 1.h),
+                          SizedBox(height: 2.h),
                           customTextFormField(
                             hintText: 'E-mel',
                             icon: Ionicons.mail_outline,

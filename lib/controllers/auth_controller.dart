@@ -22,6 +22,8 @@ class AuthController {
           }),
           headers: headersWithoutToken());
 
+      log(response.body);
+
       if (response.statusCode == 201) {
         Map<String, dynamic> data = jsonDecode(response.body);
 
@@ -101,7 +103,9 @@ class AuthController {
       );
 
       if (response.statusCode == 201) {
-        if (jsonDecode(response.body) == 1) return true;
+        if (jsonDecode(response.body) == 1) {
+          return true;
+        }
       }
 
       return false;

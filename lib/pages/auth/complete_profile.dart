@@ -160,6 +160,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                                       postcode: _postcodeController.text,
                                       state: _stateController.text,
                                       address: _addressController.text,
+                                      villages: [],
                                     );
                                     if (_formKey.currentState!.validate()) {
                                       // Complete profile logic
@@ -167,6 +168,19 @@ class _CompleteProfileState extends State<CompleteProfile> {
                                           mosque: mosque);
 
                                       if (res) {
+                                        widget.mosque.name =
+                                            _nameController.text;
+                                        widget.mosque.phone =
+                                            _phoneNoController.text;
+                                        widget.mosque.postcode =
+                                            _postcodeController.text;
+                                        widget.mosque.state =
+                                            _stateController.text;
+                                        widget.mosque.address =
+                                            _addressController.text;
+                                        widget.mosque.villages = [];
+                                        widget.mosque.save();
+
                                         Navigator.pushReplacement(
                                             context,
                                             MaterialPageRoute(
