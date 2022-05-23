@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
@@ -9,7 +11,9 @@ import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:sizer/sizer.dart';
 
 class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+  const Login({this.status, Key? key}) : super(key: key);
+
+  final String? status;
 
   @override
   State<Login> createState() => _LoginState();
@@ -75,6 +79,22 @@ class _LoginState extends State<Login> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          widget.status!.isEmpty
+                              ? const SizedBox.shrink()
+                              : Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12.sp),
+                                    border: Border.all(color: AppColor.primary),
+                                    color: AppColor.primary.withOpacity(0.4),
+                                  ),
+                                  child: Text(
+                                    widget.status!,
+                                    style: TextStyle(
+                                      fontSize: 12.sp,
+                                    ),
+                                  ),
+                                ),
+                          SizedBox(height: 1.h),
                           customTextFormField(
                             hintText: 'E-mel',
                             icon: Ionicons.mail_outline,

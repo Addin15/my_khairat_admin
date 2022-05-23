@@ -26,16 +26,16 @@ class AuthController {
         Map<String, dynamic> data = jsonDecode(response.body);
 
         // Cache token
-        SecureStorage _secureStorage = SecureStorage();
-        bool cached = await _secureStorage.add('token', data['token']);
-        if (cached) {
-          // Cache user data by token
-          Box _mosqueBox = await Hive.openBox('mosque');
-          _mosqueBox.put(
-            data['token'],
-            Mosque.fromMap(data),
-          );
-        }
+        // SecureStorage _secureStorage = SecureStorage();
+        // bool cached = await _secureStorage.add('token', data['token']);
+        // if (cached) {
+        //   // Cache user data by token
+        //   Box _mosqueBox = await Hive.openBox('mosque');
+        //   _mosqueBox.put(
+        //     data['token'],
+        //     Mosque.fromMap(data),
+        //   );
+        // }
 
         return true;
       }

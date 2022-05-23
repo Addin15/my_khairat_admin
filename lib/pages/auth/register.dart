@@ -9,7 +9,9 @@ import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:sizer/sizer.dart';
 
 class Register extends StatefulWidget {
-  const Register({Key? key}) : super(key: key);
+  const Register({this.status, Key? key}) : super(key: key);
+
+  final String? status;
 
   @override
   State<Register> createState() => _RegisterState();
@@ -78,6 +80,22 @@ class _RegisterState extends State<Register> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          widget.status!.isEmpty
+                              ? const SizedBox.shrink()
+                              : Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12.sp),
+                                    border: Border.all(color: AppColor.primary),
+                                    color: AppColor.primary.withOpacity(0.4),
+                                  ),
+                                  child: Text(
+                                    widget.status!,
+                                    style: TextStyle(
+                                      fontSize: 12.sp,
+                                    ),
+                                  ),
+                                ),
+                          SizedBox(height: 1.h),
                           customTextFormField(
                             hintText: 'E-mel',
                             icon: Ionicons.mail_outline,
@@ -126,7 +144,10 @@ class _RegisterState extends State<Register> {
                                   Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => const Auth()));
+                                          builder: (context) => const Login(
+                                                status:
+                                                    'Pendaftaran berjaya! Sila log masuk',
+                                              )));
                                 }
                               }
                             },

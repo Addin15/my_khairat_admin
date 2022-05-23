@@ -27,7 +27,7 @@ class Mosque extends HiveObject {
   String? address;
 
   @HiveField(7)
-  List<Village>? villages;
+  List<Village>? villages = [];
 
   Mosque({
     this.id,
@@ -37,7 +37,7 @@ class Mosque extends HiveObject {
     this.postcode,
     this.state,
     this.address,
-    this.villages = const [],
+    this.villages,
   });
 
   factory Mosque.fromMap(Map<String, dynamic> map) => Mosque(

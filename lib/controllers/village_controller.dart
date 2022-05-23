@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:http/http.dart';
 import 'package:my_khairat_admin/config/config.dart';
@@ -35,6 +36,7 @@ class VillageController {
 
       return [];
     } catch (e) {
+      log(e.toString());
       return [];
     }
   }
@@ -59,6 +61,8 @@ class VillageController {
         headers: headerswithToken(_token),
       );
 
+      log(response.body);
+
       if (response.statusCode == 201) {
         Map<String, dynamic> village = jsonDecode(response.body);
 
@@ -67,6 +71,7 @@ class VillageController {
 
       return null;
     } catch (e) {
+      log(e.toString());
       return null;
     }
   }
@@ -93,6 +98,7 @@ class VillageController {
 
       return null;
     } catch (e) {
+      log(e.toString());
       return null;
     }
   }
@@ -119,6 +125,7 @@ class VillageController {
 
       return false;
     } catch (e) {
+      log(e.toString());
       return false;
     }
   }

@@ -1,18 +1,17 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:my_khairat_admin/constants/widget_constants.dart';
+import 'package:my_khairat_admin/models/mosque.dart';
 import 'package:my_khairat_admin/models/village.dart';
 import 'package:my_khairat_admin/pages/home/village/add_village.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:sizer/sizer.dart';
 
 class PageVillage extends StatefulWidget {
-  const PageVillage({required this.villages, Key? key}) : super(key: key);
+  const PageVillage({required this.mosque, Key? key}) : super(key: key);
 
-  final List<Village> villages;
+  final Mosque mosque;
 
   @override
   State<PageVillage> createState() => _PageVillageState();
@@ -26,7 +25,7 @@ class _PageVillageState extends State<PageVillage> {
 
   @override
   void initState() {
-    villages = widget.villages;
+    villages = widget.mosque.villages!;
     super.initState();
   }
 
@@ -53,7 +52,11 @@ class _PageVillageState extends State<PageVillage> {
                 onPressed: () => Navigator.push(
                     context,
                     CupertinoPageRoute(
-                        builder: (context) => const AddVillage())),
+                        builder: (context) => AddVillage(
+                              mosque: widget.mosque,
+                            ))).whenComplete(() {
+                  setState(() {});
+                }),
                 style: TextButton.styleFrom(
                   backgroundColor: AppColor.primary,
                 ),

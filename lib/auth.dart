@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -24,6 +26,8 @@ class _AuthState extends State<Auth> {
 
       Mosque mosque = _mosqueBox.get(_token) as Mosque;
 
+      log('ID' + mosque.name!);
+
       return mosque;
     } catch (e) {
       return null;
@@ -46,7 +50,7 @@ class _AuthState extends State<Auth> {
           dynamic data = snapshot.data;
           if (data == null) {
             return const Login();
-          } else if ((data as Mosque).name == null || data.name!.isEmpty) {
+          } else if ((data as Mosque).name!.isEmpty) {
             return CompleteProfile(
               mosque: data,
             );

@@ -21,14 +21,14 @@ class Village extends HiveObject {
   factory Village.fromMap(Map<String, dynamic> map) => Village(
         id: map['village_id'].toString(),
         mosque: map['mosque_id'].toString(),
-        name: map['mosque_name'],
-        address: map['mosque_address'] ?? '',
+        name: map['village_name'],
+        address: map['village_address'] ?? '',
       );
 
   Map<String, dynamic> toMap() => {
         'village_id': id,
         'mosque_id': mosque,
-        'mosque_name': name,
-        'mosque_address': address,
+        'village_name': name,
+        'village_address': address,
       };
 }

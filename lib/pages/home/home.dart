@@ -78,12 +78,15 @@ class _HomeState extends State<Home> {
                               backgroundColor: Colors.white,
                             ),
                             onPressed: () => Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                    builder: (context) => PageVillage(
-                                        villages: mosque.villages!))),
+                                    context,
+                                    CupertinoPageRoute(
+                                        builder: (context) =>
+                                            PageVillage(mosque: mosque)))
+                                .whenComplete(() {
+                              setState(() {});
+                            }),
                             child: Text(
-                              (mosque.villages!.isNotEmpty
+                              (mosque.villages != null
                                       ? '${mosque.villages!.length}'
                                       : 'Tiada') +
                                   ' kariah',
