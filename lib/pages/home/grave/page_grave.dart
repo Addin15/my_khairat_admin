@@ -14,7 +14,7 @@ class _PageGraveState extends State<PageGrave> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: WidgetConstants.customAppBar(
+      appBar: customAppBar(
         context: context,
         title: Text(
           'Kemaskini Kubur',

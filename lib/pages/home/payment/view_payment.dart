@@ -12,7 +12,7 @@ class ViewPayment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: WidgetConstants.customAppBar(
+      appBar: customAppBar(
         context: context,
         title: Text(
           'Pembayaran',
@@ -126,7 +126,7 @@ class ViewPayment extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              WidgetConstants.customTextButton(
+              customTextButton(
                 label: 'Terima',
                 onPressed: () async {
                   payment.status == 'completed';
@@ -134,7 +134,7 @@ class ViewPayment extends StatelessWidget {
                 },
               ),
               SizedBox(width: 2.w),
-              WidgetConstants.customTextButton(
+              customTextButton(
                 label: 'Tolak',
                 borderColor: Colors.red,
                 backgroundColor: Colors.red,

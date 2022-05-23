@@ -83,7 +83,7 @@ class _PagePaymentState extends State<PagePayment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: WidgetConstants.customAppBar(
+      appBar: customAppBar(
         context: context,
         title: Text(
           'Rekod Pembayaran',

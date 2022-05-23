@@ -12,7 +12,7 @@ class _AddAnnouncementState extends State<AddAnnouncement> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: WidgetConstants.customAppBar(
+      appBar: customAppBar(
         context: context,
         title: Text(
           'Tambah Pengumuman',

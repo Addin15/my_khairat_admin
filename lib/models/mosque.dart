@@ -41,14 +41,18 @@ class Mosque extends HiveObject {
   });
 
   factory Mosque.fromMap(Map<String, dynamic> map) => Mosque(
-        email: map['user']['email'],
-        id: map['profile']['mosque_id'].toString(),
-        name: map['profile']['mosque_name'] ?? '',
-        phone: map['profile']['mosque_phone'] ?? '',
-        postcode: map['profile']['mosque_postcode'] ?? '',
-        state: map['profile']['mosque_state'] ?? '',
-        address: map['profile']['mosque_address'] ?? '',
-      );
+      email: map['user']['email'],
+      id: map['profile']['mosque_id'].toString(),
+      name: map['profile']['mosque_name'] ?? '',
+      phone: map['profile']['mosque_phone'] ?? '',
+      postcode: map['profile']['mosque_postcode'] ?? '',
+      state: map['profile']['mosque_state'] ?? '',
+      address: map['profile']['mosque_address'] ?? '',
+      villages: (map['villages'] as List).isEmpty
+          ? []
+          : (map['villages'] as List)
+              .map((village) => Village.fromMap(village))
+              .toList());
 
   Map<String, dynamic> toMap() => {
         'email': email,

@@ -75,7 +75,7 @@ class _LoginState extends State<Login> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          WidgetConstants.customTextFormField(
+                          customTextFormField(
                             hintText: 'E-mel',
                             icon: Ionicons.mail_outline,
                             controller: _emailController,
@@ -87,7 +87,7 @@ class _LoginState extends State<Login> {
                                     : 'Emel tidak sah!',
                           ),
                           SizedBox(height: 2.h),
-                          WidgetConstants.customTextFormField(
+                          customTextFormField(
                             hintText: 'Kata Laluan',
                             icon: Ionicons.key_outline,
                             controller: _passwordController,
@@ -98,7 +98,7 @@ class _LoginState extends State<Login> {
                                 : 'Kata laluan hendaklah sekurangnya 6 angka!',
                           ),
                           SizedBox(height: 10.h),
-                          WidgetConstants.customTextButton(
+                          customTextButton(
                             label: 'Log Masuk',
                             onPressed: () async {
                               FocusScope.of(context).unfocus();

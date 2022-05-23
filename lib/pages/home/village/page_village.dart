@@ -32,7 +32,7 @@ class _PageVillageState extends State<PageVillage> {
   Widget build(BuildContext context) {
     log(villages.length.toString());
     return Scaffold(
-      appBar: WidgetConstants.customAppBar(
+      appBar: customAppBar(
         context: context,
         title: Text(
           'Kariah',

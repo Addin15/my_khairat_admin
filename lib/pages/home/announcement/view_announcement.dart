@@ -19,7 +19,7 @@ class _ViewAnnouncementState extends State<ViewAnnouncement> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        appBar: WidgetConstants.customAppBar(
+        appBar: customAppBar(
           context: context,
           title: Text(
             'Pengumuman',

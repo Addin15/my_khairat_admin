@@ -94,7 +94,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                             child: ListView(
                               shrinkWrap: true,
                               children: [
-                                WidgetConstants.customTextFormField(
+                                customTextFormField(
                                   hintText: 'Nama Masjid',
                                   icon: Ionicons.home,
                                   controller: _nameController,
@@ -104,7 +104,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                                       : 'Nama masjid mesti melebihi dari 6!',
                                 ),
                                 SizedBox(height: 2.h),
-                                WidgetConstants.customTextFormField(
+                                customTextFormField(
                                   hintText: 'No Telefon',
                                   icon: Ionicons.call,
                                   controller: _phoneNoController,
@@ -114,7 +114,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                                       : 'Isi nombor telefon anda!',
                                 ),
                                 SizedBox(height: 2.h),
-                                WidgetConstants.customTextFormField(
+                                customTextFormField(
                                   hintText: 'Poskod',
                                   icon: Ionicons.locate,
                                   controller: _postcodeController,
@@ -124,7 +124,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                                       : 'Sila isi poskod',
                                 ),
                                 SizedBox(height: 2.h),
-                                WidgetConstants.customTextFormField(
+                                customTextFormField(
                                   hintText: 'Negeri',
                                   icon: Ionicons.navigate,
                                   controller: _stateController,
@@ -134,7 +134,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                                       : 'Sila isi maklumat negeri',
                                 ),
                                 SizedBox(height: 2.h),
-                                WidgetConstants.customTextFormField(
+                                customTextFormField(
                                   hintText: 'Alamat',
                                   icon: Ionicons.location,
                                   controller: _addressController,
@@ -144,7 +144,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                                       : 'Alamat hendaklah sekurangnya 6 angka!',
                                 ),
                                 SizedBox(height: 5.h),
-                                WidgetConstants.customTextButton(
+                                customTextButton(
                                   label: 'Selesai',
                                   onPressed: () async {
                                     FocusScope.of(context).unfocus();
@@ -181,7 +181,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                                   },
                                 ),
                                 SizedBox(height: 1.h),
-                                WidgetConstants.customTextButton(
+                                customTextButton(
                                   label: 'Log Keluar',
                                   backgroundColor: Colors.red,
                                   borderColor: Colors.red,

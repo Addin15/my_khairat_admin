@@ -44,7 +44,7 @@ class _ViewPendingPaymentState extends State<ViewPendingPayment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: WidgetConstants.customAppBar(
+      appBar: customAppBar(
         context: context,
         title: Text(
           'Semak Pembayaran',

@@ -26,7 +26,7 @@ class _PageAnnouncementState extends State<PageAnnouncement> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        appBar: WidgetConstants.customAppBar(
+        appBar: customAppBar(
           context: context,
           title: Text(
             'Pengumuman',
