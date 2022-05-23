@@ -184,8 +184,8 @@ class _CompleteProfileState extends State<CompleteProfile> {
                                         Navigator.pushReplacement(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (context) =>
-                                                    Nav(mosque: mosque)));
+                                                builder: (context) => Nav(
+                                                    mosque: widget.mosque)));
                                       }
                                     }
 

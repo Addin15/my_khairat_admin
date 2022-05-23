@@ -1,10 +1,15 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:my_khairat_admin/constants/popup.dart';
 import 'package:my_khairat_admin/constants/widget_constants.dart';
+import 'package:my_khairat_admin/controllers/village_controller.dart';
 import 'package:my_khairat_admin/models/mosque.dart';
 import 'package:my_khairat_admin/models/village.dart';
 import 'package:my_khairat_admin/pages/home/village/add_village.dart';
+import 'package:my_khairat_admin/pages/home/village/edit_village.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:sizer/sizer.dart';
 
@@ -15,6 +20,11 @@ class PageVillage extends StatefulWidget {
 
   @override
   State<PageVillage> createState() => _PageVillageState();
+}
+
+enum Menu {
+  edit,
+  delete,
 }
 
 class _PageVillageState extends State<PageVillage> {
@@ -98,6 +108,7 @@ class _PageVillageState extends State<PageVillage> {
                 ),
               ),
             ),
+            SizedBox(height: 2.h),
             Expanded(
               child: ListView.separated(
                 physics: const BouncingScrollPhysics(),
@@ -105,6 +116,7 @@ class _PageVillageState extends State<PageVillage> {
                 separatorBuilder: (context, index) => SizedBox(height: 1.h),
                 itemBuilder: (context, index) {
                   return Card(
+                    elevation: 5,
                     margin: EdgeInsets.symmetric(horizontal: 3.w),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12.sp),
@@ -113,22 +125,103 @@ class _PageVillageState extends State<PageVillage> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12.sp),
                       ),
-                      padding: EdgeInsets.symmetric(vertical: 1.h),
+                      padding: EdgeInsets.only(
+                        left: 5.w,
+                        top: 2.h,
+                        bottom: 2.h,
+                      ),
                       child: Row(
                         children: [
                           Expanded(
-                            child: Column(
-                              children: [
-                                Text(villages[index].name!),
-                              ],
+                            child: Text(
+                              villages[index].name!,
+                              style: TextStyle(
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w400,
+                              ),
                             ),
                           ),
-                          IconButton(
-                              onPressed: () {},
-                              icon: Icon(
-                                Ionicons.ellipsis_vertical_outline,
-                                size: 12.sp,
-                              ))
+                          PopupMenuButton(
+                            color: Colors.white,
+                            elevation: 20,
+                            enabled: true,
+                            onSelected: (value) async {
+                              // EDIT
+                              if (value == Menu.edit) {
+                                Navigator.push(
+                                        context,
+                                        CupertinoPageRoute(
+                                            builder: (context) => EditVillage(
+                                                mosque: widget.mosque,
+                                                village: villages[index])))
+                                    .whenComplete(() {
+                                  setState(() {});
+                                });
+
+                                // DELETE
+                              } else if (value == Menu.delete) {
+                                dynamic res = await showDialog(
+                                  context: context,
+                                  builder: (context) => confirmDeletePopup(
+                                    context: context,
+                                    title: 'Anda pasti untuk membuang?',
+                                    content: Text(
+                                      villages[index].name!,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                );
+
+                                if (res != null) {
+                                  if (res) {
+                                    bool deleted =
+                                        await VillageController.deleteVillage(
+                                            villages[index]);
+                                    if (deleted) {
+                                      setState(() {
+                                        villages.removeAt(index);
+                                        widget.mosque.villages = villages;
+                                        widget.mosque.save();
+                                      });
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            itemBuilder: (context) => [
+                              PopupMenuItem(
+                                child: Row(
+                                  children: [
+                                    Icon(Ionicons.pencil,
+                                        size: 12.sp, color: Colors.blue),
+                                    SizedBox(width: 2.w),
+                                    Text('Sunting',
+                                        style: TextStyle(fontSize: 12.sp)),
+                                  ],
+                                ),
+                                value: Menu.edit,
+                              ),
+                              PopupMenuItem(
+                                child: Row(
+                                  children: [
+                                    Icon(Ionicons.trash,
+                                        size: 12.sp, color: Colors.red),
+                                    SizedBox(width: 2.w),
+                                    Text('Buang',
+                                        style: TextStyle(fontSize: 12.sp)),
+                                  ],
+                                ),
+                                value: Menu.delete,
+                              ),
+                            ],
+                          ),
+                          // IconButton(
+                          //     onPressed: () {},
+                          //     icon: Icon(
+                          //       Ionicons.ellipsis_vertical_outline,
+                          //       color: AppColor.primary,
+                          //       size: 12.sp,
+                          //     ))
                         ],
                       ),
                     ),

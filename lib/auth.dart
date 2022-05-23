@@ -26,8 +26,6 @@ class _AuthState extends State<Auth> {
 
       Mosque mosque = _mosqueBox.get(_token) as Mosque;
 
-      log('ID' + mosque.name!);
-
       return mosque;
     } catch (e) {
       return null;

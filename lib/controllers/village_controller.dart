@@ -66,7 +66,12 @@ class VillageController {
       if (response.statusCode == 201) {
         Map<String, dynamic> village = jsonDecode(response.body);
 
-        return Village.fromMap(village);
+        return Village(
+          id: village['id'].toString(),
+          mosque: village['mosque_id'].toString(),
+          name: village['village_name'],
+          address: village['village_address'],
+        );
       }
 
       return null;
@@ -76,7 +81,7 @@ class VillageController {
     }
   }
 
-  // Add village
+  // Edit village
   static Future<dynamic> editVillage(Village village) async {
     try {
       SecureStorage _secureStorage = SecureStorage();
@@ -86,11 +91,13 @@ class VillageController {
 
       Map<String, dynamic> data = village.toMap();
 
-      var response = await post(
+      var response = await put(
         Uri.parse(url),
         body: jsonEncode(data),
         headers: headerswithToken(_token),
       );
+
+      log(response.body);
 
       if (response.statusCode == 200) {
         return village;
@@ -103,7 +110,7 @@ class VillageController {
     }
   }
 
-  // Add village
+  // Delete village
   static Future<bool> deleteVillage(Village village) async {
     try {
       SecureStorage _secureStorage = SecureStorage();
@@ -118,6 +125,8 @@ class VillageController {
         body: jsonEncode(data),
         headers: headerswithToken(_token),
       );
+
+      log(response.body);
 
       if (response.statusCode == 200) {
         return true;
