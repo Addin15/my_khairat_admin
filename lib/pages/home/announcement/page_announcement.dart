@@ -117,12 +117,26 @@ class _PageAnnouncementState extends State<PageAnnouncement> {
                                           ),
                                           SizedBox(
                                             width: 50.w,
-                                            child: Text(
-                                              announcements[index].title!,
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 14.0.sp,
-                                                  fontFamily: "Reem Kufi"),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  announcements[index].title!,
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 14.0.sp,
+                                                      fontFamily: "Reem Kufi"),
+                                                ),
+                                                SizedBox(height: 1.h),
+                                                Text(
+                                                  announcements[index].date!,
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 10.0.sp,
+                                                      fontFamily: "Reem Kufi"),
+                                                ),
+                                              ],
                                             ),
                                           ),
                                           Icon(Icons.keyboard_arrow_right,
