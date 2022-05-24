@@ -1,20 +1,17 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:my_khairat_admin/DAO/village_dao.dart';
 import 'package:my_khairat_admin/constants/widget_constants.dart';
 import 'package:my_khairat_admin/controllers/village_controller.dart';
-import 'package:my_khairat_admin/models/mosque.dart';
 import 'package:my_khairat_admin/models/village.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
-import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 class EditVillage extends StatefulWidget {
-  const EditVillage({required this.mosque, required this.village, Key? key})
+  const EditVillage({required this.villageDAO, required this.village, Key? key})
       : super(key: key);
 
-  final Mosque mosque;
+  final VillageDAO villageDAO;
   final Village village;
 
   @override
@@ -94,20 +91,12 @@ class _EditVillageState extends State<EditVillage> {
                 child: customTextButton(
                   label: 'Selesai',
                   onPressed: () async {
-                    dynamic newVillage =
-                        await VillageController.editVillage(Village(
+                    widget.villageDAO.editVillage(Village(
                       id: widget.village.id,
                       mosque: widget.village.mosque,
                       name: _nameController.text,
                       address: _addressController.text,
                     ));
-
-                    if (newVillage != null) {
-                      setState(() {
-                        widget.village.name = _nameController.text;
-                        widget.village.address = _addressController.text;
-                      });
-                    }
                     Navigator.pop(context);
                   },
                 ),

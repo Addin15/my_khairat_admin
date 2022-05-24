@@ -20,20 +20,6 @@ class Auth extends StatefulWidget {
 }
 
 class _AuthState extends State<Auth> {
-  Future<dynamic> getCurrentUser() async {
-    try {
-      SecureStorage _secureStorage = SecureStorage();
-      String _token = await _secureStorage.read('token');
-      Box _mosqueBox = await Hive.openBox('mosque');
-
-      Mosque mosque = _mosqueBox.get(_token) as Mosque;
-
-      return mosque;
-    } catch (e) {
-      return null;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<MosqueDAO>(

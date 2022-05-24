@@ -89,8 +89,7 @@ class _HomeState extends State<Home> {
                               setState(() {});
                             }),
                             child: Text(
-                              (mosque != null ? '${mosque.name}' : 'Tiada') +
-                                  ' kariah',
+                              'Senarai Kariah',
                               style: TextStyle(
                                 color: AppColor.primary,
                                 fontSize: 12.sp,

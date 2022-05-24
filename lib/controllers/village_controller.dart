@@ -9,7 +9,7 @@ import 'package:my_khairat_admin/models/village.dart';
 
 class VillageController {
   // Get all villages
-  static Future<List<Village>> getVillages(String id) async {
+  static Future<List<Village>> getVillages(String mosqueID) async {
     try {
       SecureStorage _secureStorage = SecureStorage();
       String _token = await _secureStorage.read('token');
@@ -17,7 +17,7 @@ class VillageController {
       String url = '${Config.hostName}/committee/villages/get';
 
       Map<String, dynamic> data = {
-        'mosque_id': id,
+        'mosque_id': mosqueID,
       };
 
       var response = await post(
@@ -42,7 +42,7 @@ class VillageController {
   }
 
   // Add village
-  static Future<dynamic> addVillage(String id, Village village) async {
+  static Future<dynamic> addVillage(String mosqueID, Village village) async {
     try {
       SecureStorage _secureStorage = SecureStorage();
       String _token = await _secureStorage.read('token');
@@ -50,7 +50,7 @@ class VillageController {
       String url = '${Config.hostName}/committee/villages/add';
 
       Map<String, dynamic> data = {
-        'mosque_id': id,
+        'mosque_id': mosqueID,
         'village_name': village.name,
         'village_address': village.address,
       };

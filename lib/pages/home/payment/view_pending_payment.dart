@@ -64,97 +64,101 @@ class _ViewPendingPaymentState extends State<ViewPendingPayment> {
       body: Container(
         width: 100.w,
         padding: EdgeInsets.only(top: 3.h),
-        child: ListView.builder(
-          itemCount: pendingPayments.length,
-          itemBuilder: (context, index) {
-            Payment p = pendingPayments[index];
+        child: pendingPayments.isEmpty
+            ? const Center(
+                child: Text('Tiada Pembayaran Baharu'),
+              )
+            : ListView.builder(
+                itemCount: pendingPayments.length,
+                itemBuilder: (context, index) {
+                  Payment p = pendingPayments[index];
 
-            return Column(
-              children: [
-                Text(
-                  DateFormat('dd/MM/yyyy')
-                      .format(DateTime.parse(p.paymentDate!)),
-                  style: TextStyle(color: Colors.grey.shade600),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                            context,
-                            CupertinoPageRoute(
-                                builder: (context) => ViewPayment(payment: p)))
-                        .then((value) {
-                      if (value != null) {
-                        // If payment is accepted
-                        if (value) {
-                          String changingID = pendingPayments[index].id!;
-                          pendingPayments[index].status == 'completed';
-                          widget.dao
-                              .changePaymentStatus(changingID, 'completed');
-                          refresh();
-                        } else {
-                          // if payment is rejected
-                          String changingID = pendingPayments[index].id!;
-                          pendingPayments[index].status == 'rejected';
-                          widget.dao
-                              .changePaymentStatus(changingID, 'rejected');
-                          refresh();
-                        }
-                      }
-                    });
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.sp),
-                      border: Border.all(color: Colors.black54),
-                    ),
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.5.h),
-                    margin:
-                        EdgeInsets.symmetric(horizontal: 3.w, vertical: 0.5.h),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            p.payerName!,
-                            style: TextStyle(
-                              color: Colors.black87,
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
+                  return Column(
+                    children: [
+                      Text(
+                        DateFormat('dd/MM/yyyy')
+                            .format(DateTime.parse(p.paymentDate!)),
+                        style: TextStyle(color: Colors.grey.shade600),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                  builder: (context) =>
+                                      ViewPayment(payment: p))).then((value) {
+                            if (value != null) {
+                              // If payment is accepted
+                              if (value) {
+                                String changingID = pendingPayments[index].id!;
+                                pendingPayments[index].status == 'completed';
+                                widget.dao.changePaymentStatus(
+                                    changingID, 'completed');
+                                refresh();
+                              } else {
+                                // if payment is rejected
+                                String changingID = pendingPayments[index].id!;
+                                pendingPayments[index].status == 'rejected';
+                                widget.dao.changePaymentStatus(
+                                    changingID, 'rejected');
+                                refresh();
+                              }
+                            }
+                          });
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12.sp),
+                            border: Border.all(color: Colors.black54),
+                          ),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 3.w, vertical: 1.5.h),
+                          margin: EdgeInsets.symmetric(
+                              horizontal: 3.w, vertical: 0.5.h),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  p.payerName!,
+                                  style: TextStyle(
+                                    color: Colors.black87,
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    p.startMonth == p.endMonth &&
+                                            p.startYear == p.endYear
+                                        ? '${p.startMonth}/${p.startYear}'
+                                        : '${p.startMonth}/${p.startYear} hingga ${p.endMonth}/${p.endYear}',
+                                    style: TextStyle(
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  SizedBox(height: 0.5.h),
+                                  Text(
+                                    'RM${p.amount!.toStringAsFixed(2)}',
+                                    style: TextStyle(
+                                      color: AppColor.primary,
+                                      fontSize: 18.sp,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                              p.startMonth == p.endMonth &&
-                                      p.startYear == p.endYear
-                                  ? '${p.startMonth}/${p.startYear}'
-                                  : '${p.startMonth}/${p.startYear} hingga ${p.endMonth}/${p.endYear}',
-                              style: TextStyle(
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            SizedBox(height: 0.5.h),
-                            Text(
-                              'RM${p.amount!.toStringAsFixed(2)}',
-                              style: TextStyle(
-                                color: AppColor.primary,
-                                fontSize: 18.sp,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            );
-          },
-        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
       ),
     );
   }

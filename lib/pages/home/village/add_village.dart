@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:my_khairat_admin/DAO/village_dao.dart';
 import 'package:my_khairat_admin/constants/widget_constants.dart';
 import 'package:my_khairat_admin/controllers/village_controller.dart';
 import 'package:my_khairat_admin/models/mosque.dart';
@@ -9,9 +10,11 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 class AddVillage extends StatefulWidget {
-  const AddVillage({required this.mosque, Key? key}) : super(key: key);
+  const AddVillage({required this.mosqueID, required this.villageDAO, Key? key})
+      : super(key: key);
 
-  final Mosque mosque;
+  final String mosqueID;
+  final VillageDAO villageDAO;
 
   @override
   State<AddVillage> createState() => _AddVillageState();
@@ -83,15 +86,13 @@ class _AddVillageState extends State<AddVillage> {
                 child: customTextButton(
                   label: 'Tambah',
                   onPressed: () async {
-                    Village newVillage = await VillageController.addVillage(
-                        widget.mosque.id!,
+                    widget.villageDAO.addVillage(
+                        widget.mosqueID,
                         Village(
                           name: _nameController.text,
                           address: _addressController.text,
                         ));
 
-                    widget.mosque.save();
-                    setState(() {});
                     Navigator.pop(context);
                   },
                 ),
