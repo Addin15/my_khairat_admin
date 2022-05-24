@@ -26,15 +26,15 @@ class Payment {
   });
 
   factory Payment.fromMap(Map<String, dynamic> map) => Payment(
-        id: map['id'],
-        payerID: map['payer_id'],
-        payerName: map['payer_name'],
+        id: map['id'].toString(),
+        payerID: map['payer_id'].toString(),
+        payerName: map['payer_name'].toString(),
         paymentDate: map['payment_date'],
         startMonth: map['start_month'],
         startYear: map['start_year'],
         endMonth: map['end_month'],
         endYear: map['end_year'],
-        amount: map['amount'],
+        amount: map['amount'].toDouble(),
         proveURL: map['prove_url'],
         status: map['status'],
       );

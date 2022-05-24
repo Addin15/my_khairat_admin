@@ -138,7 +138,8 @@ class _HomeState extends State<Home> {
                   onTap: () => Navigator.push(
                       context,
                       CupertinoPageRoute(
-                          builder: (context) => const PagePayment())),
+                          builder: (context) =>
+                              PagePayment(mosqueID: mosque.id.toString()))),
                 ),
                 MenuBox(
                   icon: 'assets/menu/claim.png',
