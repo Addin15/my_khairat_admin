@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:my_khairat_admin/DAO/mosque_dao.dart';
 import 'package:my_khairat_admin/models/mosque.dart';
 import 'package:my_khairat_admin/pages/home/announcement/page_announcement.dart';
 import 'package:my_khairat_admin/pages/home/claim/page_claim.dart';
@@ -15,7 +16,9 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  const Home({required this.mosqueDAO, Key? key}) : super(key: key);
+
+  final MosqueDAO mosqueDAO;
 
   @override
   State<Home> createState() => _HomeState();
@@ -24,7 +27,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    Mosque mosque = Provider.of<Mosque>(context);
+    Mosque mosque = widget.mosqueDAO.mosque;
 
     if (mosque.id == null) {
       return Container(
@@ -86,9 +89,7 @@ class _HomeState extends State<Home> {
                               setState(() {});
                             }),
                             child: Text(
-                              (mosque.villages != null
-                                      ? '${mosque.villages!.length}'
-                                      : 'Tiada') +
+                              (mosque != null ? '${mosque.name}' : 'Tiada') +
                                   ' kariah',
                               style: TextStyle(
                                 color: AppColor.primary,

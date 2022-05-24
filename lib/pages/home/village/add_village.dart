@@ -90,7 +90,6 @@ class _AddVillageState extends State<AddVillage> {
                           address: _addressController.text,
                         ));
 
-                    widget.mosque.villages!.add(newVillage);
                     widget.mosque.save();
                     setState(() {});
                     Navigator.pop(context);

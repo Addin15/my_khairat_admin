@@ -84,7 +84,7 @@ class _PagePaymentState extends State<PagePayment> {
         create: (context) => PaymentDAO(widget.mosqueID),
         child: Consumer<PaymentDAO>(
           builder: (context, dao, child) {
-            payments = dao.getPayments();
+            payments = dao.payments;
             filterPayments();
             filterPendingPayments();
             return Scaffold(

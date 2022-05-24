@@ -10,7 +10,7 @@ import 'package:my_khairat_admin/models/mosque.dart';
 
 class AuthController {
   // Register
-  static Future<bool> register(
+  static Future<dynamic> register(
       {required String email, required String password}) async {
     try {
       String url = '${Config.hostName}/committee/register';
@@ -22,35 +22,20 @@ class AuthController {
           }),
           headers: headersWithoutToken());
 
-      log(response.body);
-
       if (response.statusCode == 201) {
         Map<String, dynamic> data = jsonDecode(response.body);
-
-        //Cache token
-        SecureStorage _secureStorage = SecureStorage();
-        bool cached = await _secureStorage.add('token', data['token']);
-        if (cached) {
-          // Cache user data by token
-          Box _mosqueBox = await Hive.openBox('mosque');
-          _mosqueBox.put(
-            data['token'],
-            Mosque.fromMap(data),
-          );
-        }
-
-        return true;
+        return data;
       }
 
-      return false;
+      return null;
     } catch (e) {
       log(e.toString());
-      return false;
+      return null;
     }
   }
 
   // Login
-  static Future<bool> login(
+  static Future<dynamic> login(
       {required String email, required String password}) async {
     try {
       String url = '${Config.hostName}/committee/login';
@@ -62,30 +47,15 @@ class AuthController {
           }),
           headers: headersWithoutToken());
 
-      log(response.body);
-
       if (response.statusCode == 200) {
         Map<String, dynamic> data = jsonDecode(response.body);
-
-        // Cache token
-        SecureStorage _secureStorage = SecureStorage();
-        bool cached = await _secureStorage.add('token', data['token']);
-        if (cached) {
-          // Cache user data by token
-          Box _mosqueBox = await Hive.openBox('mosque');
-          _mosqueBox.put(
-            data['token'],
-            Mosque.fromMap(data),
-          );
-        }
-
-        return true;
+        return data;
       }
 
-      return false;
+      return null;
     } catch (e) {
       log(e.toString());
-      return false;
+      return null;
     }
   }
 

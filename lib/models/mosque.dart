@@ -26,9 +26,6 @@ class Mosque extends HiveObject {
   @HiveField(6)
   String? address;
 
-  @HiveField(7)
-  List<Village>? villages = [];
-
   Mosque({
     this.id,
     this.email,
@@ -37,7 +34,6 @@ class Mosque extends HiveObject {
     this.postcode,
     this.state,
     this.address,
-    this.villages,
   });
 
   factory Mosque.fromMap(Map<String, dynamic> map) => Mosque(
@@ -47,12 +43,7 @@ class Mosque extends HiveObject {
       phone: map['profile']['mosque_phone'] ?? '',
       postcode: map['profile']['mosque_postcode'] ?? '',
       state: map['profile']['mosque_state'] ?? '',
-      address: map['profile']['mosque_address'] ?? '',
-      villages: map['villages'] == null
-          ? []
-          : (map['villages'] as List)
-              .map((village) => Village.fromMap(village))
-              .toList());
+      address: map['profile']['mosque_address'] ?? '');
 
   Map<String, dynamic> toMap() => {
         'email': email,

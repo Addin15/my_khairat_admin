@@ -2,14 +2,17 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:my_khairat_admin/DAO/mosque_dao.dart';
+import 'package:my_khairat_admin/models/mosque.dart';
 import 'package:my_khairat_admin/pages/register/view_registration.dart';
 import 'package:my_khairat_admin/pages/home/home.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:sizer/sizer.dart';
 
-
 class Members extends StatefulWidget {
-  const Members({Key? key}) : super(key: key);
+  const Members({required this.mosqueDAO, Key? key}) : super(key: key);
+
+  final MosqueDAO mosqueDAO;
 
   @override
   State<Members> createState() => _MembersState();
@@ -22,6 +25,8 @@ class _MembersState extends State<Members> {
 
   @override
   Widget build(BuildContext context) {
+    Mosque mosque = widget.mosqueDAO.mosque;
+
     return GestureDetector(
       onTap: () {
         _searchFocus.unfocus();
@@ -88,4 +93,3 @@ class _MembersState extends State<Members> {
     );
   }
 }
-

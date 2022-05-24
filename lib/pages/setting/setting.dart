@@ -4,6 +4,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:my_khairat_admin/DAO/mosque_dao.dart';
+import 'package:my_khairat_admin/auth.dart';
 import 'package:my_khairat_admin/config/secure_storage.dart';
 import 'package:my_khairat_admin/controllers/auth_controller.dart';
 import 'package:my_khairat_admin/models/mosque.dart';
@@ -14,7 +16,9 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 class Setting extends StatefulWidget {
-  const Setting({Key? key}) : super(key: key);
+  const Setting({required this.mosqueDAO, Key? key}) : super(key: key);
+
+  final MosqueDAO mosqueDAO;
 
   @override
   State<Setting> createState() => _SettingState();
@@ -23,7 +27,7 @@ class Setting extends StatefulWidget {
 class _SettingState extends State<Setting> {
   @override
   Widget build(BuildContext context) {
-    Mosque mosque = Provider.of<Mosque>(context);
+    Mosque mosque = widget.mosqueDAO.mosque;
 
     if (mosque.id == null) {
       return Container(
@@ -236,19 +240,7 @@ class _SettingState extends State<Setting> {
                       child: GestureDetector(
                         onTap: () async {
                           // LOGOUT
-                          await AuthController.logout();
-
-                          // Clear token and mosque cache
-                          SecureStorage _secureStorage = SecureStorage();
-                          _secureStorage.deleteAll();
-                          Box _mosqueBox = await Hive.openBox('mosque');
-                          await _mosqueBox.clear();
-                          await _mosqueBox.close();
-
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const Login()));
+                          await widget.mosqueDAO.logout();
                         },
                         child: Row(
                           children: [

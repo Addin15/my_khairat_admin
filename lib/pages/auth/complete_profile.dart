@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:my_khairat_admin/DAO/mosque_dao.dart';
 import 'package:my_khairat_admin/config/secure_storage.dart';
 import 'package:my_khairat_admin/constants/widget_constants.dart';
 import 'package:my_khairat_admin/controllers/auth_controller.dart';
@@ -15,9 +16,9 @@ import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:sizer/sizer.dart';
 
 class CompleteProfile extends StatefulWidget {
-  const CompleteProfile({required this.mosque, Key? key}) : super(key: key);
+  const CompleteProfile({required this.mosqueDAO, Key? key}) : super(key: key);
 
-  final Mosque mosque;
+  final MosqueDAO mosqueDAO;
 
   @override
   State<CompleteProfile> createState() => _CompleteProfileState();
@@ -42,6 +43,8 @@ class _CompleteProfileState extends State<CompleteProfile> {
 
   @override
   Widget build(BuildContext context) {
+    Mosque mosque = widget.mosqueDAO.mosque;
+
     return Stack(
       children: [
         GestureDetector(
@@ -152,41 +155,19 @@ class _CompleteProfileState extends State<CompleteProfile> {
                                       isLoading = true;
                                     });
 
-                                    Mosque mosque = Mosque(
-                                      id: widget.mosque.id,
-                                      email: widget.mosque.email,
+                                    Mosque newMosque = Mosque(
+                                      id: mosque.id,
+                                      email: mosque.email,
                                       name: _nameController.text,
                                       phone: _phoneNoController.text,
                                       postcode: _postcodeController.text,
                                       state: _stateController.text,
                                       address: _addressController.text,
-                                      villages: [],
                                     );
                                     if (_formKey.currentState!.validate()) {
                                       // Complete profile logic
-                                      bool res = await AuthController.complete(
-                                          mosque: mosque);
-
-                                      if (res) {
-                                        widget.mosque.name =
-                                            _nameController.text;
-                                        widget.mosque.phone =
-                                            _phoneNoController.text;
-                                        widget.mosque.postcode =
-                                            _postcodeController.text;
-                                        widget.mosque.state =
-                                            _stateController.text;
-                                        widget.mosque.address =
-                                            _addressController.text;
-                                        widget.mosque.villages = [];
-                                        widget.mosque.save();
-
-                                        Navigator.pushReplacement(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) => Nav(
-                                                    mosque: widget.mosque)));
-                                      }
+                                      await widget.mosqueDAO
+                                          .completeProfile(newMosque);
                                     }
 
                                     setState(() {
@@ -201,22 +182,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                                   borderColor: Colors.red,
                                   onPressed: () async {
                                     FocusScope.of(context).unfocus();
-                                    await AuthController.logout();
-
-                                    // Clear token and mosque cache
-                                    SecureStorage _secureStorage =
-                                        SecureStorage();
-                                    _secureStorage.deleteAll();
-                                    Box _mosqueBox =
-                                        await Hive.openBox('mosque');
-                                    await _mosqueBox.clear();
-                                    await _mosqueBox.close();
-
-                                    Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const Login()));
+                                    await widget.mosqueDAO.logout();
                                   },
                                 ),
                               ],

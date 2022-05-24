@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:my_khairat_admin/DAO/mosque_dao.dart';
 import 'package:my_khairat_admin/auth.dart';
 import 'package:my_khairat_admin/constants/widget_constants.dart';
 import 'package:my_khairat_admin/controllers/auth_controller.dart';
@@ -12,7 +13,9 @@ import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:sizer/sizer.dart';
 
 class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+  const Login({required this.mosqueDAO, Key? key}) : super(key: key);
+
+  final MosqueDAO mosqueDAO;
 
   @override
   State<Login> createState() => _LoginState();
@@ -137,18 +140,11 @@ class _LoginState extends State<Login> {
                                   });
                                   if (_formKey.currentState!.validate()) {
                                     // Login logic
-                                    bool res = await AuthController.login(
-                                        email: _emailController.text,
-                                        password: _passwordController.text);
+                                    bool res = await widget.mosqueDAO.login(
+                                        _emailController.text,
+                                        _passwordController.text);
 
-                                    log(res.toString());
-                                    if (res) {
-                                      Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const Auth()));
-                                    } else {
+                                    if (!res) {
                                       error =
                                           'Akaun tidak wujud! Sila daftar terlebih dahulu';
                                     }
@@ -168,11 +164,12 @@ class _LoginState extends State<Login> {
                                   GestureDetector(
                                     onTap: () {
                                       FocusScope.of(context).unfocus();
-                                      Navigator.pushReplacement(
+                                      Navigator.push(
                                           context,
                                           CupertinoPageRoute(
-                                              builder: (context) =>
-                                                  const Register()));
+                                              builder: (context) => Register(
+                                                    mosqueDAO: widget.mosqueDAO,
+                                                  )));
                                     },
                                     child: Text(
                                       'Daftar',

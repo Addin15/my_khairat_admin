@@ -24,14 +24,13 @@ class MosqueAdapter extends TypeAdapter<Mosque> {
       postcode: fields[4] as String?,
       state: fields[5] as String?,
       address: fields[6] as String?,
-      villages: (fields[7] as List?)?.cast<Village>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, Mosque obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -45,9 +44,7 @@ class MosqueAdapter extends TypeAdapter<Mosque> {
       ..writeByte(5)
       ..write(obj.state)
       ..writeByte(6)
-      ..write(obj.address)
-      ..writeByte(7)
-      ..write(obj.villages);
+      ..write(obj.address);
   }
 
   @override

@@ -3,20 +3,18 @@ import 'package:my_khairat_admin/controllers/payment_controller.dart';
 import 'package:my_khairat_admin/models/payment.dart';
 
 class PaymentDAO extends ChangeNotifier {
-  List<Payment> payments = [];
+  List<Payment> _payments = [];
 
   PaymentDAO(String mosqueID) {
     initData(mosqueID);
   }
 
   initData(String mosqueID) async {
-    payments = await PaymentController.getPayments(mosqueID);
+    _payments = await PaymentController.getPayments(mosqueID);
     notifyListeners();
   }
 
-  getPayments() {
-    return payments;
-  }
+  get payments => _payments;
 
   changePaymentStatus(String paymentID, String status) async {
     bool res = await PaymentController.actionOnPayment(paymentID, status);

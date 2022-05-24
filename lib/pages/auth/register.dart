@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:my_khairat_admin/DAO/mosque_dao.dart';
 import 'package:my_khairat_admin/auth.dart';
 import 'package:my_khairat_admin/constants/widget_constants.dart';
 import 'package:my_khairat_admin/controllers/auth_controller.dart';
@@ -10,7 +11,9 @@ import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:sizer/sizer.dart';
 
 class Register extends StatefulWidget {
-  const Register({Key? key}) : super(key: key);
+  const Register({required this.mosqueDAO, Key? key}) : super(key: key);
+
+  final MosqueDAO mosqueDAO;
 
   @override
   State<Register> createState() => _RegisterState();
@@ -149,19 +152,16 @@ class _RegisterState extends State<Register> {
                                   });
                                   if (_formKey.currentState!.validate()) {
                                     // Register logic
-                                    bool res = await AuthController.register(
-                                        email: _emailController.text,
-                                        password: _passwordController.text);
 
-                                    if (res) {
-                                      Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const Auth()));
-                                    } else {
+                                    bool res = await widget.mosqueDAO.register(
+                                        _emailController.text,
+                                        _passwordController.text);
+
+                                    if (!res) {
                                       error =
                                           'Akaun telah wujud! Sila log masuk ';
+                                    } else {
+                                      Navigator.pop(context);
                                     }
                                   }
 
@@ -179,11 +179,7 @@ class _RegisterState extends State<Register> {
                                   GestureDetector(
                                     onTap: () {
                                       FocusScope.of(context).unfocus();
-                                      Navigator.pushReplacement(
-                                          context,
-                                          CupertinoPageRoute(
-                                              builder: (context) =>
-                                                  const Login()));
+                                      Navigator.of(context).pop();
                                     },
                                     child: Text(
                                       'Log Masuk',

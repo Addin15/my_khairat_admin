@@ -35,7 +35,6 @@ class _PageVillageState extends State<PageVillage> {
 
   @override
   void initState() {
-    villages = widget.mosque.villages!;
     super.initState();
   }
 
@@ -180,7 +179,6 @@ class _PageVillageState extends State<PageVillage> {
                                     if (deleted) {
                                       setState(() {
                                         villages.removeAt(index);
-                                        widget.mosque.villages = villages;
                                         widget.mosque.save();
                                       });
                                     }
