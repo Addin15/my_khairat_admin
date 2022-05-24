@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_khairat_admin/constants/widget_constants.dart';
+import 'package:my_khairat_admin/controllers/payment_controller.dart';
 import 'package:my_khairat_admin/models/payment.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:sizer/sizer.dart';
@@ -46,6 +47,7 @@ class ViewPayment extends StatelessWidget {
                 SizedBox(height: 2.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       'Tempoh Sah:',
@@ -55,15 +57,19 @@ class ViewPayment extends StatelessWidget {
                       ),
                     ),
                     SizedBox(width: 2.w),
-                    Text(
-                      payment.startMonth == payment.endMonth &&
-                              payment.startYear == payment.endYear
-                          ? '${payment.startMonth}/${payment.startYear}'
-                          : '${payment.startMonth}/${payment.startYear} hingga ${payment.endMonth}/${payment.endYear}',
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        color: AppColor.primary,
-                        fontWeight: FontWeight.bold,
+                    SizedBox(
+                      width: 40.w,
+                      child: Text(
+                        payment.startMonth == payment.endMonth &&
+                                payment.startYear == payment.endYear
+                            ? '${payment.startMonth}/${payment.startYear}'
+                            : '${payment.startMonth}/${payment.startYear} hingga ${payment.endMonth}/${payment.endYear}',
+                        textAlign: TextAlign.end,
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          color: AppColor.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ],
@@ -71,6 +77,7 @@ class ViewPayment extends StatelessWidget {
                 SizedBox(height: 1.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       'Jumlah:',
@@ -80,12 +87,16 @@ class ViewPayment extends StatelessWidget {
                       ),
                     ),
                     SizedBox(width: 2.w),
-                    Text(
-                      'RM${payment.amount!.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        color: AppColor.primary,
-                        fontWeight: FontWeight.bold,
+                    SizedBox(
+                      width: 40.w,
+                      child: Text(
+                        'RM${payment.amount!.toStringAsFixed(2)}',
+                        textAlign: TextAlign.end,
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          color: AppColor.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ],
@@ -102,19 +113,23 @@ class ViewPayment extends StatelessWidget {
                       ),
                     ),
                     SizedBox(width: 2.w),
-                    TextButton(
-                      onPressed: () {},
-                      style: TextButton.styleFrom(
-                        backgroundColor: Colors.grey,
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 5.w, vertical: 1.h),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5.sp),
+                    SizedBox(
+                      width: 40.w,
+                      child: TextButton(
+                        onPressed: () {},
+                        style: TextButton.styleFrom(
+                          backgroundColor: Colors.grey,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 5.w, vertical: 1.h),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5.sp),
+                          ),
                         ),
-                      ),
-                      child: Text(
-                        'receipt',
-                        style: TextStyle(fontSize: 12.sp, color: Colors.white),
+                        child: Text(
+                          'receipt',
+                          style:
+                              TextStyle(fontSize: 12.sp, color: Colors.white),
+                        ),
                       ),
                     ),
                   ],
@@ -129,8 +144,12 @@ class ViewPayment extends StatelessWidget {
               customTextButton(
                 label: 'Terima',
                 onPressed: () async {
-                  payment.status == 'completed';
-                  Navigator.pop(context, true);
+                  bool res = await PaymentController.actionOnPayment(
+                      payment.id.toString(), 'completed');
+                  if (res) {
+                    payment.status == 'completed';
+                    Navigator.pop(context, true);
+                  }
                 },
               ),
               SizedBox(width: 2.w),

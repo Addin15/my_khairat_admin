@@ -102,6 +102,7 @@ class AuthController {
         headers: headerswithToken(_token),
       );
 
+      log(response.body);
       if (response.statusCode == 201) {
         if (jsonDecode(response.body) == 1) {
           return true;
