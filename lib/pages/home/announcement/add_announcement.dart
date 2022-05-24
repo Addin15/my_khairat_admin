@@ -1,14 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:my_khairat_admin/DAO/announcement_dao.dart';
 import 'package:my_khairat_admin/constants/widget_constants.dart';
+import 'package:my_khairat_admin/models/announcement.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:sizer/sizer.dart';
 
 class AddAnnouncement extends StatefulWidget {
+  const AddAnnouncement(
+      {required this.announcementDAO, required this.mosqueID, Key? key})
+      : super(key: key);
+
+  final AnnouncementDAO announcementDAO;
+  final String mosqueID;
+
   @override
   _AddAnnouncementState createState() => _AddAnnouncementState();
 }
 
 class _AddAnnouncementState extends State<AddAnnouncement> {
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _contentController = TextEditingController();
+
+  String imgURL = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,10 +76,10 @@ class _AddAnnouncementState extends State<AddAnnouncement> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                             blurRadius: 15,
-                            offset: const Offset(0.0, 15.0),
+                            offset: Offset(0.0, 15.0),
                           )
                         ],
                       ),
@@ -79,13 +94,13 @@ class _AddAnnouncementState extends State<AddAnnouncement> {
                               width: 80.w,
                               decoration: BoxDecoration(
                                 color: Colors.grey,
-                                borderRadius:
-                                    new BorderRadius.circular(10.0..sp),
+                                borderRadius: BorderRadius.circular(10.0..sp),
                               ),
                               child: Padding(
                                 padding: EdgeInsets.only(
                                     left: 15.sp, right: 15.sp, top: 5.sp),
                                 child: TextFormField(
+                                  controller: _titleController,
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
                                       labelText: 'Tajuk',
@@ -106,6 +121,7 @@ class _AddAnnouncementState extends State<AddAnnouncement> {
                               borderRadius: BorderRadius.circular(10.sp),
                             ),
                             child: TextField(
+                              controller: _contentController,
                               textInputAction: TextInputAction.newline,
                               keyboardType: TextInputType.multiline,
                               maxLines: 10,
@@ -193,9 +209,25 @@ class _AddAnnouncementState extends State<AddAnnouncement> {
                                               ),
                                               ElevatedButton(
                                                 onPressed: () {
+                                                  widget.announcementDAO
+                                                      .addAnnouncement(
+                                                          widget.mosqueID,
+                                                          Announcement(
+                                                            title:
+                                                                _titleController
+                                                                    .text,
+                                                            content:
+                                                                _contentController
+                                                                    .text,
+                                                            imgURL: imgURL,
+                                                            date: DateFormat(
+                                                                    'yyyy-MM-dd')
+                                                                .format(DateTime
+                                                                    .now()),
+                                                          ));
                                                   Navigator.pop(context);
                                                 },
-                                                child: Text(
+                                                child: const Text(
                                                   "Tambah",
                                                   style: TextStyle(
                                                       color: Colors.white,
@@ -222,7 +254,7 @@ class _AddAnnouncementState extends State<AddAnnouncement> {
                                       },
                                       context: context);
                                 },
-                                child: Text("Tambah"),
+                                child: const Text("Tambah"),
                                 style: ButtonStyle(
                                   backgroundColor: MaterialStateProperty.all(
                                       AppColor.primary),
