@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_khairat_admin/pages/register/check_registration.dart';
+import 'package:my_khairat_admin/pages/members/register/check_registration.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:sizer/sizer.dart';

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:my_khairat_admin/DAO/mosque_dao.dart';
 import 'package:my_khairat_admin/models/mosque.dart';
-import 'package:my_khairat_admin/pages/register/view_registration.dart';
+import 'package:my_khairat_admin/pages/members/register/view_registration.dart';
 import 'package:my_khairat_admin/pages/home/home.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:sizer/sizer.dart';
@@ -18,12 +18,16 @@ class Members extends StatefulWidget {
   State<Members> createState() => _MembersState();
 }
 
-class _MembersState extends State<Members> {
+class _MembersState extends State<Members> with AutomaticKeepAliveClientMixin {
   final TextEditingController _searchController = TextEditingController();
 
   final FocusNode _searchFocus = FocusNode();
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
+  // ignore: must_call_super
   Widget build(BuildContext context) {
     Mosque mosque = widget.mosqueDAO.mosque;
 

@@ -24,8 +24,12 @@ class Setting extends StatefulWidget {
   State<Setting> createState() => _SettingState();
 }
 
-class _SettingState extends State<Setting> {
+class _SettingState extends State<Setting> with AutomaticKeepAliveClientMixin {
   @override
+  bool get wantKeepAlive => true;
+
+  @override
+  // ignore: must_call_super
   Widget build(BuildContext context) {
     Mosque mosque = widget.mosqueDAO.mosque;
 
