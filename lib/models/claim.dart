@@ -5,6 +5,7 @@ class Claim {
   String? claimerIC;
   String? claimerVillage;
   String? proveURL;
+  String? status;
 
   Claim(
       {this.id,
@@ -12,7 +13,8 @@ class Claim {
       this.claimerName,
       this.claimerIC,
       this.claimerVillage,
-      this.proveURL});
+      this.proveURL,
+      this.status});
 
   factory Claim.fromMap(Map<String, dynamic> map) => Claim(
         id: map['id'],
@@ -21,6 +23,7 @@ class Claim {
         claimerIC: map['claimer_ic'],
         claimerVillage: map['claimer_village'],
         proveURL: map['prove_url'],
+        status: map['status']
       );
 
   Map<String, dynamic> toMap() => {
@@ -30,5 +33,6 @@ class Claim {
         'claimer_ic': claimerIC,
         'claimer_village': claimerVillage,
         'prove_url': proveURL,
+        'status': status
       };
 }
