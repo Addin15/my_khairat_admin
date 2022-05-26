@@ -21,8 +21,11 @@ class AddAnnouncement extends StatefulWidget {
 class _AddAnnouncementState extends State<AddAnnouncement> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _contentController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey();
 
   String imgURL = '';
+
+  String contentError = '';
 
   @override
   Widget build(BuildContext context) {
@@ -53,235 +56,216 @@ class _AddAnnouncementState extends State<AddAnnouncement> {
               ),
               Center(
                 child: SafeArea(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: 2.h,
-                      ),
-                      Text(
-                        'Tambah Pengumuman',
-                        style: TextStyle(
-                          fontFamily: "Reem Kufi",
-                          color: Colors.white,
-                          fontSize: 17.sp,
-                          fontWeight: FontWeight.bold,
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 2.h),
+                        Text(
+                          'Tambah Pengumuman',
+                          style: TextStyle(
+                            fontFamily: "Reem Kufi",
+                            color: Colors.white,
+                            fontSize: 17.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(
-                        height: 2.h,
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(1.h),
-                        width: 80.w,
-                        height: 65.h,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: const [
-                            BoxShadow(
-                              blurRadius: 15,
-                              offset: Offset(0.0, 15.0),
-                            )
-                          ],
-                        ),
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 1.h,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(2.0),
-                              child: Container(
-                                width: 80.w,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey,
-                                  borderRadius: BorderRadius.circular(10.0..sp),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.only(
-                                      left: 15.sp, right: 15.sp, top: 5.sp),
+                        SizedBox(height: 2.h),
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 3.w, vertical: 1.h),
+                          width: 90.w,
+                          height: 75.h,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: const [
+                              BoxShadow(
+                                blurRadius: 1,
+                                offset: Offset(0.0, 1.0),
+                              )
+                            ],
+                          ),
+                          child: ListView(
+                            children: [
+                              SizedBox(height: 1.h),
+                              Padding(
+                                padding: const EdgeInsets.all(2.0),
+                                child: Container(
+                                  width: 96.w,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey,
+                                    borderRadius: BorderRadius.circular(5.sp),
+                                  ),
                                   child: TextFormField(
+                                    expands: false,
+                                    validator: (value) => value!.isEmpty
+                                        ? 'Sila isi tajuk pengumuman'
+                                        : null,
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 12.sp),
                                     controller: _titleController,
                                     decoration: InputDecoration(
                                         border: InputBorder.none,
-                                        labelText: 'Tajuk',
-                                        labelStyle: TextStyle(
+                                        contentPadding: EdgeInsets.symmetric(
+                                            horizontal: 2.w, vertical: 1.h),
+                                        hintText: 'Tajuk',
+                                        hintStyle: TextStyle(
                                             color: Colors.white,
                                             fontSize: 12.sp),
                                         fillColor: Colors.white),
                                   ),
                                 ),
                               ),
-                            ),
-                            SizedBox(
-                              height: 2.h,
-                            ),
-                            Container(
-                              padding: EdgeInsets.all(8.sp),
-                              decoration: BoxDecoration(
-                                color: Colors.grey,
-                                borderRadius: BorderRadius.circular(10.sp),
-                              ),
-                              child: TextField(
-                                controller: _contentController,
-                                textInputAction: TextInputAction.newline,
-                                keyboardType: TextInputType.multiline,
-                                maxLines: 10,
-                                decoration: InputDecoration(
-                                    border: InputBorder.none,
+                              SizedBox(height: 1.h),
+                              Container(
+                                width: 96.w,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey,
+                                  borderRadius: BorderRadius.circular(5.sp),
+                                ),
+                                child: TextField(
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 12.sp),
+                                  controller: _contentController,
+                                  textInputAction: TextInputAction.newline,
+                                  keyboardType: TextInputType.multiline,
+                                  maxLines: 20,
+                                  //expands: true,
+                                  decoration: InputDecoration(
+                                    fillColor: Colors.red,
+                                    border: OutlineInputBorder(
+                                        borderSide: BorderSide.none,
+                                        borderRadius:
+                                            BorderRadius.circular(5.sp)),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        horizontal: 2.w, vertical: 1.h),
                                     hintText: 'Isi maklumat pengumuman',
+                                    errorText: contentError,
                                     hintStyle: TextStyle(
                                       fontSize: 12.sp,
                                       color: Colors.white,
-                                    )),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 1.h,
-                            ),
-                            SizedBox(
-                              width: 80.w,
-                              height: 10.h,
-                              child: ElevatedButton.icon(
-                                icon: Icon(
-                                  Icons.add_a_photo_outlined,
-                                  size: 24.sp,
-                                ),
-                                onPressed: () {},
-                                label: Text(
-                                  'Tambah Gambar',
-                                  style: TextStyle(fontSize: 12.sp),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 1.h,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                ElevatedButton(
-                                  onPressed: () {
-                                    showDialog(
-                                        builder: (BuildContext context) {
-                                          return Expanded(
-                                            child: AlertDialog(
-                                              title: Text(
-                                                'Tambah Pengumuman',
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 14.sp,
-                                                    fontFamily: "Reem Kufi"),
-                                                textAlign: TextAlign.center,
-                                              ),
-                                              content: Text(
-                                                'Anda pasti menambah pengumuman ini?',
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 10.0.sp,
-                                                    fontFamily: "Reem Kufi"),
-                                                textAlign: TextAlign.center,
-                                              ),
-                                              actions: [
-                                                ElevatedButton(
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: Text(
-                                                    "Kembali",
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 10.0.sp,
-                                                        fontFamily:
-                                                            "Reem Kufi"),
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                                  style: ButtonStyle(
-                                                    backgroundColor:
-                                                        MaterialStateProperty
-                                                            .all(Colors.white),
-                                                    shape: MaterialStateProperty
-                                                        .all(
-                                                      RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      2.h)),
-                                                    ),
-                                                  ),
-                                                ),
-                                                ElevatedButton(
-                                                  onPressed: () {
-                                                    widget.announcementDAO
-                                                        .addAnnouncement(
-                                                            widget.mosqueID,
-                                                            Announcement(
-                                                              title:
-                                                                  _titleController
-                                                                      .text,
-                                                              content:
-                                                                  _contentController
-                                                                      .text,
-                                                              imgURL: imgURL,
-                                                              date: DateFormat(
-                                                                      'yyyy-MM-dd')
-                                                                  .format(DateTime
-                                                                      .now()),
-                                                            ));
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: const Text(
-                                                    "Tambah",
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 12.0,
-                                                        fontFamily:
-                                                            "Reem Kufi"),
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                                  style: ButtonStyle(
-                                                    backgroundColor:
-                                                        MaterialStateProperty
-                                                            .all(AppColor
-                                                                .primary),
-                                                    shape: MaterialStateProperty
-                                                        .all(
-                                                      RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      2.h)),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        },
-                                        context: context);
-                                  },
-                                  child: const Text("Tambah"),
-                                  style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all(
-                                        AppColor.primary),
-                                    shape: MaterialStateProperty.all(
-                                      RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(2.h),
-                                      ),
                                     ),
                                   ),
                                 ),
-                              ],
-                            ),
-                          ],
+                              ),
+                              SizedBox(height: 1.h),
+                              SizedBox(
+                                width: double.infinity,
+                                height: 10.h,
+                                child: ElevatedButton.icon(
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5.sp),
+                                    ),
+                                  ),
+                                  icon: Icon(
+                                    Icons.add_a_photo_outlined,
+                                    size: 24.sp,
+                                  ),
+                                  onPressed: () {},
+                                  label: Text(
+                                    'Tambah Gambar',
+                                    style: TextStyle(fontSize: 12.sp),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 1.h,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  customTextButton(
+                                      label: 'Tambah',
+                                      onPressed: () {
+                                        showDialog(
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                title: Text(
+                                                  'Tambah Pengumuman',
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 14.sp,
+                                                      fontFamily: "Reem Kufi"),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                                content: Text(
+                                                  'Anda pasti menambah pengumuman ini?',
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 10.0.sp,
+                                                      fontFamily: "Reem Kufi"),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                                actionsAlignment:
+                                                    MainAxisAlignment.center,
+                                                actions: [
+                                                  customTextButton(
+                                                      label: 'Batal',
+                                                      backgroundColor:
+                                                          Colors.white,
+                                                      labelColor:
+                                                          AppColor.primary,
+                                                      borderColor:
+                                                          AppColor.primary,
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              context)),
+                                                  customTextButton(
+                                                      label: 'Tambah',
+                                                      onPressed: () {
+                                                        if (contentError
+                                                            .isNotEmpty) {
+                                                          if (_formKey
+                                                              .currentState!
+                                                              .validate()) {
+                                                            widget
+                                                                .announcementDAO
+                                                                .addAnnouncement(
+                                                                    widget
+                                                                        .mosqueID,
+                                                                    Announcement(
+                                                                      title: _titleController
+                                                                          .text,
+                                                                      content:
+                                                                          _contentController
+                                                                              .text,
+                                                                      imgURL:
+                                                                          imgURL,
+                                                                      date: DateFormat(
+                                                                              'yyyy-MM-dd')
+                                                                          .format(
+                                                                              DateTime.now()),
+                                                                    ));
+                                                            Navigator.pop(
+                                                                context);
+                                                          }
+                                                        } else {
+                                                          setState(() {
+                                                            contentError =
+                                                                'Sila isi maklumat pengumuman';
+                                                          });
+                                                        }
+
+                                                        Navigator.pop(context);
+                                                      })
+                                                ],
+                                              );
+                                            },
+                                            context: context);
+                                      })
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

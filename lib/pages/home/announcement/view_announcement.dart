@@ -75,9 +75,7 @@ class _ViewAnnouncementState extends State<ViewAnnouncement> {
                                   fontFamily: "Reem Kufi"),
                             ),
                           ),
-                          SizedBox(
-                            height: 2.h,
-                          ),
+                          SizedBox(height: 2.h),
                           Center(
                             child: Text(
                               widget.announcement.content!,

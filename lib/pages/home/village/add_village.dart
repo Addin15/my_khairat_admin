@@ -86,14 +86,14 @@ class _AddVillageState extends State<AddVillage> {
                 child: customTextButton(
                   label: 'Tambah',
                   onPressed: () async {
-                    widget.villageDAO.addVillage(
+                    dynamic res = await widget.villageDAO.addVillage(
                         widget.mosqueID,
                         Village(
                           name: _nameController.text,
                           address: _addressController.text,
                         ));
 
-                    Navigator.pop(context);
+                    Navigator.pop(context, res);
                   },
                 ),
               ),

@@ -6,7 +6,6 @@ import 'package:ionicons/ionicons.dart';
 import 'package:my_khairat_admin/DAO/village_dao.dart';
 import 'package:my_khairat_admin/constants/popup.dart';
 import 'package:my_khairat_admin/constants/widget_constants.dart';
-import 'package:my_khairat_admin/controllers/village_controller.dart';
 import 'package:my_khairat_admin/models/mosque.dart';
 import 'package:my_khairat_admin/models/village.dart';
 import 'package:my_khairat_admin/pages/home/village/add_village.dart';
@@ -17,12 +16,9 @@ import 'package:sizer/sizer.dart';
 
 class PageVillage extends StatefulWidget {
   const PageVillage({
-    required this.villageDAO,
     required this.mosque,
     Key? key,
   }) : super(key: key);
-
-  final VillageDAO villageDAO;
   final Mosque mosque;
 
   @override
@@ -45,7 +41,8 @@ class _PageVillageState extends State<PageVillage> {
 
   @override
   Widget build(BuildContext context) {
-    List<Village> villages = widget.villageDAO.villages;
+    VillageDAO villageDAO = Provider.of<VillageDAO>(context);
+    List<Village> villages = villageDAO.villages;
     return Scaffold(
       appBar: customAppBar(
         context: context,
@@ -69,10 +66,8 @@ class _PageVillageState extends State<PageVillage> {
                     CupertinoPageRoute(
                         builder: (context) => AddVillage(
                               mosqueID: widget.mosque.id!,
-                              villageDAO: widget.villageDAO,
-                            ))).whenComplete(() {
-                  setState(() {});
-                }),
+                              villageDAO: villageDAO,
+                            ))),
                 style: TextButton.styleFrom(
                   backgroundColor: AppColor.primary,
                 ),
@@ -158,7 +153,7 @@ class _PageVillageState extends State<PageVillage> {
                                     context,
                                     CupertinoPageRoute(
                                         builder: (context) => EditVillage(
-                                            villageDAO: widget.villageDAO,
+                                            villageDAO: villageDAO,
                                             village: villages[index])));
 
                                 // DELETE
@@ -177,8 +172,7 @@ class _PageVillageState extends State<PageVillage> {
 
                                 if (res != null) {
                                   if (res) {
-                                    widget.villageDAO
-                                        .deleteVillage(villages[index]);
+                                    villageDAO.deleteVillage(villages[index]);
                                   }
                                 }
                               }

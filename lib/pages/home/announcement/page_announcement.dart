@@ -50,24 +50,27 @@ class _PageAnnouncementState extends State<PageAnnouncement> {
                 padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 2.h),
                 child: Column(
                   children: [
-                    TextFormField(
-                      controller: _searchController,
-                      focusNode: _searchFocus,
-                      decoration: InputDecoration(
-                        hintText: 'Cari Pengumuman',
-                        suffixIcon: Icon(
-                          Ionicons.search_outline,
-                          color: AppColor.primary,
-                        ),
-                        contentPadding: EdgeInsets.symmetric(horizontal: 2.w),
-                        isDense: true,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12.sp),
-                          borderSide: BorderSide(color: AppColor.primary),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12.sp),
-                          borderSide: BorderSide(color: AppColor.primary),
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 2.w),
+                      child: TextFormField(
+                        controller: _searchController,
+                        focusNode: _searchFocus,
+                        decoration: InputDecoration(
+                          hintText: 'Cari Pengumuman',
+                          suffixIcon: Icon(
+                            Ionicons.search_outline,
+                            color: AppColor.primary,
+                          ),
+                          contentPadding: EdgeInsets.symmetric(horizontal: 2.w),
+                          isDense: true,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12.sp),
+                            borderSide: BorderSide(color: AppColor.primary),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12.sp),
+                            borderSide: BorderSide(color: AppColor.primary),
+                          ),
                         ),
                       ),
                     ),
