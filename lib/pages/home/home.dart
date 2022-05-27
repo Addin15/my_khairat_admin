@@ -125,7 +125,9 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                 onTap: () => Navigator.push(
                     context,
                     CupertinoPageRoute(
-                        builder: (context) => const PageGrave())),
+                        builder: (context) => PageGrave(
+                              mosqueID: mosque.id!,
+                            ))),
               ),
               MenuBox(
                 icon: 'assets/menu/announcement.png',

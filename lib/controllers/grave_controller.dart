@@ -47,7 +47,7 @@ class GraveController {
       SecureStorage _secureStorage = SecureStorage();
       String _token = await _secureStorage.read('token');
 
-      String url = '${Config.hostName}/committee/grave/add';
+      String url = '${Config.hostName}/committee/graves/add';
 
       Map<String, dynamic> data = {
         'mosque_id': mosqueID,
@@ -82,7 +82,7 @@ class GraveController {
       SecureStorage _secureStorage = SecureStorage();
       String _token = await _secureStorage.read('token');
 
-      String url = '${Config.hostName}/committee/grave/edit';
+      String url = '${Config.hostName}/committee/graves/edit';
 
       Map<String, dynamic> data = grave.toMap();
 
@@ -111,7 +111,7 @@ class GraveController {
       SecureStorage _secureStorage = SecureStorage();
       String _token = await _secureStorage.read('token');
 
-      String url = '${Config.hostName}/committee/grave/delete';
+      String url = '${Config.hostName}/committee/graves/delete';
 
       Map<String, dynamic> data = grave.toMap();
 

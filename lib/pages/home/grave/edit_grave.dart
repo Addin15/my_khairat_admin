@@ -6,23 +6,30 @@ import 'package:my_khairat_admin/models/grave.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:sizer/sizer.dart';
 
-class AddGrave extends StatefulWidget {
-  const AddGrave({required this.mosqueID, required this.graveDAO, Key? key})
+class EditGrave extends StatefulWidget {
+  const EditGrave({required this.graveDAO, required this.grave, Key? key})
       : super(key: key);
 
-  final String mosqueID;
   final GraveDAO graveDAO;
+  final Grave grave;
 
   @override
-  State<AddGrave> createState() => _AddGraveState();
+  State<EditGrave> createState() => _EditGraveState();
 }
 
-class _AddGraveState extends State<AddGrave> {
+class _EditGraveState extends State<EditGrave> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
 
   final FocusNode _nameFocus = FocusNode();
   final FocusNode _addressFocus = FocusNode();
+
+  @override
+  void initState() {
+    _nameController.text = widget.grave.name!;
+    _addressController.text = widget.grave.address!;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,19 +83,16 @@ class _AddGraveState extends State<AddGrave> {
                 controller: _addressController,
                 focusNode: _addressFocus,
                 validator: (value) =>
-                    value!.isEmpty ? 'Sila isi alamt perkuburan' : null,
+                    value!.isEmpty ? 'Sila isi alamat perkuburan' : null,
               ),
               SizedBox(height: 3.h),
               Center(
                 child: customTextButton(
-                  label: 'Tambah',
+                  label: 'Selesai',
                   onPressed: () async {
-                    dynamic res = await widget.graveDAO.addGrave(
-                        widget.mosqueID,
-                        Grave(
-                          name: _nameController.text,
-                          address: _addressController.text,
-                        ));
+                    widget.grave.name = _nameController.text;
+                    widget.grave.address = _addressController.text;
+                    dynamic res = await widget.graveDAO.editGrave(widget.grave);
 
                     Navigator.pop(context, res);
                   },

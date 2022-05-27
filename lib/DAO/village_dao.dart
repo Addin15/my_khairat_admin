@@ -26,11 +26,13 @@ class VillageDAO extends ChangeNotifier {
 
       String? mosqueID = (_mosqueBox.get(_token) as Mosque).id;
 
-      List<Village>? villages = _villageBox.get(mosqueID).cast<Village>();
-      if (villages != null) {
-        _villages = villages;
-        log('from cache');
-        notifyListeners();
+      if (_villageBox.get(mosqueID) != null) {
+        List<Village>? villages = _villageBox.get(mosqueID).cast<Village>();
+        if (villages != null) {
+          _villages = villages;
+          log('from cache');
+          notifyListeners();
+        }
       }
       getLatestData(mosqueID!);
     }
