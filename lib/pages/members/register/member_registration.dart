@@ -5,14 +5,14 @@ import 'package:ionicons/ionicons.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter/cupertino.dart';
 
-class ViewRegistration extends StatefulWidget {
-  const ViewRegistration({Key? key}) : super(key: key);
+class MemberRegistration extends StatefulWidget {
+  const MemberRegistration({Key? key}) : super(key: key);
 
   @override
-  State<ViewRegistration> createState() => _ViewRegistrationState();
+  State<MemberRegistration> createState() => _MemberRegistrationState();
 }
 
-class _ViewRegistrationState extends State<ViewRegistration> {
+class _MemberRegistrationState extends State<MemberRegistration> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
