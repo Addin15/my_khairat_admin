@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_khairat_admin/pages/members/register/check_registration.dart';
+import 'package:my_khairat_admin/models/member.dart';
+import 'package:my_khairat_admin/pages/members/register/view_member_registration.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:sizer/sizer.dart';
@@ -15,79 +16,84 @@ class MemberRegistration extends StatefulWidget {
 class _MemberRegistrationState extends State<MemberRegistration> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          "Mykhairat",
-          style: TextStyle(color: AppColor.primary, fontSize: 14.sp),
+    return Column(
+      children: [
+        Text(
+          'Pendaftaran Ahli',
+          style: TextStyle(
+              color: AppColor.primary,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w600),
         ),
-        elevation: 0.0,
-        backgroundColor: Colors.white,
-        leading: IconButton(
-          icon: const Icon(Ionicons.chevron_back),
-          color: AppColor.primary,
-          onPressed: () => Navigator.pop(context),
+        SizedBox(height: 1.h),
+        Expanded(
+          child: ListView.builder(
+            scrollDirection: Axis.vertical,
+            itemCount: 10,
+            physics: const BouncingScrollPhysics(),
+            itemBuilder: (BuildContext context, int index) {
+              return Container(
+                padding: EdgeInsets.all(1.h),
+                child: memberCard(
+                  member: Member(
+                    name: 'Ahmad',
+                    ic: '980425-06-3565',
+                    villageName: 'Kampung Batu',
+                  ),
+                ),
+              );
+            },
+          ),
         ),
-      ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: 2.h,
-          ),
-          HeaderPage(),
-          SizedBox(
-            height: 2.h,
-          ),
-          Expanded(
-              child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  itemCount: 10,
-                  //physics: NeverScrollableScrollPhysics(),
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                        padding: EdgeInsets.all(1.h), child: namecard());
-                  })),
-        ],
-      ),
+      ],
     );
   }
-}
 
-class namecard extends StatelessWidget {
-  const namecard({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
+  Widget memberCard({
+    required Member member,
+  }) {
     return SizedBox(
-      height: 13.h,
       child: Card(
         elevation: 5,
-        margin: EdgeInsets.symmetric(horizontal: 7.h),
         color: Colors.white,
         shadowColor: Colors.black,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Container(
-          padding: EdgeInsets.all(2.h),
+          padding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 2.w),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(child: Text('Ahmad ibrahim  ')),
-              SizedBox(
-                height: 1.h,
+              Text(
+                member.name!,
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              SizedBox(
-                height: 3.h,
-                width: 14.h,
+              SizedBox(height: 0.8.h),
+              Text(
+                member.ic!,
+                style: TextStyle(
+                  fontSize: 12.sp,
+                ),
+              ),
+              SizedBox(height: 0.5.h),
+              Text(
+                member.villageName!,
+                style: TextStyle(
+                  fontSize: 12.sp,
+                ),
+              ),
+              SizedBox(height: 1.h),
+              Container(
+                alignment: Alignment.centerRight,
                 child: ElevatedButton(
                   onPressed: () => Navigator.push(
                       context,
                       CupertinoPageRoute(
                           builder: (context) => const CheckRegistration())),
-                  child: Text('Lihat butiran'),
+                  child: Text('Lihat Butiran'),
                   style: ButtonStyle(
                       backgroundColor:
                           MaterialStateProperty.all(AppColor.primary),

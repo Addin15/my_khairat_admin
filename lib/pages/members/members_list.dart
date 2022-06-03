@@ -76,7 +76,7 @@ class _MembersListState extends State<MembersList> {
                 child: Container(
                   color: Colors.transparent,
                   alignment: Alignment.center,
-                  child: Text('Tiada pencarian'),
+                  child: const Text('Tiada pencarian'),
                 ),
               ),
             ],
