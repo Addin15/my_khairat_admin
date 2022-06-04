@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:my_khairat_admin/DAO/member_dao.dart';
+import 'package:my_khairat_admin/models/member.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -23,6 +24,7 @@ class _MembersListState extends State<MembersList> {
   Widget build(BuildContext context) {
     return Consumer<MemberDAO>(
       builder: (context, memberDAO, child) {
+        List<Member> members = memberDAO.members;
         return GestureDetector(
           onTap: () {
             FocusScope.of(context).unfocus();
@@ -73,11 +75,26 @@ class _MembersListState extends State<MembersList> {
               ),
               SizedBox(height: 1.h),
               Expanded(
-                child: Container(
-                  color: Colors.transparent,
-                  alignment: Alignment.center,
-                  child: const Text('Tiada pencarian'),
-                ),
+                child: members.isNotEmpty
+                    ? ListView.separated(
+                        itemCount: members.length,
+                        separatorBuilder: (context, index) {
+                          return SizedBox(height: 1.h);
+                        },
+                        itemBuilder: (context, index) {
+                          Member member = members[index];
+                          return Column(
+                            children: [
+                              Text(member.name!),
+                            ],
+                          );
+                        },
+                      )
+                    : Container(
+                        color: Colors.transparent,
+                        alignment: Alignment.center,
+                        child: const Text('Tiada ahli'),
+                      ),
               ),
             ],
           ),

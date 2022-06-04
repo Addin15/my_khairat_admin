@@ -4,17 +4,35 @@ import 'package:my_khairat_admin/models/member.dart';
 
 class MemberDAO extends ChangeNotifier {
   List<Member> _members = [];
+  List<Member> _pendingMembers = [];
 
   MemberDAO(String mosqueID) {
     initData(mosqueID);
   }
 
-  get members => _members;
+  List<Member> get members => _members;
+  List<Member> get pendingMembers => _pendingMembers;
 
   initData(String mosqueID) async {
     List<Member> members = await MemberController.getMembers(mosqueID);
 
-    _members = members;
+    filterMembers(members);
+  }
+
+  filterMembers(List<Member> unfilteredMembers) {
+    List<Member> tempMembers = [];
+    List<Member> tempPendingMembers = [];
+
+    for (var member in unfilteredMembers) {
+      if (member.status == 'pending') {
+        tempPendingMembers.add(member);
+      } else if (member.status == 'completed') {
+        tempMembers.add(member);
+      }
+    }
+
+    _members = tempMembers;
+    _pendingMembers = tempPendingMembers;
     notifyListeners();
   }
 }

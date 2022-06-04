@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:my_khairat_admin/DAO/member_dao.dart';
+import 'package:my_khairat_admin/constants/widget_constants.dart';
 import 'package:my_khairat_admin/models/member.dart';
 import 'package:my_khairat_admin/pages/members/register/view_member_registration.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -16,37 +19,46 @@ class MemberRegistration extends StatefulWidget {
 class _MemberRegistrationState extends State<MemberRegistration> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          'Pendaftaran Ahli',
-          style: TextStyle(
-              color: AppColor.primary,
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w600),
-        ),
-        SizedBox(height: 1.h),
-        Expanded(
-          child: ListView.builder(
-            scrollDirection: Axis.vertical,
-            itemCount: 10,
-            physics: const BouncingScrollPhysics(),
-            itemBuilder: (BuildContext context, int index) {
-              return Container(
-                padding: EdgeInsets.all(1.h),
-                child: memberCard(
-                  member: Member(
-                    name: 'Ahmad',
-                    ic: '980425-06-3565',
-                    villageName: 'Kampung Batu',
-                  ),
-                ),
-              );
-            },
+    return Consumer<MemberDAO>(builder: (context, memberDAO, child) {
+      List<Member> members = memberDAO.pendingMembers;
+      return Column(
+        children: [
+          Text(
+            'Pendaftaran Ahli',
+            style: TextStyle(
+                color: AppColor.primary,
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w600),
           ),
-        ),
-      ],
-    );
+          SizedBox(height: 1.h),
+          Expanded(
+            child: members.isEmpty
+                ? Container(
+                    alignment: Alignment.center,
+                    child: const Text('Tiada pendaftaran'),
+                  )
+                : ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: members.length,
+                    physics: const BouncingScrollPhysics(),
+                    itemBuilder: (BuildContext context, int index) {
+                      Member member = members[index];
+                      return Container(
+                        padding: EdgeInsets.all(1.h),
+                        child: memberCard(
+                          member: Member(
+                            name: member.name,
+                            ic: member.ic,
+                            villageName: member.villageName,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+          ),
+        ],
+      );
+    });
   }
 
   Widget memberCard({
@@ -88,18 +100,16 @@ class _MemberRegistrationState extends State<MemberRegistration> {
               SizedBox(height: 1.h),
               Container(
                 alignment: Alignment.centerRight,
-                child: ElevatedButton(
-                  onPressed: () => Navigator.push(
-                      context,
-                      CupertinoPageRoute(
-                          builder: (context) => const CheckRegistration())),
-                  child: Text('Lihat Butiran'),
-                  style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all(AppColor.primary),
-                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(2.h)))),
-                ),
+                child: customTextButton(
+                    label: 'Lihat Butiran',
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                              builder: (context) => CheckRegistration(
+                                    member: member,
+                                  )));
+                    }),
               ),
             ],
           ),
