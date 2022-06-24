@@ -43,7 +43,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
 
   @override
   Widget build(BuildContext context) {
-    Mosque mosque = widget.mosqueDAO.mosque;
+    Mosque? mosque = widget.mosqueDAO.mosque;
 
     return Stack(
       children: [
@@ -156,7 +156,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                                     });
 
                                     Mosque newMosque = Mosque(
-                                      id: mosque.id,
+                                      id: mosque!.id,
                                       email: mosque.email,
                                       name: _nameController.text,
                                       phone: _phoneNoController.text,

@@ -40,11 +40,11 @@ class _MembersState extends State<Members>
   @override
   // ignore: must_call_super
   Widget build(BuildContext context) {
-    Mosque mosque = widget.mosqueDAO.mosque;
+    Mosque? mosque = widget.mosqueDAO.mosque;
 
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => MemberDAO(mosque.id!)),
+        ChangeNotifierProvider(create: (context) => MemberDAO(mosque!.id!)),
       ],
       builder: (context, child) {
         MemberDAO memberDAO = Provider.of<MemberDAO>(context, listen: true);

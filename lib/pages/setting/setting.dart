@@ -31,9 +31,9 @@ class _SettingState extends State<Setting> with AutomaticKeepAliveClientMixin {
   @override
   // ignore: must_call_super
   Widget build(BuildContext context) {
-    Mosque mosque = widget.mosqueDAO.mosque;
+    Mosque? mosque = widget.mosqueDAO.mosque;
 
-    if (mosque.id == null) {
+    if (mosque!.id == null) {
       return Container(
           color: Colors.white,
           child: SpinKitChasingDots(
