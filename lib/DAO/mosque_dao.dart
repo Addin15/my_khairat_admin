@@ -9,7 +9,7 @@ import 'package:my_khairat_admin/models/mosque.dart';
 class MosqueDAO extends ChangeNotifier {
   Mosque? _mosque;
 
-  get mosque => _mosque;
+  Mosque? get mosque => _mosque;
 
   MosqueDAO() {
     initData();

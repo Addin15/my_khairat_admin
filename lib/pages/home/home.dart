@@ -35,7 +35,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
   Widget build(BuildContext context) {
     VillageDAO villageDAO = Provider.of<VillageDAO>(context);
 
-    Mosque mosque = widget.mosqueDAO.mosque;
+    Mosque? mosque = widget.mosqueDAO.mosque;
 
     List<Village> villages = villageDAO.villages;
     return Container(
@@ -69,7 +69,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(
-                          '${mosque.name}',
+                          '${mosque!.name}',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 18.sp,

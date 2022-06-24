@@ -14,7 +14,7 @@ class VillageDAO extends ChangeNotifier {
     initData();
   }
 
-  get villages => _villages;
+  List<Village> get villages => _villages;
 
   initData() async {
     SecureStorage _secureStorage = SecureStorage();
