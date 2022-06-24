@@ -1,38 +1,36 @@
 class Claim {
   String? id;
   String? claimerID;
+  String? mosqueID;
   String? claimerName;
   String? claimerIC;
-  String? claimerVillage;
-  String? proveURL;
+  String? claimerurl;
   String? status;
 
   Claim(
       {this.id,
       this.claimerID,
+      this.mosqueID,
       this.claimerName,
       this.claimerIC,
-      this.claimerVillage,
-      this.proveURL,
+      this.claimerurl,
       this.status});
 
   factory Claim.fromMap(Map<String, dynamic> map) => Claim(
-        id: map['id'],
-        claimerID: map['claimer_id'],
-        claimerName: map['claimer_name'],
-        claimerIC: map['claimer_ic'],
-        claimerVillage: map['claimer_village'],
-        proveURL: map['prove_url'],
-        status: map['status']
-      );
+      id: map['id'].toString(),
+      claimerID: map['claimer_id'].toString(),
+      mosqueID: map['mosque_id'].toString(),
+      claimerName: map['claimer_name'],
+      claimerIC: map['claimer_ic'],
+      claimerurl: map['claimer_url'],
+      status: map['status']);
 
   Map<String, dynamic> toMap() => {
         'id': id,
         'claimer_id': claimerID,
         'claimer_name': claimerName,
         'claimer_ic': claimerIC,
-        'claimer_village': claimerVillage,
-        'prove_url': proveURL,
+        'claimer_url': claimerurl,
         'status': status
       };
 }

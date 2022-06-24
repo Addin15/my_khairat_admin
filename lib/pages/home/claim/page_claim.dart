@@ -1,127 +1,174 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:my_khairat_admin/DAO/claim_dao.dart';
 import 'package:my_khairat_admin/constants/widget_constants.dart';
+import 'package:my_khairat_admin/controllers/claim_controller.dart';
 import 'package:my_khairat_admin/pages/home/claim/check_claim.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:my_khairat_admin/models/claim.dart';
 
 class PageClaim extends StatefulWidget {
-  const PageClaim({Key? key}) : super(key: key);
+  const PageClaim({Key? key, required this.mosqueID}) : super(key: key);
 
+  final String mosqueID;
   @override
   State<PageClaim> createState() => _PageClaimState();
 }
 
 class _PageClaimState extends State<PageClaim> {
   List<Claim> claims = [];
-  List<Claim> filteredclaims = [];
+  List<Claim> pendingClaims = [];
+  List<Claim> successClaims = [];
+  bool loading = true;
 
-  filterclaims() {
-    filteredclaims.clear();
+  getClaims() async {
+    List<Claim> claims = await ClaimController.getClaims(widget.mosqueID);
+    if (mounted) {
+      setState(() {
+        this.claims = claims;
+        loading = false;
+      });
+    }
+  }
+
+  filterPendingClaims() {
+    pendingClaims.clear();
     for (var claim in claims) {
       if (claim.status == 'pending') {
-        filteredclaims.add(claim);
+        pendingClaims.add(claim);
       }
     }
-    setState(() {});
+  }
+
+  filterCompleteClaims() {
+    successClaims.clear();
+    for (var claim in claims) {
+      if (claim.status == 'success') {
+        successClaims.add(claim);
+      }
+    }
   }
 
   @override
   void initState() {
-    claims.addAll([
-      Claim(
-          id: '0',
-          claimerID: '0',
-          claimerIC: '001114236780',
-          claimerName: 'Ahmad Najim Bin Abu Somad',
-          claimerVillage: 'kampung telok mas',
-          proveURL:
-              'https://i.pinimg.com/236x/f7/2c/7e/f72c7e5e75ae1737feff8ef29d34cc73.jpg',
-          status: 'pending')
-    ]);
-    filterclaims();
+    getClaims();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: customAppBar(
-        context: context,
-        title: Text(
-          'Semak Tuntutan',
-          style: TextStyle(
-            color: AppColor.primary,
-          ),
+    if (loading) {
+      return Container(
+        color: Colors.white,
+        child: SpinKitChasingDots(
+          color: AppColor.primary,
         ),
-      ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: 2.h,
-          ),
-          Expanded(
-              child: claims.isEmpty
-                  ? const Center(child: Text('tiada rekod'))
-                  : ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      itemCount: claims.length,
-                      //physics: NeverScrollableScrollPhysics(),
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                            padding: EdgeInsets.all(1.h),
-                            child: SizedBox(
-                              height: 13.h,
-                              child: Card(
-                                elevation: 5,
-                                margin: EdgeInsets.symmetric(horizontal: 7.h),
-                                color: Colors.white,
-                                shadowColor: Colors.black,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: Container(
-                                  padding: EdgeInsets.all(2.h),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Center(
-                                          child: Text(filteredclaims[index]
-                                              .claimerName!)),
-                                      SizedBox(
-                                        height: 1.h,
-                                      ),
-                                      SizedBox(
-                                        height: 3.h,
-                                        width: 14.h,
-                                        child: ElevatedButton(
-                                          onPressed: () => Navigator.push(
-                                              context,
-                                              CupertinoPageRoute(
-                                                  builder: (context) =>
-                                                      const CheckClaim())),
-                                          child: Text('Lihat butiran'),
-                                          style: ButtonStyle(
-                                              backgroundColor:
-                                                  MaterialStateProperty.all(
-                                                      AppColor.primary),
-                                              shape: MaterialStateProperty.all(
-                                                  RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              2.h)))),
+      );
+    } else {
+      return ChangeNotifierProvider(
+        create: (context) => ClaimDAO(widget.mosqueID),
+        child: Consumer<ClaimDAO>(builder: (context, claimdao, child) {
+          claims = claimdao.claims;
+          filterPendingClaims();
+          filterCompleteClaims();
+          return Scaffold(
+            appBar: customAppBar(
+              context: context,
+              title: Text(
+                'Semak Tuntutan',
+                style: TextStyle(
+                  color: AppColor.primary,
+                ),
+              ),
+            ),
+            body: Column(
+              children: [
+                SizedBox(
+                  height: 2.h,
+                ),
+                Expanded(
+                    child: pendingClaims.isEmpty
+                        ? const Center(child: Text('tiada rekod'))
+                        : ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            itemCount: pendingClaims.length,
+                            //physics: NeverScrollableScrollPhysics(),
+                            itemBuilder: (BuildContext context, int index) {
+                              Claim claim = pendingClaims[index];
+                              return Container(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 1.h, horizontal: 2.w),
+                                  child: SizedBox(
+                                    child: Card(
+                                      elevation: 5,
+                                      margin:
+                                          EdgeInsets.symmetric(horizontal: 6.h),
+                                      color: Colors.white,
+                                      shadowColor: Colors.black,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 1.h, horizontal: 2.w),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(claim.claimerName!),
+                                            SizedBox(
+                                              height: 1.h,
+                                            ),
+                                            Text(claim.claimerIC!),
+                                            SizedBox(
+                                              height: 1.h,
+                                            ),
+                                            Text(claim.status!),
+                                            Container(
+                                              height: 4.h,
+                                              alignment: Alignment.centerRight,
+                                              child: ElevatedButton(
+                                                onPressed: () => Navigator.push(
+                                                    context,
+                                                    CupertinoPageRoute(
+                                                        builder: (context) =>
+                                                            CheckClaim(
+                                                              claim: claim,
+                                                            ))),
+                                                child:
+                                                    const Text('Lihat butiran'),
+                                                style: ButtonStyle(
+                                                    backgroundColor:
+                                                        MaterialStateProperty
+                                                            .all(AppColor
+                                                                .primary),
+                                                    shape: MaterialStateProperty
+                                                        .all(RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        2.h)))),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ));
-                      })),
-        ],
-      ),
-    );
+                                    ),
+                                  ));
+                            })),
+              ],
+            ),
+          );
+        }),
+      );
+    }
   }
 }
 
@@ -141,7 +188,7 @@ class HeaderPage extends StatelessWidget {
             height: 7.h,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              boxShadow: [
+              boxShadow: const [
                 BoxShadow(
                   color: Colors.grey,
                   spreadRadius: 1,
