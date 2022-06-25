@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_khairat_admin/constants/widget_constants.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:my_khairat_admin/styles/custom_text_field.dart';
 
@@ -31,6 +32,13 @@ class _BankDetailsState extends State<BankDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: customAppBar(
+        context: context,
+        title: Text(
+          'Maklumat Bank',
+          style: TextStyle(color: AppColor.primary),
+        ),
+      ),
       body: Container(
         decoration: const BoxDecoration(
           color: Colors.white54,
