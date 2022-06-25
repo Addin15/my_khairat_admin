@@ -10,6 +10,7 @@ import 'package:my_khairat_admin/config/secure_storage.dart';
 import 'package:my_khairat_admin/controllers/auth_controller.dart';
 import 'package:my_khairat_admin/models/mosque.dart';
 import 'package:my_khairat_admin/pages/auth/login.dart';
+import 'package:my_khairat_admin/pages/setting/bank_details.dart';
 import 'package:my_khairat_admin/pages/setting/view_plan.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:provider/provider.dart';
@@ -163,76 +164,119 @@ class _SettingState extends State<Setting> with AutomaticKeepAliveClientMixin {
                       ),
                     ),
                     SizedBox(height: 5.h),
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 3.w,
-                        vertical: 1.h,
-                      ),
-                      color: Colors.white,
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(3.w),
-                                  color: Colors.blue,
-                                ),
-                                padding: EdgeInsets.all(2.w),
-                                child: Icon(
-                                  Ionicons.help_outline,
-                                  color: Colors.white,
-                                  size: 14.sp,
-                                ),
-                              ),
-                              SizedBox(width: 3.w),
-                              Expanded(
-                                child: Text(
-                                  'Bantuan',
-                                  style: TextStyle(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w400,
+                    GestureDetector(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 3.w,
+                          vertical: 1.h,
+                        ),
+                        color: Colors.white,
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(3.w),
+                                    color: Colors.blue,
+                                  ),
+                                  padding: EdgeInsets.all(2.w),
+                                  child: Icon(
+                                    Ionicons.help_outline,
+                                    color: Colors.white,
+                                    size: 14.sp,
                                   ),
                                 ),
-                              ),
-                              Icon(
-                                Ionicons.chevron_forward,
-                                size: 14.sp,
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 1.h),
-                          Row(
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(3.w),
-                                  color: Colors.pink,
-                                ),
-                                padding: EdgeInsets.all(2.w),
-                                child: Icon(
-                                  Ionicons.information_outline,
-                                  color: Colors.white,
-                                  size: 14.sp,
-                                ),
-                              ),
-                              SizedBox(width: 3.w),
-                              Expanded(
-                                child: Text(
-                                  'Soalan Lazim',
-                                  style: TextStyle(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w400,
+                                SizedBox(width: 3.w),
+                                Expanded(
+                                  child: Text(
+                                    'Bantuan',
+                                    style: TextStyle(
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w400,
+                                    ),
                                   ),
                                 ),
+                                Icon(
+                                  Ionicons.chevron_forward,
+                                  size: 14.sp,
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 1.h),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                    builder: (context) => const BankDetails(),
+                                  ),
+                                );
+                              },
+                              child: Row(
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(3.w),
+                                      color: Colors.red[400],
+                                    ),
+                                    padding: EdgeInsets.all(2.w),
+                                    child: Icon(
+                                      Ionicons.card_outline,
+                                      color: Colors.white,
+                                      size: 14.sp,
+                                    ),
+                                  ),
+                                  SizedBox(width: 3.w),
+                                  Expanded(
+                                    child: Text(
+                                      'Maklumat Bank',
+                                      style: TextStyle(
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ),
+                                  Icon(
+                                    Ionicons.chevron_forward,
+                                    size: 14.sp,
+                                  ),
+                                ],
                               ),
-                              Icon(
-                                Ionicons.chevron_forward,
-                                size: 14.sp,
-                              ),
-                            ],
-                          ),
-                        ],
+                            ),
+                            SizedBox(height: 1.h),
+                            Row(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(3.w),
+                                    color: Colors.pink,
+                                  ),
+                                  padding: EdgeInsets.all(2.w),
+                                  child: Icon(
+                                    Ionicons.information_outline,
+                                    color: Colors.white,
+                                    size: 14.sp,
+                                  ),
+                                ),
+                                SizedBox(width: 3.w),
+                                Expanded(
+                                  child: Text(
+                                    'Soalan Lazim',
+                                    style: TextStyle(
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                                Icon(
+                                  Ionicons.chevron_forward,
+                                  size: 14.sp,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(height: 10.h),
