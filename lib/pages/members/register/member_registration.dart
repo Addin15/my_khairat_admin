@@ -72,11 +72,8 @@ class _MemberRegistrationState extends State<MemberRegistration> {
                       return Container(
                         padding: EdgeInsets.all(1.h),
                         child: memberCard(
-                          member: Member(
-                            name: member.name,
-                            ic: member.ic,
-                            villageName: member.villageName,
-                          ),
+                          member: member,
+                          memberDAO: memberDAO,
                         ),
                       );
                     },
@@ -89,6 +86,7 @@ class _MemberRegistrationState extends State<MemberRegistration> {
 
   Widget memberCard({
     required Member member,
+    required MemberDAO memberDAO,
   }) {
     return SizedBox(
       child: Card(
@@ -97,7 +95,7 @@ class _MemberRegistrationState extends State<MemberRegistration> {
         shadowColor: Colors.black,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 2.w),
+          padding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 3.w),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -134,6 +132,7 @@ class _MemberRegistrationState extends State<MemberRegistration> {
                       CupertinoPageRoute(
                         builder: (context) => CheckRegistration(
                           member: member,
+                          memberDAO: memberDAO,
                         ),
                       ),
                     );

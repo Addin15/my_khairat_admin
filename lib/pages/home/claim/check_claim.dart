@@ -1,12 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:my_khairat_admin/models/claim.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:my_khairat_admin/constants/widget_constants.dart';
 import 'package:sizer/sizer.dart';
 import 'package:photo_view/photo_view.dart';
 
 class CheckClaim extends StatefulWidget {
-  const CheckClaim({Key? key}) : super(key: key);
+  const CheckClaim({Key? key, required this.claim}) : super(key: key);
 
+  final Claim claim;
   @override
   State<CheckClaim> createState() => _CheckClaimState();
 }
@@ -43,7 +47,7 @@ class _CheckClaimState extends State<CheckClaim> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       "Nama seperti IC",
                       style: TextStyle(
                           fontWeight: FontWeight.bold, color: Colors.grey),
@@ -52,17 +56,17 @@ class _CheckClaimState extends State<CheckClaim> {
                       height: 1.h,
                     ),
                     Text(
-                      "Ahmad Najmi Bin Abdul Halim",
+                      '${widget.claim.claimerName}',
                       style: TextStyle(color: Colors.grey),
                     ),
-                    Divider(
+                    const Divider(
                       color: Colors.grey,
                       thickness: 0.5,
                     ),
                     SizedBox(
                       height: 2.h,
                     ),
-                    Text(
+                    const Text(
                       "NO IC",
                       style: TextStyle(
                           fontWeight: FontWeight.bold, color: Colors.grey),
@@ -71,17 +75,17 @@ class _CheckClaimState extends State<CheckClaim> {
                       height: 1.h,
                     ),
                     Text(
-                      "001123-12-1211",
+                      '${widget.claim.claimerIC}',
                       style: TextStyle(color: Colors.grey),
                     ),
-                    Divider(
+                    const Divider(
                       color: Colors.grey,
                       thickness: 0.5,
                     ),
                     SizedBox(
                       height: 2.h,
                     ),
-                    Text(
+                    const Text(
                       "Kariah",
                       style: TextStyle(
                           fontWeight: FontWeight.bold, color: Colors.grey),
@@ -90,18 +94,18 @@ class _CheckClaimState extends State<CheckClaim> {
                       height: 1.h,
                     ),
                     Text(
-                      "Masjid Muda Musa",
+                      '${widget.claim.mosqueID}',
                       style: TextStyle(color: Colors.grey),
                     ),
-                    Divider(
+                    const Divider(
                       color: Colors.grey,
                       thickness: 0.5,
                     ),
                     SizedBox(
                       height: 2.h,
                     ),
-                    Text(
-                      "Bill berserta alamat",
+                    const Text(
+                      "Surat Kematian",
                       style: TextStyle(
                           fontWeight: FontWeight.bold, color: Colors.grey),
                     ),
@@ -111,10 +115,13 @@ class _CheckClaimState extends State<CheckClaim> {
                     GestureDetector(
                       onTap: () async {
                         await showDialog(
-                            context: context, builder: (_) => ImageDialog());
+                            context: context,
+                            builder: (_) => ImageDialog(
+                                  imagePath: widget.claim.claimerurl!,
+                                ));
                       },
-                      child: Image.network(
-                        'https://i.pinimg.com/236x/f7/2c/7e/f72c7e5e75ae1737feff8ef29d34cc73.jpg',
+                      child: Image.file(
+                        File(widget.claim.claimerurl!),
                         height: 30.h,
                         fit: BoxFit.fill,
                       ),
@@ -164,15 +171,15 @@ class _CheckClaimState extends State<CheckClaim> {
 }
 
 class ImageDialog extends StatelessWidget {
-  const ImageDialog({Key? key}) : super(key: key);
+  const ImageDialog({Key? key, required this.imagePath}) : super(key: key);
 
+  final String imagePath;
   @override
   Widget build(BuildContext context) {
     return Dialog(
         child: Container(
       child: PhotoView(
-        imageProvider: NetworkImage(
-            'https://i.pinimg.com/236x/f7/2c/7e/f72c7e5e75ae1737feff8ef29d34cc73.jpg'),
+        imageProvider: FileImage(File(imagePath)),
       ),
     ));
   }

@@ -83,11 +83,13 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                             backgroundColor: Colors.white,
                           ),
                           onPressed: () => Navigator.push(
-                              context,
-                              CupertinoPageRoute(
-                                  builder: (context) => PageVillage(
-                                        mosque: mosque,
-                                      ))),
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) => PageVillage(
+                                mosque: mosque,
+                              ),
+                            ),
+                          ),
                           child: Text(
                             (villages.isNotEmpty
                                     ? '${villages.length}'
@@ -154,7 +156,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                 onTap: () => Navigator.push(
                     context,
                     CupertinoPageRoute(
-                        builder: (context) => const PageClaim())),
+                        builder: (context) => PageClaim(mosqueID: mosque.id!))),
               ),
             ],
           ),
