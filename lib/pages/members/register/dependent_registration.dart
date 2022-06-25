@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:my_khairat_admin/DAO/member_dao.dart';
 import 'package:my_khairat_admin/constants/widget_constants.dart';
 import 'package:my_khairat_admin/models/member.dart';
+import 'package:my_khairat_admin/pages/members/register/add_dependent.dart';
 import 'package:my_khairat_admin/pages/members/register/view_member_registration.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:provider/provider.dart';
@@ -22,12 +23,35 @@ class _DependentRegistrationState extends State<DependentRegistration> {
       List<Member> members = memberDAO.pendingMembers;
       return Column(
         children: [
-          Text(
-            'Pendaftaran Tanggungan Ahli',
-            style: TextStyle(
-                color: AppColor.primary,
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w600),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Text(
+                  'Pendaftaran Tanggungan Ahli',
+                  style: TextStyle(
+                      color: AppColor.primary,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w600),
+                ),
+              ),
+              IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                      builder: (context) => AddDependent(),
+                    ),
+                  );
+                },
+                padding: EdgeInsets.zero,
+                icon: Icon(
+                  Icons.add_outlined,
+                  size: 22.sp,
+                  color: AppColor.primary,
+                ),
+              ),
+            ],
           ),
           SizedBox(height: 1.h),
           Expanded(

@@ -1,9 +1,11 @@
 import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:my_khairat_admin/DAO/member_dao.dart';
 import 'package:my_khairat_admin/models/member.dart';
+import 'package:my_khairat_admin/pages/members/view_member.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -79,21 +81,62 @@ class _MembersListState extends State<MembersList> {
                     ),
                   ],
                 ),
-                SizedBox(height: 1.h),
+                SizedBox(height: 2.5.h),
                 Expanded(
                   child: members.isNotEmpty
                       ? ListView.separated(
                           physics: const BouncingScrollPhysics(),
                           itemCount: members.length,
                           separatorBuilder: (context, index) {
-                            return SizedBox(height: 1.h);
+                            return SizedBox(height: 2.h);
                           },
                           itemBuilder: (context, index) {
                             Member member = members[index];
-                            return Column(
-                              children: [
-                                Text(member.name!),
-                              ],
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    CupertinoPageRoute(
+                                        builder: (context) =>
+                                            ViewMember(member: member)));
+                              },
+                              child: Card(
+                                elevation: 2,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.sp),
+                                ),
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 3.w,
+                                    vertical: 2.h,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(
+                                      8.sp,
+                                    ),
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        member.memberNo.toString(),
+                                        style: TextStyle(
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      SizedBox(height: 1.5.h),
+                                      Text(
+                                        member.name!,
+                                        style: TextStyle(
+                                          fontSize: 10.sp,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
                             );
                           },
                         )
