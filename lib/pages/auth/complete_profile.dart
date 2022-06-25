@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:my_khairat_admin/DAO/mosque_dao.dart';
 import 'package:my_khairat_admin/config/secure_storage.dart';
@@ -40,6 +41,8 @@ class _CompleteProfileState extends State<CompleteProfile> {
   final FocusNode _addressFocus = FocusNode();
 
   bool isLoading = false;
+
+  XFile? image;
 
   @override
   Widget build(BuildContext context) {
@@ -90,12 +93,14 @@ class _CompleteProfileState extends State<CompleteProfile> {
                               fontWeight: FontWeight.bold, fontSize: 15.sp),
                         ),
                       ),
+                      SizedBox(height: 1.h),
                       Form(
                         key: _formKey,
                         child: Expanded(
                           child: Center(
                             child: ListView(
                               shrinkWrap: true,
+                              physics: const BouncingScrollPhysics(),
                               children: [
                                 customTextFormField(
                                   hintText: 'Nama Masjid',
@@ -146,6 +151,158 @@ class _CompleteProfileState extends State<CompleteProfile> {
                                       ? null
                                       : 'Alamat hendaklah sekurangnya 6 angka!',
                                 ),
+                                SizedBox(height: 2.h),
+                                Text(
+                                  'SILA BUAT PEMBAYARAN DAN MUAT NAIK RESIT',
+                                  textAlign: TextAlign.center,
+                                ),
+                                SizedBox(height: 2.h),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8.sp),
+                                    border: Border.all(color: AppColor.primary),
+                                  ),
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 5.w,
+                                    vertical: 1.5.h,
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        'Maybank',
+                                        style: TextStyle(
+                                          fontSize: 12.sp,
+                                        ),
+                                      ),
+                                      SizedBox(height: 0.5.h),
+                                      Text(
+                                        '7121991281121',
+                                        style: TextStyle(
+                                          fontSize: 12.sp,
+                                        ),
+                                      ),
+                                      SizedBox(height: 0.5.h),
+                                      Text(
+                                        'RM10',
+                                        style: TextStyle(
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      SizedBox(height: 0.5.h),
+                                      TextButton(
+                                        style: TextButton.styleFrom(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 4.w, vertical: 0.5.h),
+                                          backgroundColor: image == null
+                                              ? Colors.grey
+                                              : AppColor.primary,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(5.sp),
+                                          ),
+                                        ),
+                                        onPressed: () async {
+                                          ImagePicker imagePicker =
+                                              ImagePicker();
+
+                                          await showDialog(
+                                            context: context,
+                                            builder: (context) => Dialog(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8.sp),
+                                              ),
+                                              insetPadding:
+                                                  EdgeInsets.symmetric(
+                                                vertical: 10.h,
+                                                horizontal: 10.w,
+                                              ),
+                                              child: SizedBox(
+                                                height: 10.h,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceEvenly,
+                                                  children: [
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        IconButton(
+                                                          onPressed: () async {
+                                                            XFile? file =
+                                                                await imagePicker
+                                                                    .pickImage(
+                                                                        source:
+                                                                            ImageSource.camera);
+                                                            Navigator.pop(
+                                                                context);
+
+                                                            if (mounted) {
+                                                              setState(() {
+                                                                image = file;
+                                                              });
+                                                            }
+                                                          },
+                                                          icon: Icon(Ionicons
+                                                              .camera_outline),
+                                                        ),
+                                                        Text('Kamera'),
+                                                      ],
+                                                    ),
+                                                    SizedBox(width: 2.w),
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        IconButton(
+                                                          onPressed: () async {
+                                                            XFile? file =
+                                                                await imagePicker
+                                                                    .pickImage(
+                                                                        source:
+                                                                            ImageSource.gallery);
+                                                            Navigator.pop(
+                                                                context);
+
+                                                            if (mounted) {
+                                                              setState(() {
+                                                                image = file;
+                                                              });
+                                                            }
+                                                          },
+                                                          icon: Icon(Ionicons
+                                                              .image_outline),
+                                                        ),
+                                                        Text('Galeri'),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        child: Text(
+                                          'Muat Naik',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(height: 1.h),
+                                      image == null
+                                          ? const SizedBox.shrink()
+                                          : Text(
+                                              image!.name,
+                                              textAlign: TextAlign.center,
+                                            ),
+                                    ],
+                                  ),
+                                ),
                                 SizedBox(height: 5.h),
                                 customTextButton(
                                   label: 'Selesai',
@@ -164,10 +321,13 @@ class _CompleteProfileState extends State<CompleteProfile> {
                                       state: _stateController.text,
                                       address: _addressController.text,
                                     );
-                                    if (_formKey.currentState!.validate()) {
+
+                                    if (_formKey.currentState!.validate() &&
+                                        image != null) {
                                       // Complete profile logic
+                                      log('complete');
                                       await widget.mosqueDAO
-                                          .completeProfile(newMosque);
+                                          .completeProfile(newMosque, image!);
                                     }
 
                                     setState(() {

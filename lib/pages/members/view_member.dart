@@ -70,9 +70,9 @@ class _ViewMemberState extends State<ViewMember> {
               children: [
                 GestureDetector(
                   onTap: () async {
-                    Uri uri = Uri.parse('mailto:${member.email}');
+                    // Uri uri = Uri.parse('mailto:${member.email}');
 
-                    launchUrl(uri);
+                    // launchUrl(uri);
                   },
                   child: Card(
                     shape: RoundedRectangleBorder(

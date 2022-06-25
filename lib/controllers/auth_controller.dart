@@ -1,8 +1,11 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:my_khairat_admin/config/config.dart';
 import 'package:my_khairat_admin/config/secure_storage.dart';
 import 'package:my_khairat_admin/constants/headers.dart';
@@ -60,23 +63,40 @@ class AuthController {
   }
 
   // Complete profile
-  static Future<bool> complete({required Mosque mosque}) async {
+  static Future<bool> complete(
+      {required Mosque mosque, required XFile image}) async {
     try {
       SecureStorage _secureStorage = SecureStorage();
       String _token = await _secureStorage.read('token');
       String url = '${Config.hostName}/committee/complete';
 
-      var response = await put(
-        Uri.parse(url),
-        body: jsonEncode(mosque.toMap()),
-        headers: headerswithToken(_token),
-      );
+      Map<String, String> data = mosque.toMap();
 
+      // var response = await put(
+      //   Uri.parse(url),
+      //   body: jsonEncode(data),
+      //   headers: headerswithToken(_token),
+
+      // );
+
+      var request = MultipartRequest('POST', Uri.parse(url))
+        ..fields.addAll(data)
+        ..headers.addAll({
+          'Content-Type': 'multipart/form-data',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ' + _token,
+        })
+        ..files.add(await MultipartFile.fromPath('image', image.path));
+
+      StreamedResponse stream = await request.send();
+
+      log(request.files.toString());
+
+      var response = await Response.fromStream(stream);
       log(response.body);
+
       if (response.statusCode == 201) {
-        if (jsonDecode(response.body) == 1) {
-          return true;
-        }
+        return true;
       }
 
       return false;

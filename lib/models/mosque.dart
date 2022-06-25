@@ -45,13 +45,13 @@ class Mosque extends HiveObject {
       state: map['profile']['mosque_state'] ?? '',
       address: map['profile']['mosque_address'] ?? '');
 
-  Map<String, dynamic> toMap() => {
-        'email': email,
-        'mosque_id': id,
-        'mosque_name': name,
-        'mosque_phone': phone,
-        'mosque_postcode': postcode,
-        'mosque_state': state,
-        'mosque_address': address,
+  Map<String, String> toMap() => {
+        'email': email.toString(),
+        'mosque_id': id.toString(),
+        'mosque_name': name.toString(),
+        'mosque_phone': phone.toString(),
+        'mosque_postcode': postcode.toString(),
+        'mosque_state': state.toString(),
+        'mosque_address': address.toString(),
       };
 }

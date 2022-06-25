@@ -12,7 +12,6 @@ class Member {
   int? memberNo;
   String? detailsProveImg;
   String? paymentProveImg;
-  String? email;
 
   Member({
     this.id,
@@ -28,7 +27,6 @@ class Member {
     this.memberNo,
     this.detailsProveImg,
     this.paymentProveImg,
-    this.email,
   });
 
   factory Member.fromMap(Map<String, dynamic> map) => Member(
@@ -45,7 +43,6 @@ class Member {
         memberNo: map['person_member_no'],
         detailsProveImg: map['person_details_prove'],
         paymentProveImg: map['person_payment_prove'],
-        email: map['email'],
       );
 
   toMap() => {
@@ -62,6 +59,5 @@ class Member {
         'person_member_no': memberNo,
         'person_details_prove': detailsProveImg,
         'person_payment_prove': paymentProveImg,
-        'email': email,
       };
 }

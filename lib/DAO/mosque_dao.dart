@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:my_khairat_admin/config/secure_storage.dart';
 import 'package:my_khairat_admin/controllers/auth_controller.dart';
 import 'package:my_khairat_admin/models/mosque.dart';
@@ -77,8 +78,11 @@ class MosqueDAO extends ChangeNotifier {
     }
   }
 
-  completeProfile(Mosque mosque) async {
-    bool res = await AuthController.complete(mosque: mosque);
+  completeProfile(Mosque mosque, XFile image) async {
+    bool res = await AuthController.complete(
+      mosque: mosque,
+      image: image,
+    );
     if (res) {
       SecureStorage _secureStorage = SecureStorage();
       String? _token = await _secureStorage.read('token');
