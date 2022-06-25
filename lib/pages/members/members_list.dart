@@ -22,84 +22,92 @@ class _MembersListState extends State<MembersList> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<MemberDAO>(
-      builder: (context, memberDAO, child) {
-        List<Member> members = memberDAO.members;
-        return GestureDetector(
-          onTap: () {
-            FocusScope.of(context).unfocus();
-          },
-          child: Column(
-            children: [
-              Text(
-                'Senarai Ahli',
-                style: TextStyle(
-                    color: AppColor.primary,
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w600),
-              ),
-              SizedBox(height: 1.h),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      controller: _searchController,
-                      focusNode: _searchFocus,
-                      decoration: InputDecoration(
-                        suffixIcon: Icon(
-                          Ionicons.search_outline,
-                          color: AppColor.primary,
-                        ),
-                        contentPadding: EdgeInsets.symmetric(horizontal: 2.w),
-                        isDense: true,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12.sp),
-                          borderSide: BorderSide(color: AppColor.primary),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12.sp),
-                          borderSide: BorderSide(color: AppColor.primary),
+    return RefreshIndicator(
+      onRefresh: () async {
+        setState(() {});
+      },
+      triggerMode: RefreshIndicatorTriggerMode.anywhere,
+      child: Consumer<MemberDAO>(
+        builder: (context, memberDAO, child) {
+          List<Member> members = memberDAO.members;
+          return GestureDetector(
+            onTap: () {
+              FocusScope.of(context).unfocus();
+            },
+            child: Column(
+              children: [
+                Text(
+                  'Senarai Ahli',
+                  style: TextStyle(
+                      color: AppColor.primary,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w600),
+                ),
+                SizedBox(height: 1.h),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        controller: _searchController,
+                        focusNode: _searchFocus,
+                        decoration: InputDecoration(
+                          suffixIcon: Icon(
+                            Ionicons.search_outline,
+                            color: AppColor.primary,
+                          ),
+                          contentPadding: EdgeInsets.symmetric(horizontal: 2.w),
+                          isDense: true,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12.sp),
+                            borderSide: BorderSide(color: AppColor.primary),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12.sp),
+                            borderSide: BorderSide(color: AppColor.primary),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(width: 1.w),
-                  IconButton(
+                    SizedBox(width: 1.w),
+                    IconButton(
                       onPressed: () {},
                       icon: Icon(
                         Ionicons.funnel_outline,
                         color: AppColor.primary,
                         size: 14.sp,
-                      ))
-                ],
-              ),
-              SizedBox(height: 1.h),
-              Expanded(
-                child: members.isNotEmpty
-                    ? ListView.separated(
-                        itemCount: members.length,
-                        separatorBuilder: (context, index) {
-                          return SizedBox(height: 1.h);
-                        },
-                        itemBuilder: (context, index) {
-                          Member member = members[index];
-                          return Column(
-                            children: [
-                              Text(member.name!),
-                            ],
-                          );
-                        },
-                      )
-                    : Container(
-                        color: Colors.transparent,
-                        alignment: Alignment.center,
-                        child: const Text('Tiada ahli'),
                       ),
-              ),
-            ],
-          ),
-        );
-      },
+                    ),
+                  ],
+                ),
+                SizedBox(height: 1.h),
+                Expanded(
+                  child: members.isNotEmpty
+                      ? ListView.separated(
+                          physics: const BouncingScrollPhysics(),
+                          itemCount: members.length,
+                          separatorBuilder: (context, index) {
+                            return SizedBox(height: 1.h);
+                          },
+                          itemBuilder: (context, index) {
+                            Member member = members[index];
+                            return Column(
+                              children: [
+                                Text(member.name!),
+                              ],
+                            );
+                          },
+                        )
+                      : Container(
+                          color: Colors.transparent,
+                          alignment: Alignment.center,
+                          child: const Text('Tiada ahli'),
+                        ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }

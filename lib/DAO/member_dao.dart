@@ -16,7 +16,7 @@ class MemberDAO extends ChangeNotifier {
   List<Member> get pendingMembers => _pendingMembers;
 
   initData(String mosqueID) async {
-    List<Member> members = await MemberController.getMembers(mosqueID);
+    List<Member> members = await MemberController.getMembers(mosqueID, 0);
 
     filterMembers(members);
   }
@@ -48,5 +48,21 @@ class MemberDAO extends ChangeNotifier {
     }
 
     return false;
+  }
+
+  acceptMember(String mosqueID, String id) async {
+    bool? res = await MemberController.acceptMember(mosqueID, id);
+
+    if (res) {
+      initData(mosqueID);
+    }
+  }
+
+  rejectMember(String mosqueID, String id) async {
+    bool? res = await MemberController.rejectMember(mosqueID, id);
+
+    if (res) {
+      initData(mosqueID);
+    }
   }
 }

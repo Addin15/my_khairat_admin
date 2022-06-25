@@ -9,7 +9,7 @@ import 'package:my_khairat_admin/models/member.dart';
 
 class MemberController {
   // Get all members
-  static Future<List<Member>> getMembers(String mosqueID) async {
+  static Future<List<Member>> getMembers(String mosqueID, int offset) async {
     try {
       SecureStorage _secureStorage = SecureStorage();
       String _token = await _secureStorage.read('token');
@@ -20,6 +20,7 @@ class MemberController {
         Uri.parse(url),
         body: jsonEncode({
           'mosque_id': mosqueID,
+          'offset': offset,
         }),
         headers: headerswithToken(_token),
       );
@@ -76,6 +77,64 @@ class MemberController {
     } catch (e) {
       log(e.toString());
       return null;
+    }
+  }
+
+  static Future<bool> acceptMember(String mosqueID, String id) async {
+    try {
+      SecureStorage _secureStorage = SecureStorage();
+      String _token = await _secureStorage.read('token');
+
+      String url = '${Config.hostName}/committee/members/accept';
+
+      var response = await post(
+        Uri.parse(url),
+        body: jsonEncode({
+          'mosque_id': mosqueID,
+          'id': id,
+        }),
+        headers: headerswithToken(_token),
+      );
+
+      log(response.body);
+
+      if (response.statusCode == 200) {
+        return true;
+      }
+
+      return false;
+    } catch (e) {
+      log(e.toString());
+      return false;
+    }
+  }
+
+  static Future<bool> rejectMember(String mosqueID, String id) async {
+    try {
+      SecureStorage _secureStorage = SecureStorage();
+      String _token = await _secureStorage.read('token');
+
+      String url = '${Config.hostName}/committee/members/reject';
+
+      var response = await post(
+        Uri.parse(url),
+        body: jsonEncode({
+          'mosque_id': mosqueID,
+          'id': id,
+        }),
+        headers: headerswithToken(_token),
+      );
+
+      log(response.body);
+
+      if (response.statusCode == 200) {
+        return true;
+      }
+
+      return false;
+    } catch (e) {
+      log(e.toString());
+      return false;
     }
   }
 }

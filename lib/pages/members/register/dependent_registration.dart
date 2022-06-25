@@ -101,16 +101,7 @@ class _DependentRegistrationState extends State<DependentRegistration> {
                 alignment: Alignment.centerRight,
                 child: customTextButton(
                   label: 'Lihat Butiran',
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      CupertinoPageRoute(
-                        builder: (context) => CheckRegistration(
-                          member: member,
-                        ),
-                      ),
-                    );
-                  },
+                  onPressed: () {},
                 ),
               ),
             ],

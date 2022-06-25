@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:my_khairat_admin/DAO/member_dao.dart';
+import 'package:my_khairat_admin/DAO/mosque_dao.dart';
 import 'package:my_khairat_admin/models/member.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:my_khairat_admin/constants/widget_constants.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:photo_view/photo_view.dart';
 
 class CheckRegistration extends StatefulWidget {
-  const CheckRegistration({required this.member, Key? key}) : super(key: key);
+  const CheckRegistration(
+      {required this.memberDAO, required this.member, Key? key})
+      : super(key: key);
 
+  final MemberDAO memberDAO;
   final Member member;
 
   @override
@@ -101,6 +107,60 @@ class _CheckRegistrationState extends State<CheckRegistration> {
                       ),
                       SizedBox(height: 2.h),
                       Text(
+                        'No Telefon',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey,
+                          fontSize: 12.sp,
+                        ),
+                      ),
+                      SizedBox(height: 1.h),
+                      Text(
+                        widget.member.phone!,
+                        style: TextStyle(
+                          color: Colors.black87,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14.sp,
+                        ),
+                      ),
+                      SizedBox(height: 2.h),
+                      Text(
+                        'Pekerjaan',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey,
+                          fontSize: 12.sp,
+                        ),
+                      ),
+                      SizedBox(height: 1.h),
+                      Text(
+                        widget.member.occupation!,
+                        style: TextStyle(
+                          color: Colors.black87,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14.sp,
+                        ),
+                      ),
+                      SizedBox(height: 2.h),
+                      Text(
+                        'Alamat',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey,
+                          fontSize: 12.sp,
+                        ),
+                      ),
+                      SizedBox(height: 1.h),
+                      Text(
+                        widget.member.address!,
+                        style: TextStyle(
+                          color: Colors.black87,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14.sp,
+                        ),
+                      ),
+                      SizedBox(height: 2.h),
+                      Text(
                         'Bukti Alamat',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -112,13 +172,15 @@ class _CheckRegistrationState extends State<CheckRegistration> {
                       GestureDetector(
                         onTap: () async {
                           await showDialog(
-                              context: context, builder: (_) => BillDialog());
+                              context: context,
+                              builder: (_) =>
+                                  viewPicture(widget.member.paymentProveImg));
                         },
                         child: Center(
                           child: Image.network(
-                            'https://i.pinimg.com/236x/f7/2c/7e/f72c7e5e75ae1737feff8ef29d34cc73.jpg',
+                            widget.member.detailsProveImg!,
                             height: 30.h,
-                            fit: BoxFit.fill,
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),
@@ -135,13 +197,15 @@ class _CheckRegistrationState extends State<CheckRegistration> {
                       GestureDetector(
                         onTap: () async {
                           await showDialog(
-                              context: context, builder: (_) => ResitDialog());
+                              context: context,
+                              builder: (_) =>
+                                  viewPicture(widget.member.paymentProveImg));
                         },
                         child: Center(
                           child: Image.network(
-                            'https://i.pinimg.com/236x/f7/2c/7e/f72c7e5e75ae1737feff8ef29d34cc73.jpg',
+                            widget.member.paymentProveImg!,
                             height: 30.h,
-                            fit: BoxFit.fill,
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),
@@ -152,7 +216,12 @@ class _CheckRegistrationState extends State<CheckRegistration> {
                         children: [
                           customTextButton(
                             label: 'Terima',
-                            onPressed: () {
+                            onPressed: () async {
+                              MosqueDAO mosqueDAO = Provider.of<MosqueDAO>(
+                                  context,
+                                  listen: false);
+                              await widget.memberDAO.acceptMember(
+                                  mosqueDAO.mosque!.id!, widget.member.id!);
                               Navigator.of(context).pop();
                             },
                           ),
@@ -160,7 +229,12 @@ class _CheckRegistrationState extends State<CheckRegistration> {
                             label: 'Tolak',
                             backgroundColor: Colors.red,
                             borderColor: Colors.red,
-                            onPressed: () {
+                            onPressed: () async {
+                              MosqueDAO mosqueDAO = Provider.of<MosqueDAO>(
+                                  context,
+                                  listen: false);
+                              await widget.memberDAO.rejectMember(
+                                  mosqueDAO.mosque!.id!, widget.member.id!);
                               Navigator.of(context).pop();
                             },
                           ),
@@ -174,34 +248,12 @@ class _CheckRegistrationState extends State<CheckRegistration> {
           )),
     );
   }
-}
 
-class BillDialog extends StatelessWidget {
-  const BillDialog({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
+  viewPicture(String? url) {
     return Dialog(
-        child: Container(
       child: PhotoView(
-        imageProvider: NetworkImage(
-            'https://i.pinimg.com/236x/f7/2c/7e/f72c7e5e75ae1737feff8ef29d34cc73.jpg'),
+        imageProvider: NetworkImage(url!),
       ),
-    ));
-  }
-}
-
-class ResitDialog extends StatelessWidget {
-  const ResitDialog({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
-        child: Container(
-      child: PhotoView(
-        imageProvider: NetworkImage(
-            'https://i.pinimg.com/236x/f7/2c/7e/f72c7e5e75ae1737feff8ef29d34cc73.jpg'),
-      ),
-    ));
+    );
   }
 }

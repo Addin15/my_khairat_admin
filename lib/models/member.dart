@@ -10,6 +10,8 @@ class Member {
   int? expireMonth;
   int? expireYear;
   int? memberNo;
+  String? detailsProveImg;
+  String? paymentProveImg;
 
   Member({
     this.id,
@@ -23,6 +25,8 @@ class Member {
     this.expireMonth,
     this.expireYear,
     this.memberNo,
+    this.detailsProveImg,
+    this.paymentProveImg,
   });
 
   factory Member.fromMap(Map<String, dynamic> map) => Member(
@@ -37,6 +41,8 @@ class Member {
         expireMonth: map['person_expire_month'],
         expireYear: map['person_expire_year'],
         memberNo: map['person_member_no'],
+        detailsProveImg: map['person_details_prove'],
+        paymentProveImg: map['person_payment_prove'],
       );
 
   toMap() => {
@@ -51,5 +57,7 @@ class Member {
         'person_expire_month': expireMonth,
         'person_expre_year': expireYear,
         'person_member_no': memberNo,
+        'person_details_prove': detailsProveImg,
+        'person_payment_prove': paymentProveImg,
       };
 }

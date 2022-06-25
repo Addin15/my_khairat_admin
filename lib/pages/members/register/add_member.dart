@@ -84,6 +84,7 @@ class _AddMemberState extends State<AddMember> {
                   ),
                   child: ListView(
                     shrinkWrap: true,
+                    physics: const BouncingScrollPhysics(),
                     children: [
                       errorText.isEmpty
                           ? const SizedBox.shrink()
@@ -299,6 +300,10 @@ class _AddMemberState extends State<AddMember> {
 
                             setState(() {
                               errorText = 'Masalah ketika pendaftaran';
+                              isAdding = false;
+                            });
+                          } else {
+                            setState(() {
                               isAdding = false;
                             });
                           }
