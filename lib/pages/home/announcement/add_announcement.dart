@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:my_khairat_admin/DAO/announcement_dao.dart';
 import 'package:my_khairat_admin/constants/widget_constants.dart';
 import 'package:my_khairat_admin/models/announcement.dart';
@@ -23,7 +25,7 @@ class _AddAnnouncementState extends State<AddAnnouncement> {
   final TextEditingController _contentController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey();
 
-  String imgURL = '';
+  XFile? image;
 
   String contentError = '';
 
@@ -166,16 +168,104 @@ class _AddAnnouncementState extends State<AddAnnouncement> {
                                     Icons.add_a_photo_outlined,
                                     size: 24.sp,
                                   ),
-                                  onPressed: () {},
+                                  onPressed: () async {
+                                    ImagePicker imagePicker = ImagePicker();
+
+                                    await showDialog(
+                                      context: context,
+                                      builder: (context) => Dialog(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(8.sp),
+                                        ),
+                                        insetPadding: EdgeInsets.symmetric(
+                                          vertical: 10.h,
+                                          horizontal: 10.w,
+                                        ),
+                                        child: SizedBox(
+                                          height: 10.h,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  IconButton(
+                                                    onPressed: () async {
+                                                      XFile? file =
+                                                          await imagePicker
+                                                              .pickImage(
+                                                                  source:
+                                                                      ImageSource
+                                                                          .camera);
+                                                      Navigator.pop(context);
+
+                                                      if (mounted &&
+                                                          file != null) {
+                                                        setState(() {
+                                                          image = file;
+                                                        });
+                                                      }
+                                                    },
+                                                    icon: Icon(Ionicons
+                                                        .camera_outline),
+                                                  ),
+                                                  Text('Kamera'),
+                                                ],
+                                              ),
+                                              SizedBox(width: 2.w),
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  IconButton(
+                                                    onPressed: () async {
+                                                      XFile? file = await imagePicker
+                                                          .pickImage(
+                                                              source:
+                                                                  ImageSource
+                                                                      .gallery);
+                                                      Navigator.pop(context);
+
+                                                      if (mounted &&
+                                                          file != null) {
+                                                        setState(() {
+                                                          image = file;
+                                                        });
+                                                      }
+                                                    },
+                                                    icon: Icon(
+                                                        Ionicons.image_outline),
+                                                  ),
+                                                  Text('Galeri'),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
                                   label: Text(
                                     'Tambah Gambar',
                                     style: TextStyle(fontSize: 12.sp),
                                   ),
                                 ),
                               ),
-                              SizedBox(
-                                height: 1.h,
-                              ),
+                              image == null
+                                  ? const SizedBox.shrink()
+                                  : Column(
+                                      children: [
+                                        SizedBox(height: 1.h),
+                                        Text(
+                                          image!.name,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ],
+                                    ),
+                              SizedBox(height: 2.h),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -227,21 +317,21 @@ class _AddAnnouncementState extends State<AddAnnouncement> {
                                                             widget
                                                                 .announcementDAO
                                                                 .addAnnouncement(
-                                                                    widget
-                                                                        .mosqueID,
-                                                                    Announcement(
-                                                                      title: _titleController
-                                                                          .text,
-                                                                      content:
-                                                                          _contentController
-                                                                              .text,
-                                                                      imgURL:
-                                                                          imgURL,
-                                                                      date: DateFormat(
-                                                                              'yyyy-MM-dd')
-                                                                          .format(
-                                                                              DateTime.now()),
-                                                                    ));
+                                                              widget.mosqueID,
+                                                              Announcement(
+                                                                title:
+                                                                    _titleController
+                                                                        .text,
+                                                                content:
+                                                                    _contentController
+                                                                        .text,
+                                                                date: DateFormat(
+                                                                        'yyyy-MM-dd')
+                                                                    .format(DateTime
+                                                                        .now()),
+                                                              ),
+                                                              image!,
+                                                            );
                                                             Navigator.pop(
                                                                 context);
                                                           }

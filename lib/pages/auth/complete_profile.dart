@@ -240,7 +240,8 @@ class _CompleteProfileState extends State<CompleteProfile> {
                                                             Navigator.pop(
                                                                 context);
 
-                                                            if (mounted) {
+                                                            if (mounted &&
+                                                                file != null) {
                                                               setState(() {
                                                                 image = file;
                                                               });
@@ -268,7 +269,8 @@ class _CompleteProfileState extends State<CompleteProfile> {
                                                             Navigator.pop(
                                                                 context);
 
-                                                            if (mounted) {
+                                                            if (mounted &&
+                                                                file != null) {
                                                               setState(() {
                                                                 image = file;
                                                               });

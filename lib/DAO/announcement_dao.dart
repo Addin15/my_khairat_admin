@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:my_khairat_admin/controllers/announcement_controller.dart';
 import 'package:my_khairat_admin/models/announcement.dart';
 
@@ -20,9 +21,10 @@ class AnnouncementDAO extends ChangeNotifier {
     notifyListeners();
   }
 
-  addAnnouncement(String mosqueID, Announcement announcement) async {
-    dynamic data =
-        await AnnouncementController.addAnnouncement(mosqueID, announcement);
+  addAnnouncement(
+      String mosqueID, Announcement announcement, XFile image) async {
+    dynamic data = await AnnouncementController.addAnnouncement(
+        mosqueID, announcement, image);
 
     if (data != null) {
       _announcements.add(data);

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:my_khairat_admin/DAO/announcement_dao.dart';
+import 'package:my_khairat_admin/config/config.dart';
 import 'package:my_khairat_admin/constants/widget_constants.dart';
 import 'package:my_khairat_admin/models/announcement.dart';
 import 'package:my_khairat_admin/pages/home/announcement/edit_announcement.dart';
@@ -58,12 +59,14 @@ class _ViewAnnouncementState extends State<ViewAnnouncement> {
                       padding: EdgeInsets.all(5.sp),
                       width: 70.w,
                       height: 70.h,
-                      child: Column(
+                      child: ListView(
+                        shrinkWrap: true,
                         children: [
                           widget.announcement.imgURL == null ||
                                   widget.announcement.imgURL!.isEmpty
                               ? const SizedBox.shrink()
-                              : Image.network(widget.announcement.imgURL!),
+                              : Image.network(
+                                  Config.host + widget.announcement.imgURL!),
                           SizedBox(height: 2.h),
                           Center(
                             child: Text(

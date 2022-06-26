@@ -90,8 +90,6 @@ class AuthController {
 
       StreamedResponse stream = await request.send();
 
-      log(request.files.toString());
-
       var response = await Response.fromStream(stream);
       log(response.body);
 

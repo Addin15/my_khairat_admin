@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:http/http.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:my_khairat_admin/config/config.dart';
 import 'package:my_khairat_admin/config/secure_storage.dart';
 import 'package:my_khairat_admin/constants/headers.dart';
@@ -44,26 +45,38 @@ class AnnouncementController {
 
   // Add announcement
   static Future<dynamic> addAnnouncement(
-      String mosqueID, Announcement announcement) async {
+      String mosqueID, Announcement announcement, XFile image) async {
     try {
       SecureStorage _secureStorage = SecureStorage();
       String _token = await _secureStorage.read('token');
 
       String url = '${Config.hostName}/committee/announcements/add';
 
-      Map<String, dynamic> data = {
+      Map<String, String> data = {
         'mosque_id': mosqueID,
-        'announcement_title': announcement.title,
-        'announcement_content': announcement.content,
-        'announcement_img_url': announcement.imgURL,
-        'announcement_date': announcement.date,
+        'announcement_title': announcement.title!,
+        'announcement_content': announcement.content!,
+        'announcement_date': announcement.date!,
       };
 
-      var response = await post(
-        Uri.parse(url),
-        body: jsonEncode(data),
-        headers: headerswithToken(_token),
-      );
+      // var response = await post(
+      //   Uri.parse(url),
+      //   body: jsonEncode(data),
+      //   headers: headerswithToken(_token),
+      // );
+
+      var request = MultipartRequest('POST', Uri.parse(url))
+        ..fields.addAll(data)
+        ..headers.addAll({
+          'Content-Type': 'multipart/form-data',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ' + _token,
+        })
+        ..files.add(await MultipartFile.fromPath('image', image.path));
+
+      StreamedResponse stream = await request.send();
+
+      var response = await Response.fromStream(stream);
 
       log(response.body);
 
