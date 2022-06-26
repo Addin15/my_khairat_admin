@@ -11,8 +11,10 @@ customTextFormField({
   required FocusNode focusNode,
   required String? Function(String? text) validator,
   bool isObscured = false,
+  TextInputType inputType = TextInputType.name,
 }) =>
     TextFormField(
+      keyboardType: inputType,
       decoration: InputDecoration(
         hintText: hintText,
         prefixIcon: Icon(

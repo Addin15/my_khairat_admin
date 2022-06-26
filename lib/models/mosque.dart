@@ -26,6 +26,14 @@ class Mosque extends HiveObject {
   @HiveField(6)
   String? address;
 
+  String? bankName;
+
+  String? bankOwnerName;
+
+  String? bankAccountNo;
+
+  double? monthlyFee;
+
   Mosque({
     this.id,
     this.email,
@@ -34,16 +42,25 @@ class Mosque extends HiveObject {
     this.postcode,
     this.state,
     this.address,
+    this.bankName,
+    this.bankOwnerName,
+    this.bankAccountNo,
+    this.monthlyFee,
   });
 
   factory Mosque.fromMap(Map<String, dynamic> map) => Mosque(
-      email: map['user']['email'],
-      id: map['profile']['mosque_id'].toString(),
-      name: map['profile']['mosque_name'] ?? '',
-      phone: map['profile']['mosque_phone'] ?? '',
-      postcode: map['profile']['mosque_postcode'] ?? '',
-      state: map['profile']['mosque_state'] ?? '',
-      address: map['profile']['mosque_address'] ?? '');
+        email: map['user']['email'],
+        id: map['profile']['mosque_id'].toString(),
+        name: map['profile']['mosque_name'] ?? '',
+        phone: map['profile']['mosque_phone'] ?? '',
+        postcode: map['profile']['mosque_postcode'] ?? '',
+        state: map['profile']['mosque_state'] ?? '',
+        address: map['profile']['mosque_address'] ?? '',
+        bankName: map['profile']['mosque_bank_name'] ?? '',
+        bankOwnerName: map['profile']['mosque_bank_owner_name'] ?? '',
+        bankAccountNo: map['profile']['mosque_bank_no'] ?? '',
+        monthlyFee: map['profile']['mosque_monthly_fee'] ?? 0,
+      );
 
   Map<String, String> toMap() => {
         'email': email.toString(),
@@ -53,5 +70,9 @@ class Mosque extends HiveObject {
         'mosque_postcode': postcode.toString(),
         'mosque_state': state.toString(),
         'mosque_address': address.toString(),
+        'mosque_bank_name': bankName.toString(),
+        'mosque_bank_owner_name': bankOwnerName.toString(),
+        'mosque_bank_no': bankAccountNo.toString(),
+        'mosque_monthly_fee': monthlyFee.toString(),
       };
 }

@@ -11,6 +11,7 @@ import 'package:my_khairat_admin/controllers/auth_controller.dart';
 import 'package:my_khairat_admin/models/mosque.dart';
 import 'package:my_khairat_admin/pages/auth/login.dart';
 import 'package:my_khairat_admin/pages/setting/bank_details.dart';
+import 'package:my_khairat_admin/pages/setting/edit_bank_details.dart';
 import 'package:my_khairat_admin/pages/setting/view_plan.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:provider/provider.dart';

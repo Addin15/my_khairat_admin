@@ -33,12 +33,22 @@ class _CompleteProfileState extends State<CompleteProfile> {
   final TextEditingController _postcodeController = TextEditingController();
   final TextEditingController _stateController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _bankNameController = TextEditingController();
+  final TextEditingController _bankOwnerNameController =
+      TextEditingController();
+  final TextEditingController _bankAccountNoController =
+      TextEditingController();
+  final TextEditingController _monthlyFeeController = TextEditingController();
 
   final FocusNode _nameFocus = FocusNode();
   final FocusNode _phoneNoFocus = FocusNode();
   final FocusNode _postcodeFocus = FocusNode();
   final FocusNode _stateFocus = FocusNode();
   final FocusNode _addressFocus = FocusNode();
+  final FocusNode _bankNameFocus = FocusNode();
+  final FocusNode _bankOwnerNameFocus = FocusNode();
+  final FocusNode _bankAccountNoFocus = FocusNode();
+  final FocusNode _monthlyFeeFocus = FocusNode();
 
   bool isLoading = false;
 
@@ -93,7 +103,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                               fontWeight: FontWeight.bold, fontSize: 15.sp),
                         ),
                       ),
-                      SizedBox(height: 1.h),
+                      SizedBox(height: 3.h),
                       Form(
                         key: _formKey,
                         child: Expanded(
@@ -102,6 +112,12 @@ class _CompleteProfileState extends State<CompleteProfile> {
                               shrinkWrap: true,
                               physics: const BouncingScrollPhysics(),
                               children: [
+                                Text(
+                                  'MAKLUMAT MASJID',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize: 10.sp),
+                                ),
+                                SizedBox(height: 1.h),
                                 customTextFormField(
                                   hintText: 'Nama Masjid',
                                   icon: Ionicons.home,
@@ -153,8 +169,69 @@ class _CompleteProfileState extends State<CompleteProfile> {
                                 ),
                                 SizedBox(height: 2.h),
                                 Text(
+                                  'MAKLUMAT PEMBAYARAN KHAIRAT',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize: 10.sp),
+                                ),
+                                SizedBox(height: 1.h),
+                                customTextFormField(
+                                  hintText: 'Nama Bank',
+                                  icon: Ionicons.card,
+                                  controller: _bankNameController,
+                                  focusNode: _bankNameFocus,
+                                  validator: (val) => val!.isEmpty
+                                      ? 'Sila isi nama bank'
+                                      : null,
+                                ),
+                                SizedBox(height: 2.h),
+                                customTextFormField(
+                                  hintText: 'Nama Pemilik Akaun',
+                                  icon: Ionicons.card,
+                                  controller: _bankOwnerNameController,
+                                  focusNode: _bankOwnerNameFocus,
+                                  validator: (val) => val!.isEmpty
+                                      ? 'Sila isi nama pemilik akaun'
+                                      : null,
+                                ),
+                                SizedBox(height: 2.h),
+                                customTextFormField(
+                                    hintText: 'No Akaun Bank',
+                                    icon: Ionicons.card,
+                                    controller: _bankAccountNoController,
+                                    focusNode: _bankAccountNoFocus,
+                                    inputType: TextInputType.number,
+                                    validator: (val) {
+                                      if (val == null) {
+                                        return null;
+                                      }
+                                      final n = num.tryParse(val);
+                                      if (n == null) {
+                                        return 'Sila isi nombor yang sah';
+                                      }
+                                      return null;
+                                    }),
+                                SizedBox(height: 2.h),
+                                customTextFormField(
+                                    hintText: 'Yuran Bulanan (RM)',
+                                    icon: Ionicons.cash,
+                                    controller: _monthlyFeeController,
+                                    focusNode: _monthlyFeeFocus,
+                                    inputType: TextInputType.number,
+                                    validator: (val) {
+                                      if (val == null) {
+                                        return null;
+                                      }
+                                      final n = num.tryParse(val);
+                                      if (n == null) {
+                                        return 'Sila isi nombor yang sah';
+                                      }
+                                      return null;
+                                    }),
+                                SizedBox(height: 2.h),
+                                Text(
                                   'SILA BUAT PEMBAYARAN DAN MUAT NAIK RESIT',
                                   textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize: 10.sp),
                                 ),
                                 SizedBox(height: 2.h),
                                 Container(
@@ -322,6 +399,13 @@ class _CompleteProfileState extends State<CompleteProfile> {
                                       postcode: _postcodeController.text,
                                       state: _stateController.text,
                                       address: _addressController.text,
+                                      bankName: _bankNameController.text,
+                                      bankOwnerName:
+                                          _bankOwnerNameController.text,
+                                      bankAccountNo:
+                                          _bankAccountNoController.text,
+                                      monthlyFee: double.parse(
+                                          _monthlyFeeController.text),
                                     );
 
                                     if (_formKey.currentState!.validate() &&
