@@ -65,6 +65,7 @@ customTextButton({
       onPressed: onPressed,
       child: Text(
         label,
+        textAlign: TextAlign.center,
         style: TextStyle(
           color: labelColor ?? Colors.white,
           fontSize: 12.sp,

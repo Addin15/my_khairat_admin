@@ -117,9 +117,15 @@ class _SettingState extends State<Setting> with AutomaticKeepAliveClientMixin {
                             onTap: () {
                               // Click on plan
                               Navigator.push(
-                                  context,
-                                  CupertinoPageRoute(
-                                      builder: (context) => const ViewPlan()));
+                                context,
+                                CupertinoPageRoute(
+                                  builder: (context) => ViewPlan(
+                                    mosqueID: mosque.id,
+                                    expireMonth: mosque.expireMonth,
+                                    expireYear: mosque.expireYear,
+                                  ),
+                                ),
+                              );
                             },
                             child: Row(
                               children: [
@@ -146,7 +152,7 @@ class _SettingState extends State<Setting> with AutomaticKeepAliveClientMixin {
                                   ),
                                 ),
                                 Text(
-                                  '${DateFormat('dd/MM/yyyy').format(DateTime.now())}',
+                                  '${mosque.expireMonth}/${mosque.expireYear}',
                                   style: TextStyle(
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w400,
