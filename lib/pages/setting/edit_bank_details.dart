@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:my_khairat_admin/DAO/mosque_dao.dart';
 import 'package:my_khairat_admin/constants/widget_constants.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:my_khairat_admin/styles/custom_text_field.dart';
+import 'package:sizer/sizer.dart';
 
 class EditBankDetails extends StatefulWidget {
   const EditBankDetails({
@@ -37,6 +39,9 @@ class _EditBankDetailsState extends State<EditBankDetails> {
 
   final GlobalKey<FormState> _formKey = GlobalKey();
 
+  bool isSaving = false;
+  bool isError = false;
+
   @override
   void initState() {
     _bankNameController = TextEditingController(text: widget.bankName);
@@ -49,86 +54,133 @@ class _EditBankDetailsState extends State<EditBankDetails> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-      },
-      child: Scaffold(
-        appBar: customAppBar(
-          context: context,
-          title: Text(
-            'Maklumat Bank',
-            style: TextStyle(color: AppColor.primary),
-          ),
-        ),
-        body: Container(
-          decoration: const BoxDecoration(
-            color: Colors.white54,
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Maklumat Bank',
-                  style: TextStyle(
-                    color: AppColor.primary,
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                CustomTextFormField(
-                  hintText: 'Nama Bank',
-                  focusNode: _bankNameFocus,
-                  controller: _bankNameController,
-                ),
-                const SizedBox(height: 10),
-                CustomTextFormField(
-                  hintText: 'Nama Pemilik Bank',
-                  focusNode: _bankOwnerFocus,
-                  controller: _bankOwnerController,
-                ),
-                const SizedBox(height: 10),
-                CustomTextFormField(
-                  hintText: 'No Bank',
-                  focusNode: _bankNoFocus,
-                  controller: _bankNoController,
-                ),
-                const SizedBox(height: 10),
-                CustomTextFormField(
-                  hintText: 'Bayaran Bulanan',
-                  focusNode: _monthlyPaymentFocus,
-                  controller: _monthlyPaymentController,
-                ),
-                const SizedBox(height: 15),
-                TextButton(
-                  style: TextButton.styleFrom(
-                    backgroundColor: AppColor.primary,
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 15,
-                      horizontal: 20,
+    return Stack(
+      children: [
+        GestureDetector(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
+          child: Scaffold(
+            appBar: customAppBar(
+              context: context,
+              title: Text(
+                'Maklumat Bank',
+                style: TextStyle(color: AppColor.primary),
+              ),
+            ),
+            body: Container(
+              decoration: const BoxDecoration(
+                color: Colors.white54,
+              ),
+              alignment: Alignment.center,
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: Form(
+                key: _formKey,
+                child: ListView(
+                  shrinkWrap: true,
+                  children: [
+                    !isError
+                        ? const SizedBox.shrink()
+                        : Column(
+                            children: [
+                              Text(
+                                'Masalah berlaku. Data tidak disimpan',
+                                style: TextStyle(
+                                  color: Colors.red,
+                                  fontSize: 12.sp,
+                                ),
+                              ),
+                              SizedBox(height: 2.h),
+                            ],
+                          ),
+                    Text(
+                      'Maklumat Bank',
+                      style: TextStyle(
+                        color: AppColor.primary,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+                    SizedBox(height: 2.h),
+                    CustomTextFormField(
+                      hintText: 'Nama Bank',
+                      focusNode: _bankNameFocus,
+                      controller: _bankNameController,
                     ),
-                  ),
-                  onPressed: () async {
-                    FocusScope.of(context).unfocus();
-                    Navigator.pop(context);
-                  },
-                  child: const Text(
-                    'Selesai',
-                    style: TextStyle(color: Colors.white),
-                  ),
+                    SizedBox(height: 2.h),
+                    CustomTextFormField(
+                      hintText: 'Nama Pemilik Bank',
+                      focusNode: _bankOwnerFocus,
+                      controller: _bankOwnerController,
+                    ),
+                    SizedBox(height: 2.h),
+                    CustomTextFormField(
+                      hintText: 'No Bank',
+                      focusNode: _bankNoFocus,
+                      controller: _bankNoController,
+                    ),
+                    SizedBox(height: 2.h),
+                    CustomTextFormField(
+                      hintText: 'Bayaran Bulanan',
+                      focusNode: _monthlyPaymentFocus,
+                      controller: _monthlyPaymentController,
+                    ),
+                    SizedBox(height: 3.h),
+                    TextButton(
+                      style: TextButton.styleFrom(
+                        backgroundColor: AppColor.primary,
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 15,
+                          horizontal: 20,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      onPressed: () async {
+                        FocusScope.of(context).unfocus();
+
+                        setState(() {
+                          isSaving = true;
+                        });
+
+                        bool res = await widget.mosqueDAO.editBankDetails({
+                          'mosque_id': widget.mosqueDAO.mosque!.id,
+                          'bank_name': _bankNameController.text,
+                          'bank_owner_name': _bankOwnerController.text,
+                          'bank_account_no': _bankNoController.text,
+                          'monthly_fee': _monthlyPaymentController.text,
+                        });
+
+                        if (res) {
+                          Navigator.pop(context);
+                        } else {
+                          setState(() {
+                            isSaving = false;
+                          });
+                        }
+                      },
+                      child: const Text(
+                        'Selesai',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
         ),
-      ),
+        !isSaving
+            ? const SizedBox.shrink()
+            : Container(
+                color: Colors.white.withAlpha(200),
+                alignment: Alignment.center,
+                child: SpinKitChasingDots(
+                  color: AppColor.primary,
+                ),
+              ),
+      ],
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_khairat_admin/config/secure_storage.dart';
 import 'package:my_khairat_admin/controllers/auth_controller.dart';
+import 'package:my_khairat_admin/controllers/user_controller.dart';
 import 'package:my_khairat_admin/models/mosque.dart';
 
 class MosqueDAO extends ChangeNotifier {
@@ -106,6 +107,30 @@ class MosqueDAO extends ChangeNotifier {
 
     _mosque = null;
     notifyListeners();
+  }
+
+  editBankDetails(Map<String, dynamic> data) async {
+    bool res = await UserController.editBankDetails(data);
+
+    if (res) {
+      Mosque latest = mosque!;
+
+      latest.bankName = data['bank_name'];
+      latest.bankOwnerName = data['bank_owner_name'];
+      latest.bankAccountNo = data['bank_account_no'];
+      latest.monthlyFee = double.parse(data['monthly_fee']);
+
+      SecureStorage _secureStorage = SecureStorage();
+      String? _token = await _secureStorage.read('token');
+      // Cache user data by token
+      Box _mosqueBox = await Hive.openBox('mosque');
+      _mosqueBox.put(
+        _token,
+        latest,
+      );
+
+      notifyListeners();
+    }
   }
 
   // Caught exception purpose

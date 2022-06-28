@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:my_khairat_admin/DAO/plan_dao.dart';
 import 'package:my_khairat_admin/constants/widget_constants.dart';
 import 'package:my_khairat_admin/models/plan.dart';
@@ -100,12 +101,50 @@ class _ViewPlanState extends State<ViewPlan> {
                                 borderRadius: BorderRadius.circular(5.sp)),
                             child: Container(
                               padding: EdgeInsets.symmetric(
-                                horizontal: 10.w,
+                                horizontal: 5.w,
                                 vertical: 2.h,
                               ),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5.sp)),
-                              child: Text(plan.remark!),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          plan.remark!,
+                                          style: TextStyle(
+                                            fontSize: 13.sp,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        SizedBox(height: 1.h),
+                                        Text(
+                                          DateFormat('yyyy-MM-dd').format(
+                                              DateTime.parse(plan.date!)),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Text(
+                                    plan.isDone == true
+                                        ? plan.isRejected == true
+                                            ? 'Rejected'
+                                            : 'Accepted'
+                                        : 'Pending',
+                                    style: TextStyle(
+                                      fontStyle: FontStyle.italic,
+                                      color: plan.isDone == true
+                                          ? plan.isRejected == true
+                                              ? Colors.red
+                                              : Colors.green
+                                          : Colors.grey,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           );
                         }).toList()
