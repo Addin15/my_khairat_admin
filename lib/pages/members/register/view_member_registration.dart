@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:my_khairat_admin/DAO/member_dao.dart';
 import 'package:my_khairat_admin/DAO/mosque_dao.dart';
+import 'package:my_khairat_admin/config/config.dart';
 import 'package:my_khairat_admin/models/member.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:my_khairat_admin/constants/widget_constants.dart';
@@ -173,12 +176,12 @@ class _CheckRegistrationState extends State<CheckRegistration> {
                         onTap: () async {
                           await showDialog(
                               context: context,
-                              builder: (_) =>
-                                  viewPicture(widget.member.paymentProveImg));
+                              builder: (_) => viewPicture(Config.host +
+                                  widget.member.paymentProveImg!));
                         },
                         child: Center(
                           child: Image.network(
-                            widget.member.detailsProveImg!,
+                            Config.host + widget.member.detailsProveImg!,
                             height: 30.h,
                             fit: BoxFit.cover,
                           ),
@@ -198,12 +201,12 @@ class _CheckRegistrationState extends State<CheckRegistration> {
                         onTap: () async {
                           await showDialog(
                               context: context,
-                              builder: (_) =>
-                                  viewPicture(widget.member.paymentProveImg));
+                              builder: (_) => viewPicture(Config.host +
+                                  widget.member.paymentProveImg!));
                         },
                         child: Center(
                           child: Image.network(
-                            widget.member.paymentProveImg!,
+                            Config.host + widget.member.paymentProveImg!,
                             height: 30.h,
                             fit: BoxFit.cover,
                           ),

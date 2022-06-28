@@ -14,7 +14,7 @@ class PaymentDAO extends ChangeNotifier {
     notifyListeners();
   }
 
-  get payments => _payments;
+  List<Payment> get payments => _payments;
 
   changePaymentStatus(String paymentID, String status) async {
     bool res = await PaymentController.actionOnPayment(paymentID, status);

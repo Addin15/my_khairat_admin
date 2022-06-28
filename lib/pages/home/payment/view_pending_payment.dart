@@ -77,7 +77,7 @@ class _ViewPendingPaymentState extends State<ViewPendingPayment> {
                     children: [
                       Text(
                         DateFormat('dd/MM/yyyy')
-                            .format(DateTime.parse(p.paymentDate!)),
+                            .format(DateTime.parse(p.date!)),
                         style: TextStyle(color: Colors.grey.shade600),
                       ),
                       GestureDetector(
@@ -126,30 +126,6 @@ class _ViewPendingPaymentState extends State<ViewPendingPayment> {
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Text(
-                                    p.startMonth == p.endMonth &&
-                                            p.startYear == p.endYear
-                                        ? '${p.startMonth}/${p.startYear}'
-                                        : '${p.startMonth}/${p.startYear} hingga ${p.endMonth}/${p.endYear}',
-                                    style: TextStyle(
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                  SizedBox(height: 0.5.h),
-                                  Text(
-                                    'RM${p.amount!.toStringAsFixed(2)}',
-                                    style: TextStyle(
-                                      color: AppColor.primary,
-                                      fontSize: 18.sp,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
                               ),
                             ],
                           ),

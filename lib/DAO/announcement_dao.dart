@@ -22,7 +22,7 @@ class AnnouncementDAO extends ChangeNotifier {
   }
 
   addAnnouncement(
-      String mosqueID, Announcement announcement, XFile image) async {
+      String mosqueID, Announcement announcement, XFile? image) async {
     dynamic data = await AnnouncementController.addAnnouncement(
         mosqueID, announcement, image);
 

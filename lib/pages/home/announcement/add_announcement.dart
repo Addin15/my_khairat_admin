@@ -309,32 +309,31 @@ class _AddAnnouncementState extends State<AddAnnouncement> {
                                                   customTextButton(
                                                       label: 'Tambah',
                                                       onPressed: () {
-                                                        if (contentError
-                                                            .isNotEmpty) {
-                                                          if (_formKey
-                                                              .currentState!
-                                                              .validate()) {
-                                                            widget
-                                                                .announcementDAO
-                                                                .addAnnouncement(
-                                                              widget.mosqueID,
-                                                              Announcement(
-                                                                title:
-                                                                    _titleController
-                                                                        .text,
-                                                                content:
-                                                                    _contentController
-                                                                        .text,
-                                                                date: DateFormat(
-                                                                        'yyyy-MM-dd')
-                                                                    .format(DateTime
-                                                                        .now()),
-                                                              ),
-                                                              image!,
-                                                            );
-                                                            Navigator.pop(
-                                                                context);
-                                                          }
+                                                        if (_formKey
+                                                                .currentState!
+                                                                .validate() &&
+                                                            _contentController
+                                                                .text
+                                                                .isNotEmpty) {
+                                                          widget.announcementDAO
+                                                              .addAnnouncement(
+                                                            widget.mosqueID,
+                                                            Announcement(
+                                                              title:
+                                                                  _titleController
+                                                                      .text,
+                                                              content:
+                                                                  _contentController
+                                                                      .text,
+                                                              date: DateFormat(
+                                                                      'yyyy-MM-dd')
+                                                                  .format(DateTime
+                                                                      .now()),
+                                                            ),
+                                                            image,
+                                                          );
+                                                          Navigator.pop(
+                                                              context);
                                                         } else {
                                                           setState(() {
                                                             contentError =

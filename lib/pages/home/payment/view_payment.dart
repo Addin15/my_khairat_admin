@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_khairat_admin/config/config.dart';
 import 'package:my_khairat_admin/constants/widget_constants.dart';
 import 'package:my_khairat_admin/controllers/payment_controller.dart';
 import 'package:my_khairat_admin/models/payment.dart';
@@ -20,8 +21,8 @@ class ViewPayment extends StatelessWidget {
           style: TextStyle(color: AppColor.primary),
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      body: ListView(
+        shrinkWrap: true,
         children: [
           Container(
             width: 100.w,
@@ -35,105 +36,24 @@ class ViewPayment extends StatelessWidget {
               ),
             ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   payment.payerName!,
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 20.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+                SizedBox(height: 1.h),
+                Text('Tamat Tempoh:  ' +
+                    payment.payerMonth.toString() +
+                    '/' +
+                    payment.payerYear.toString()),
                 SizedBox(height: 2.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Tempoh Sah:',
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(width: 2.w),
-                    SizedBox(
-                      width: 40.w,
-                      child: Text(
-                        payment.startMonth == payment.endMonth &&
-                                payment.startYear == payment.endYear
-                            ? '${payment.startMonth}/${payment.startYear}'
-                            : '${payment.startMonth}/${payment.startYear} hingga ${payment.endMonth}/${payment.endYear}',
-                        textAlign: TextAlign.end,
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          color: AppColor.primary,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
                 SizedBox(height: 1.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Jumlah:',
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(width: 2.w),
-                    SizedBox(
-                      width: 40.w,
-                      child: Text(
-                        'RM${payment.amount!.toStringAsFixed(2)}',
-                        textAlign: TextAlign.end,
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          color: AppColor.primary,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 1.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Resit:',
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(width: 2.w),
-                    SizedBox(
-                      width: 40.w,
-                      child: TextButton(
-                        onPressed: () {},
-                        style: TextButton.styleFrom(
-                          backgroundColor: Colors.grey,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 5.w, vertical: 1.h),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5.sp),
-                          ),
-                        ),
-                        child: Text(
-                          'receipt',
-                          style:
-                              TextStyle(fontSize: 12.sp, color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                Image.network(Config.host + payment.proveURL!),
               ],
             ),
           ),

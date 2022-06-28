@@ -106,12 +106,14 @@ class _ViewAnnouncementState extends State<ViewAnnouncement> {
                       label: 'Sunting',
                       onPressed: () {
                         Navigator.push(
-                            context,
-                            CupertinoPageRoute(
-                                builder: (context) => EditAnnouncement(
-                                      announcementDAO: widget.announcementDAO,
-                                      announcement: widget.announcement,
-                                    )));
+                          context,
+                          CupertinoPageRoute(
+                            builder: (context) => EditAnnouncement(
+                              announcementDAO: widget.announcementDAO,
+                              announcement: widget.announcement,
+                            ),
+                          ),
+                        );
                       }),
                   SizedBox(
                     width: 5.w,
@@ -167,6 +169,10 @@ class _ViewAnnouncementState extends State<ViewAnnouncement> {
                                     ),
                                     ElevatedButton(
                                       onPressed: () {
+                                        widget.announcementDAO
+                                            .deleteAnnouncement(
+                                                widget.announcement);
+                                        Navigator.pop(context);
                                         Navigator.pop(context);
                                       },
                                       child: Text(

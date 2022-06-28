@@ -57,7 +57,7 @@ class _PagePaymentState extends State<PagePayment> {
   filterPayments() {
     filteredPayments.clear();
     for (var payment in payments) {
-      if (DateTime.parse(payment.paymentDate!).month == selectedMonth &&
+      if (DateTime.parse(payment.date!).month == selectedMonth &&
           payment.status == 'completed') {
         filteredPayments.add(payment);
       }
@@ -262,37 +262,31 @@ class _PagePaymentState extends State<PagePayment> {
                                     children: [
                                       Expanded(
                                           child: Text(
-                                              filteredPayments[index]
-                                                  .payerName!,
+                                              DateFormat('yyyy-MM-dd').format(
+                                                  DateTime.parse(
+                                                      filteredPayments[index]
+                                                          .date!)),
                                               style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 14.sp,
                                                 fontWeight: FontWeight.bold,
                                               ))),
                                       SizedBox(width: 1.5.w),
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: [
-                                          Text(
-                                            'RM${filteredPayments[index].amount!.toStringAsFixed(2)}',
-                                            style: TextStyle(
-                                              color: Colors.green,
-                                              fontSize: 16.sp,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          Text(
-                                            DateFormat('dd/MM/yyyy').format(
-                                                DateTime.parse(
-                                                    filteredPayments[index]
-                                                        .paymentDate!)),
-                                            style: const TextStyle(
-                                                color: Colors.white),
-                                          ),
-                                        ],
+                                      Text(
+                                        filteredPayments[index].status!,
+                                        style: TextStyle(
+                                          color:
+                                              filteredPayments[index].status! ==
+                                                      'pending'
+                                                  ? Colors.white
+                                                  : filteredPayments[index]
+                                                              .status! ==
+                                                          'completed'
+                                                      ? Colors.green
+                                                      : Colors.red,
+                                          fontSize: 12.sp,
+                                          fontStyle: FontStyle.italic,
+                                        ),
                                       ),
                                     ],
                                   ),

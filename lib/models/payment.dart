@@ -2,54 +2,46 @@ class Payment {
   String? id;
   String? payerID;
   String? payerName;
-  String? paymentDate;
-  int? startMonth;
-  int? startYear;
-  int? endMonth;
-  int? endYear;
-  double? amount;
+  int? payerMonth;
+  int? payerYear;
+  String? mosqueID;
   String? proveURL;
   String? status;
+  String? date;
 
   Payment({
     this.id,
     this.payerID,
+    this.payerMonth,
+    this.payerYear,
     this.payerName,
-    this.paymentDate,
-    this.startMonth,
-    this.startYear,
-    this.endMonth,
-    this.endYear,
-    this.amount,
+    this.mosqueID,
     this.proveURL,
     this.status,
+    this.date,
   });
 
   factory Payment.fromMap(Map<String, dynamic> map) => Payment(
         id: map['id'].toString(),
         payerID: map['payer_id'].toString(),
-        payerName: map['payer_name'].toString(),
-        paymentDate: map['payment_date'],
-        startMonth: map['start_month'],
-        startYear: map['start_year'],
-        endMonth: map['end_month'],
-        endYear: map['end_year'],
-        amount: map['amount'].toDouble(),
+        payerMonth: map['person_expire_month'],
+        payerYear: map['person_expire_year'],
+        payerName: map['person_name'],
+        mosqueID: map['mosque_id'].toString(),
         proveURL: map['prove_url'],
         status: map['status'],
+        date: map['created_at'],
       );
 
   Map<String, dynamic> toMap() => {
         'id': id,
         'payer_id': payerID,
-        'payer_name': payerName,
-        'payment_date': paymentDate,
-        'start_month': startMonth,
-        'start_year': startYear,
-        'end_month': endMonth,
-        'end_year': endYear,
-        'amount': amount,
+        'person_expire_month': payerMonth,
+        'person_expire_year': payerYear,
+        'person_name': payerName,
+        'mosque_id': mosqueID,
         'prove_url': proveURL,
         'status': status,
+        'created_at': date,
       };
 }

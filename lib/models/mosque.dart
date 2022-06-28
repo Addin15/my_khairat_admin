@@ -65,7 +65,9 @@ class Mosque extends HiveObject {
         bankName: map['profile']['mosque_bank_name'] ?? '',
         bankOwnerName: map['profile']['mosque_bank_owner_name'] ?? '',
         bankAccountNo: map['profile']['mosque_bank_no'] ?? '',
-        monthlyFee: map['profile']['mosque_monthly_fee'].toDouble() ?? 0,
+        monthlyFee: map['profile']['mosque_monthly_fee'] == null
+            ? 0
+            : map['profile']['mosque_monthly_fee'].toDouble(),
         expireMonth: map['profile']['mosque_expire_month'] ?? 0,
         expireYear: map['profile']['mosque_expire_year'] ?? 0,
       );

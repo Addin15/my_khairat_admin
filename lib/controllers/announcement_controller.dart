@@ -45,7 +45,7 @@ class AnnouncementController {
 
   // Add announcement
   static Future<dynamic> addAnnouncement(
-      String mosqueID, Announcement announcement, XFile image) async {
+      String mosqueID, Announcement announcement, XFile? image) async {
     try {
       SecureStorage _secureStorage = SecureStorage();
       String _token = await _secureStorage.read('token');
@@ -59,20 +59,26 @@ class AnnouncementController {
         'announcement_date': announcement.date!,
       };
 
-      // var response = await post(
-      //   Uri.parse(url),
-      //   body: jsonEncode(data),
-      //   headers: headerswithToken(_token),
-      // );
+      MultipartRequest request;
 
-      var request = MultipartRequest('POST', Uri.parse(url))
-        ..fields.addAll(data)
-        ..headers.addAll({
-          'Content-Type': 'multipart/form-data',
-          'Accept': 'application/json',
-          'Authorization': 'Bearer ' + _token,
-        })
-        ..files.add(await MultipartFile.fromPath('image', image.path));
+      if (image == null) {
+        request = MultipartRequest('POST', Uri.parse(url))
+          ..fields.addAll(data)
+          ..headers.addAll({
+            'Content-Type': 'multipart/form-data',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + _token,
+          });
+      } else {
+        request = MultipartRequest('POST', Uri.parse(url))
+          ..fields.addAll(data)
+          ..headers.addAll({
+            'Content-Type': 'multipart/form-data',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + _token,
+          })
+          ..files.add(await MultipartFile.fromPath('image', image.path));
+      }
 
       StreamedResponse stream = await request.send();
 
