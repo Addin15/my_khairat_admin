@@ -40,7 +40,7 @@ class ClaimController {
   }
 
   //change status
-  static Future<bool> actionOnnClaims(String claimID, String status) async {
+  static Future<bool> actionOnClaims(String claimID, String status) async {
     try {
       SecureStorage _secureStorage = SecureStorage();
       String _token = await _secureStorage.read('token');

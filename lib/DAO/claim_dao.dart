@@ -17,7 +17,7 @@ class ClaimDAO extends ChangeNotifier {
   }
 
   changeClaimStatus(String claimID, String status) async {
-    bool res = await ClaimController.actionOnnClaims(claimID, status);
+    bool res = await ClaimController.actionOnClaims(claimID, status);
     if (res) {
       claims.where((claim) => claim.id == claimID).first.status = status;
     }

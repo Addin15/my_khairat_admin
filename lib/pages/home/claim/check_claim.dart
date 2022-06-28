@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:my_khairat_admin/controllers/claim_controller.dart';
 import 'package:my_khairat_admin/models/claim.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:my_khairat_admin/constants/widget_constants.dart';
@@ -112,20 +113,20 @@ class _CheckClaimState extends State<CheckClaim> {
                     SizedBox(
                       height: 1.h,
                     ),
-                    GestureDetector(
-                      onTap: () async {
-                        await showDialog(
-                            context: context,
-                            builder: (_) => ImageDialog(
-                                  imagePath: widget.claim.claimerurl!,
-                                ));
-                      },
-                      child: Image.file(
-                        File(widget.claim.claimerurl!),
-                        height: 30.h,
-                        fit: BoxFit.fill,
-                      ),
-                    ),
+                    // GestureDetector(
+                    //  onTap: () async {
+                    //await showDialog(
+                    //  context: context,
+                    // builder: (_) => ImageDialog(
+                    //    imagePath: widget.claim.claimerurl!,
+                    //  ));
+                    //  },
+                    // child: Image.file(
+                    //  File(widget.claim.claimerurl!),
+                    // height: 30.h,
+                    // fit: BoxFit.fill,
+                    //  ),
+                    // ),
                     SizedBox(
                       height: 2.h,
                     ),
@@ -134,8 +135,15 @@ class _CheckClaimState extends State<CheckClaim> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         ElevatedButton(
-                          onPressed: () {},
-                          child: Text("Terima"),
+                          onPressed: () async {
+                            bool res = await ClaimController.actionOnClaims(
+                                widget.claim.id!.toString(), 'success');
+                            if (res) {
+                              widget.claim.status! == 'success';
+                              Navigator.pop(context, true);
+                            }
+                          },
+                          child: const Text("Terima"),
                           style: ButtonStyle(
                             backgroundColor:
                                 MaterialStateProperty.all(AppColor.primary),
@@ -146,8 +154,15 @@ class _CheckClaimState extends State<CheckClaim> {
                           ),
                         ),
                         ElevatedButton(
-                          onPressed: () {},
-                          child: Text("Tolak"),
+                          onPressed: () async {
+                            bool res = await ClaimController.actionOnClaims(
+                                widget.claim.id!.toString(), 'rejected');
+                            if (res) {
+                              widget.claim.status! == 'rejected';
+                              Navigator.pop(context, false);
+                            }
+                          },
+                          child: const Text("Tolak"),
                           style: ButtonStyle(
                             backgroundColor:
                                 MaterialStateProperty.all(Colors.red[800]),

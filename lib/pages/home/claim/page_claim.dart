@@ -1,11 +1,13 @@
 import 'dart:developer';
 
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:my_khairat_admin/DAO/claim_dao.dart';
 import 'package:my_khairat_admin/constants/widget_constants.dart';
 import 'package:my_khairat_admin/controllers/claim_controller.dart';
 import 'package:my_khairat_admin/pages/home/claim/check_claim.dart';
+import 'package:my_khairat_admin/pages/home/claim/pending_claim.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -23,7 +25,7 @@ class PageClaim extends StatefulWidget {
 class _PageClaimState extends State<PageClaim> {
   List<Claim> claims = [];
   List<Claim> pendingClaims = [];
-  List<Claim> successClaims = [];
+  List<Claim> filteredClaims = [];
   bool loading = true;
 
   getClaims() async {
@@ -46,10 +48,10 @@ class _PageClaimState extends State<PageClaim> {
   }
 
   filterCompleteClaims() {
-    successClaims.clear();
+    filteredClaims.clear();
     for (var claim in claims) {
       if (claim.status == 'success') {
-        successClaims.add(claim);
+        filteredClaims.add(claim);
       }
     }
   }
@@ -86,20 +88,64 @@ class _PageClaimState extends State<PageClaim> {
                 ),
               ),
             ),
-            body: Column(
-              children: [
-                SizedBox(
-                  height: 2.h,
-                ),
-                Expanded(
-                    child: pendingClaims.isEmpty
+            body: SizedBox(
+              width: 100.w,
+              child: Column(
+                children: [
+                  Container(
+                    margin:
+                        EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.h),
+                    child: Badge(
+                      showBadge: pendingClaims.isNotEmpty ? true : false,
+                      badgeContent: pendingClaims.isNotEmpty
+                          ? Text(
+                              pendingClaims.length.toString(),
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
+                          : const SizedBox.shrink(),
+                      position: BadgePosition(end: 2.w),
+                      padding: EdgeInsets.all(8.sp),
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                  builder: (context) => PendingClaim(
+                                        dao: claimdao,
+                                        pendingClaims: pendingClaims,
+                                      )));
+                        },
+                        style: TextButton.styleFrom(
+                          minimumSize: Size(double.infinity, 6.h),
+                          backgroundColor: Colors.white,
+                          side: BorderSide(color: AppColor.primary),
+                        ),
+                        child: Text(
+                          'Tuntutan Baharu',
+                          style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 2.h,
+                  ),
+                  Expanded(
+                    child: filteredClaims.isEmpty
                         ? const Center(child: Text('tiada rekod'))
                         : ListView.builder(
                             scrollDirection: Axis.vertical,
-                            itemCount: pendingClaims.length,
+                            itemCount: filteredClaims.length,
                             //physics: NeverScrollableScrollPhysics(),
                             itemBuilder: (BuildContext context, int index) {
-                              Claim claim = pendingClaims[index];
+                              Claim sclaim = filteredClaims[index];
                               return Container(
                                   padding: EdgeInsets.symmetric(
                                       vertical: 1.h, horizontal: 2.w),
@@ -122,15 +168,15 @@ class _PageClaimState extends State<PageClaim> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Text(claim.claimerName!),
+                                            Text(sclaim.claimerName!),
                                             SizedBox(
                                               height: 1.h,
                                             ),
-                                            Text(claim.claimerIC!),
+                                            Text(sclaim.claimerIC!),
                                             SizedBox(
                                               height: 1.h,
                                             ),
-                                            Text(claim.status!),
+                                            Text(sclaim.status!),
                                             Container(
                                               height: 4.h,
                                               alignment: Alignment.centerRight,
@@ -140,7 +186,7 @@ class _PageClaimState extends State<PageClaim> {
                                                     CupertinoPageRoute(
                                                         builder: (context) =>
                                                             CheckClaim(
-                                                              claim: claim,
+                                                              claim: sclaim,
                                                             ))),
                                                 child:
                                                     const Text('Lihat butiran'),
@@ -162,8 +208,10 @@ class _PageClaimState extends State<PageClaim> {
                                       ),
                                     ),
                                   ));
-                            })),
-              ],
+                            }),
+                  ),
+                ],
+              ),
             ),
           );
         }),
