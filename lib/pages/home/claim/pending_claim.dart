@@ -88,15 +88,15 @@ class _PendingClaimState extends State<PendingClaim> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(claim.claimerName!),
+                                      Text("Pemohon : " + claim.claimername!),
                                       SizedBox(
                                         height: 1.h,
                                       ),
-                                      Text(claim.claimerIC!),
+                                      Text("Arwah : " + claim.deadname!),
                                       SizedBox(
                                         height: 1.h,
                                       ),
-                                      Text(claim.status!),
+                                      Text("Status : " + claim.status!),
                                       Container(
                                         height: 4.h,
                                         alignment: Alignment.centerRight,

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:my_khairat_admin/config/config.dart';
 import 'package:my_khairat_admin/controllers/claim_controller.dart';
 import 'package:my_khairat_admin/models/claim.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
@@ -32,154 +33,250 @@ class _CheckClaimState extends State<CheckClaim> {
       body: Container(
         padding: EdgeInsets.all(1.h),
         width: double.infinity,
-        child: Card(
-          elevation: 2,
-          color: Colors.white,
-          shadowColor: Colors.black,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
+            shrinkWrap: true,
+            physics: const BouncingScrollPhysics(),
             children: [
-              Container(
-                padding: EdgeInsets.all(3.h),
+              Card(
+                elevation: 2,
+                color: Colors.white,
+                shadowColor: Colors.black,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      "Nama seperti IC",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.grey),
-                    ),
-                    SizedBox(
-                      height: 1.h,
-                    ),
-                    Text(
-                      '${widget.claim.claimerName}',
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                    const Divider(
-                      color: Colors.grey,
-                      thickness: 0.5,
-                    ),
-                    SizedBox(
-                      height: 2.h,
-                    ),
-                    const Text(
-                      "NO IC",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.grey),
-                    ),
-                    SizedBox(
-                      height: 1.h,
-                    ),
-                    Text(
-                      '${widget.claim.claimerIC}',
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                    const Divider(
-                      color: Colors.grey,
-                      thickness: 0.5,
-                    ),
-                    SizedBox(
-                      height: 2.h,
-                    ),
-                    const Text(
-                      "Kariah",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.grey),
-                    ),
-                    SizedBox(
-                      height: 1.h,
-                    ),
-                    Text(
-                      '${widget.claim.mosqueID}',
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                    const Divider(
-                      color: Colors.grey,
-                      thickness: 0.5,
-                    ),
-                    SizedBox(
-                      height: 2.h,
-                    ),
-                    const Text(
-                      "Surat Kematian",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.grey),
-                    ),
-                    SizedBox(
-                      height: 1.h,
-                    ),
-                    // GestureDetector(
-                    //  onTap: () async {
-                    //await showDialog(
-                    //  context: context,
-                    // builder: (_) => ImageDialog(
-                    //    imagePath: widget.claim.claimerurl!,
-                    //  ));
-                    //  },
-                    // child: Image.file(
-                    //  File(widget.claim.claimerurl!),
-                    // height: 30.h,
-                    // fit: BoxFit.fill,
-                    //  ),
-                    // ),
-                    SizedBox(
-                      height: 2.h,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () async {
-                            bool res = await ClaimController.actionOnClaims(
-                                widget.claim.id!.toString(), 'success');
-                            if (res) {
-                              widget.claim.status! == 'success';
-                              Navigator.pop(context, true);
-                            }
-                          },
-                          child: const Text("Terima"),
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(AppColor.primary),
-                            shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(2.h)),
+                    Container(
+                      padding: EdgeInsets.all(3.h),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "Nama pemohon (waris Simati)",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey),
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Text(
+                            '${widget.claim.claimername}',
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                          const Divider(
+                            color: Colors.grey,
+                            thickness: 0.5,
+                          ),
+                          SizedBox(
+                            height: 2.h,
+                          ),
+                          const Text(
+                            "Alamat",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey),
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Text(
+                            '${widget.claim.claimeraddress}',
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                          const Divider(
+                            color: Colors.grey,
+                            thickness: 0.5,
+                          ),
+                          SizedBox(
+                            height: 2.h,
+                          ),
+                          const Text(
+                            "No. k/Pengenalan",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey),
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Text(
+                            '${widget.claim.claimeric}',
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                          const Divider(
+                            color: Colors.grey,
+                            thickness: 0.5,
+                          ),
+                          SizedBox(
+                            height: 2.h,
+                          ),
+                          const Text(
+                            "Nama Si mati",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey),
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Text(
+                            '${widget.claim.deadname}',
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                          const Divider(
+                            color: Colors.grey,
+                            thickness: 0.5,
+                          ),
+                          SizedBox(
+                            height: 2.h,
+                          ),
+                          const Text(
+                            "Hubungan",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey),
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Text(
+                            '${widget.claim.claimerrelation}',
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                          const Divider(
+                            color: Colors.grey,
+                            thickness: 0.5,
+                          ),
+                          SizedBox(
+                            height: 2.h,
+                          ),
+                          const Text(
+                            "Tarikh Meninggal",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey),
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Text(
+                            '${widget.claim.deaddate}',
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                          const Divider(
+                            color: Colors.grey,
+                            thickness: 0.5,
+                          ),
+                          SizedBox(
+                            height: 2.h,
+                          ),
+                          const Text(
+                            "Sebab-seba Meninggal",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey),
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Text(
+                            '${widget.claim.deadreason}',
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                          const Divider(
+                            color: Colors.grey,
+                            thickness: 0.5,
+                          ),
+                          SizedBox(
+                            height: 2.h,
+                          ),
+                          const Text(
+                            "Surat Kematian",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey),
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          GestureDetector(
+                            onTap: () async {
+                              await showDialog(
+                                  context: context,
+                                  builder: (_) => ImageDialog(
+                                        imagePath: Config.host +
+                                            widget.claim.claimerurl!,
+                                      ));
+                            },
+                            child: Image.network(
+                              Config.host + widget.claim.claimerurl!,
+                              height: 30.h,
+                              fit: BoxFit.cover,
                             ),
                           ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () async {
-                            bool res = await ClaimController.actionOnClaims(
-                                widget.claim.id!.toString(), 'rejected');
-                            if (res) {
-                              widget.claim.status! == 'rejected';
-                              Navigator.pop(context, false);
-                            }
-                          },
-                          child: const Text("Tolak"),
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.red[800]),
-                            shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(2.h)),
-                            ),
+                          SizedBox(
+                            height: 2.h,
                           ),
-                        )
-                      ],
-                    )
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              ElevatedButton(
+                                onPressed: () async {
+                                  bool res =
+                                      await ClaimController.actionOnClaims(
+                                          widget.claim.id!.toString(),
+                                          'success');
+                                  if (res) {
+                                    widget.claim.status! == 'success';
+                                    Navigator.pop(context, true);
+                                  }
+                                },
+                                child: const Text("Terima"),
+                                style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(
+                                      AppColor.primary),
+                                  shape: MaterialStateProperty.all(
+                                    RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(2.h)),
+                                  ),
+                                ),
+                              ),
+                              ElevatedButton(
+                                onPressed: () async {
+                                  bool res =
+                                      await ClaimController.actionOnClaims(
+                                          widget.claim.id!.toString(),
+                                          'rejected');
+                                  if (res) {
+                                    widget.claim.status! == 'rejected';
+                                    Navigator.pop(context, false);
+                                  }
+                                },
+                                child: const Text("Tolak"),
+                                style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(
+                                      Colors.red[800]),
+                                  shape: MaterialStateProperty.all(
+                                    RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(2.h)),
+                                  ),
+                                ),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
-            ],
-          ),
-        ),
+            ]),
       ),
     );
   }
@@ -194,7 +291,7 @@ class ImageDialog extends StatelessWidget {
     return Dialog(
         child: Container(
       child: PhotoView(
-        imageProvider: FileImage(File(imagePath)),
+        imageProvider: NetworkImage(imagePath),
       ),
     ));
   }

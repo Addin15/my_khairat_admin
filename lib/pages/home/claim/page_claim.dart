@@ -168,15 +168,17 @@ class _PageClaimState extends State<PageClaim> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Text(sclaim.claimerName!),
+                                            Text("Pemohon : " +
+                                                sclaim.claimername!),
                                             SizedBox(
                                               height: 1.h,
                                             ),
-                                            Text(sclaim.claimerIC!),
+                                            Text(
+                                                "Arwah : " + sclaim.claimeric!),
                                             SizedBox(
                                               height: 1.h,
                                             ),
-                                            Text(sclaim.status!),
+                                            Text("Status : " + sclaim.status!),
                                             Container(
                                               height: 4.h,
                                               alignment: Alignment.centerRight,
