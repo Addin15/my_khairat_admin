@@ -50,6 +50,17 @@ class MemberDAO extends ChangeNotifier {
     return false;
   }
 
+  Future<bool> updateMember(String mosqueID, Map<String, dynamic> data) async {
+    bool res = await MemberController.updateMember(data);
+
+    if (res) {
+      initData(mosqueID);
+      return true;
+    }
+
+    return false;
+  }
+
   acceptMember(String mosqueID, String id) async {
     bool? res = await MemberController.acceptMember(mosqueID, id);
 

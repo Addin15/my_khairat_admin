@@ -139,4 +139,30 @@ class MemberController {
       return false;
     }
   }
+
+  static Future<bool> updateMember(Map<String, dynamic> data) async {
+    try {
+      SecureStorage _secureStorage = SecureStorage();
+      String _token = await _secureStorage.read('token');
+
+      String url = '${Config.hostName}/committee/members/update';
+
+      var response = await put(
+        Uri.parse(url),
+        body: jsonEncode(data),
+        headers: headerswithToken(_token),
+      );
+
+      log('Update' + response.body);
+
+      if (response.statusCode == 200) {
+        return true;
+      }
+
+      return false;
+    } catch (e) {
+      log(e.toString());
+      return false;
+    }
+  }
 }
