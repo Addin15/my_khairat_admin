@@ -3,6 +3,7 @@ import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:my_khairat_admin/DAO/dependent_dao.dart';
 import 'package:my_khairat_admin/DAO/member_dao.dart';
 import 'package:my_khairat_admin/DAO/mosque_dao.dart';
 import 'package:my_khairat_admin/models/mosque.dart';
@@ -42,6 +43,8 @@ class _MembersState extends State<Members> with TickerProviderStateMixin {
       child: MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (context) => MemberDAO(mosque!.id!)),
+          ChangeNotifierProvider(
+              create: (context) => DependentDAO(mosque!.id!)),
         ],
         builder: (context, child) {
           MemberDAO memberDAO = Provider.of<MemberDAO>(context, listen: true);

@@ -38,8 +38,7 @@ class DependentController {
     }
   }
 
-  static Future<Dependent?> addDependent(
-      Map<String, dynamic> data, String userID) async {
+  static Future<Dependent?> addDependent(Map<String, dynamic> data) async {
     try {
       SecureStorage _secureStorage = SecureStorage();
       String _token = await _secureStorage.read('token');
@@ -51,6 +50,8 @@ class DependentController {
         body: jsonEncode(data),
         headers: headerswithToken(_token),
       );
+
+      log(response.body);
 
       if (response.statusCode == 201) {
         Map dependent = jsonDecode(response.body);
