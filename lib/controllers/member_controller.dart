@@ -91,6 +91,8 @@ class MemberController {
         Uri.parse(url),
         body: jsonEncode({
           'mosque_id': mosqueID,
+          'person_expire_month': DateTime.now().month,
+          'person_expire_year': DateTime.now().year,
           'id': id,
         }),
         headers: headerswithToken(_token),
