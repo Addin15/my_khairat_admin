@@ -133,18 +133,35 @@ class _MembersListState extends State<MembersList> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          member.memberNo.toString(),
-                                          style: TextStyle(
-                                            fontSize: 12.sp,
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                member.memberNo.toString(),
+                                                style: TextStyle(
+                                                  fontSize: 12.sp,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                            Text(
+                                              'Tempoh: ' +
+                                                  member.expireMonth
+                                                      .toString() +
+                                                  '/' +
+                                                  member.expireYear.toString(),
+                                              style: TextStyle(
+                                                fontSize: 10.sp,
+                                                fontStyle: FontStyle.italic,
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                         SizedBox(height: 1.5.h),
                                         Text(
                                           member.name!,
                                           style: TextStyle(
-                                            fontSize: 10.sp,
+                                            fontSize: 12.sp,
                                           ),
                                         ),
                                       ],
