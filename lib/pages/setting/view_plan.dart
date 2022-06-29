@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:my_khairat_admin/DAO/mosque_dao.dart';
 import 'package:my_khairat_admin/DAO/plan_dao.dart';
 import 'package:my_khairat_admin/constants/widget_constants.dart';
 import 'package:my_khairat_admin/models/plan.dart';
@@ -71,10 +72,14 @@ class _ViewPlanState extends State<ViewPlan> {
                     child: customTextButton(
                         label: 'Pembaharuan Pelan',
                         onPressed: () {
+                          MosqueDAO mosqueDAO =
+                              Provider.of<MosqueDAO>(context, listen: false);
+
                           Navigator.push(
                             context,
                             CupertinoPageRoute(
                               builder: (context) => RenewPlan(
+                                mosqueDAO: mosqueDAO,
                                 mosqueID: widget.mosqueID!,
                                 planDAO: planDAO,
                               ),

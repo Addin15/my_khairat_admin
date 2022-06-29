@@ -192,4 +192,55 @@ class AuthController {
       return false;
     }
   }
+
+  static Future<Map<String, dynamic>?> getUser(String id) async {
+    try {
+      SecureStorage _secureStorage = SecureStorage();
+      String _token = await _secureStorage.read('token');
+      String url = '${Config.hostName}/committee/get';
+
+      var response = await post(
+        Uri.parse(url),
+        body: jsonEncode({
+          'id': id,
+        }),
+        headers: headerswithToken(_token),
+      );
+
+      log(response.body);
+
+      if (response.statusCode == 200) {
+        Map<String, dynamic> data = jsonDecode(response.body);
+        return data;
+      }
+
+      return null;
+    } catch (e) {
+      log(e.toString());
+      return null;
+    }
+  }
+
+  static Future<Map<String, dynamic>?> getAdminBank() async {
+    try {
+      String url = '${Config.hostName}/bankdetails';
+
+      var response = await get(
+        Uri.parse(url),
+        headers: headersWithoutToken(),
+      );
+
+      log(response.body);
+
+      if (response.statusCode == 200) {
+        Map<String, dynamic> data = jsonDecode(response.body);
+        return data;
+      }
+
+      return null;
+    } catch (e) {
+      log(e.toString());
+      return null;
+    }
+  }
 }

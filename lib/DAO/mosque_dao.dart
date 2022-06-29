@@ -25,7 +25,12 @@ class MosqueDAO extends ChangeNotifier {
       Box _mosqueBox = await Hive.openBox('mosque');
       _mosque = _mosqueBox.get(_token);
 
-      notifyListeners();
+      Map<String, dynamic>? data = await AuthController.getUser(_mosque!.id!);
+
+      if (mosque != null) {
+        _mosque = Mosque.fromMap(data!);
+        notifyListeners();
+      }
     }
   }
 
@@ -85,17 +90,7 @@ class MosqueDAO extends ChangeNotifier {
       image: image,
     );
     if (res) {
-      SecureStorage _secureStorage = SecureStorage();
-      String? _token = await _secureStorage.read('token');
-      // Cache user data by token
-      Box _mosqueBox = await Hive.openBox('mosque');
-      _mosqueBox.put(
-        _token,
-        mosque,
-      );
-
-      _mosque = mosque;
-      notifyListeners();
+      initData();
     }
   }
 
@@ -131,6 +126,16 @@ class MosqueDAO extends ChangeNotifier {
 
       notifyListeners();
     }
+  }
+
+  getAdminBank() async {
+    Map<String, dynamic>? data = await AuthController.getAdminBank();
+
+    if (data != null) {
+      return data;
+    }
+
+    return null;
   }
 
   // Caught exception purpose

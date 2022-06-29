@@ -65,7 +65,7 @@ class MemberController {
         headers: headerswithToken(_token),
       );
 
-      log(response.body);
+      log('Add Member' + response.body);
 
       if (response.statusCode == 201) {
         Map member = jsonDecode(response.body);

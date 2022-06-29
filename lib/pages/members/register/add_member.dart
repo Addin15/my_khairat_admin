@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:my_khairat_admin/DAO/member_dao.dart';
@@ -279,19 +281,21 @@ class _AddMemberState extends State<AddMember> {
                               selectedVillage != null &&
                               selectedMonth != null &&
                               selectedYear != null) {
+                            log(selectedMonth.toString());
                             MosqueDAO mosqueDAO =
                                 Provider.of<MosqueDAO>(context, listen: false);
                             bool res = await widget.memberDAO
                                 .addMember(mosqueDAO.mosque!.id.toString(), {
-                              'person_member_no': _memberNoController.text,
+                              'person_member_no':
+                                  int.parse(_memberNoController.text),
                               'person_name': _nameController.text,
                               'person_ic': _icController.text,
                               'person_phone': _phoneController.text,
                               'person_occupation': _occupationController.text,
                               'person_address': _addressController.text,
                               'village_id': selectedVillage,
-                              'person_expire_month': selectedMonth,
-                              'person_expire_year': selectedYear,
+                              'person_expire_month': selectedMonth!,
+                              'person_expire_year': selectedYear!,
                             });
 
                             if (res) {

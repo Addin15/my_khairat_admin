@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:my_khairat_admin/DAO/mosque_dao.dart';
 import 'package:my_khairat_admin/DAO/plan_dao.dart';
 import 'package:my_khairat_admin/constants/widget_constants.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:sizer/sizer.dart';
 
 class RenewPlan extends StatefulWidget {
-  const RenewPlan({required this.mosqueID, required this.planDAO, Key? key})
+  const RenewPlan(
+      {required this.mosqueDAO,
+      required this.mosqueID,
+      required this.planDAO,
+      Key? key})
       : super(key: key);
 
+  final MosqueDAO mosqueDAO;
   final String mosqueID;
   final PlanDAO planDAO;
 
@@ -23,6 +29,24 @@ class _RenewPlanState extends State<RenewPlan> {
   final FocusNode _remarkFocus = FocusNode();
 
   XFile? image;
+
+  Map<String, dynamic>? bankDetails;
+
+  getAdminBank() async {
+    Map<String, dynamic>? data = await widget.mosqueDAO.getAdminBank();
+
+    if (data != null) {
+      setState(() {
+        bankDetails = data;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    getAdminBank();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +62,32 @@ class _RenewPlanState extends State<RenewPlan> {
             child: ListView(
               shrinkWrap: true,
               children: [
+                bankDetails == null
+                    ? const SizedBox.shrink()
+                    : Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 3.w, vertical: 2.h),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.sp)),
+                        child: Column(
+                          children: [
+                            Text('Bank Name: ' + bankDetails!['bank_name']),
+                            SizedBox(height: 1.h),
+                            Text('Bank Account Name: ' +
+                                bankDetails!['bank_owner_name']),
+                            SizedBox(height: 1.h),
+                            Text('Bank Account Number: ' +
+                                bankDetails!['bank_account_no']),
+                            SizedBox(height: 1.h),
+                            Text('Yuran: RM' +
+                                bankDetails!['monthly_fee']
+                                    .toDouble()
+                                    .toStringAsFixed(2)),
+                            SizedBox(height: 1.h),
+                          ],
+                        ),
+                      ),
+                SizedBox(height: 3.h),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 15.w),
                   child: customTextFormField(
