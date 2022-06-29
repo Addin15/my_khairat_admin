@@ -60,7 +60,7 @@ class PaymentController {
         headers: headerswithToken(_token),
       );
 
-      log(response.body);
+      log('Payment' + paymentID);
 
       if (response.statusCode == 200) {
         return true;

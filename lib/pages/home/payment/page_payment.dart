@@ -38,6 +38,7 @@ class _PagePaymentState extends State<PagePayment> {
     List<Payment> payments =
         await PaymentController.getPayments(widget.mosqueID);
     if (mounted) {
+      log('S' + payments.first.id.toString());
       setState(() {
         this.payments = payments;
         isLoading = false;

@@ -78,8 +78,12 @@ class ViewPayment extends StatelessWidget {
                 borderColor: Colors.red,
                 backgroundColor: Colors.red,
                 onPressed: () async {
-                  payment.status == 'rejected';
-                  Navigator.pop(context, false);
+                  bool res = await PaymentController.actionOnPayment(
+                      payment.id.toString(), 'rejected');
+                  if (res) {
+                    payment.status == 'rejected';
+                    Navigator.pop(context, true);
+                  }
                 },
               ),
             ],
