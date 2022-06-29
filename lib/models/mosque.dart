@@ -44,6 +44,9 @@ class Mosque extends HiveObject {
   @HiveField(12)
   int? expireYear;
 
+  @HiveField(13)
+  String? status;
+
   Mosque({
     this.id,
     this.email,
@@ -58,6 +61,7 @@ class Mosque extends HiveObject {
     this.monthlyFee,
     this.expireMonth,
     this.expireYear,
+    this.status,
   });
 
   factory Mosque.fromMap(Map<String, dynamic> map) => Mosque(
@@ -76,6 +80,7 @@ class Mosque extends HiveObject {
             : map['profile']['mosque_monthly_fee'].toDouble(),
         expireMonth: map['profile']['mosque_expire_month'] ?? 0,
         expireYear: map['profile']['mosque_expire_year'] ?? 0,
+        status: map['profile']['mosque_status'],
       );
 
   Map<String, String> toMap() => {

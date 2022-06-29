@@ -9,6 +9,7 @@ import 'package:my_khairat_admin/models/mosque.dart';
 import 'package:my_khairat_admin/pages/auth/complete_profile.dart';
 import 'package:my_khairat_admin/pages/auth/login.dart';
 import 'package:my_khairat_admin/pages/nav.dart';
+import 'package:my_khairat_admin/pages/not_verified.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:provider/provider.dart';
 
@@ -30,6 +31,13 @@ class _AuthState extends State<Auth> {
         } else if (mosque.name!.isEmpty) {
           return CompleteProfile(
             mosqueDAO: mosqueDAO,
+          );
+        } else if (mosque.status == 'pending') {
+          return const NotVerified();
+        } else if (mosque.status == 'rejected') {
+          return CompleteProfile(
+            mosqueDAO: mosqueDAO,
+            isRejected: true,
           );
         } else {
           return Nav(mosqueDAO: mosqueDAO);

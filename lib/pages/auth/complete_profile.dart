@@ -17,9 +17,14 @@ import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:sizer/sizer.dart';
 
 class CompleteProfile extends StatefulWidget {
-  const CompleteProfile({required this.mosqueDAO, Key? key}) : super(key: key);
+  const CompleteProfile({
+    required this.mosqueDAO,
+    this.isRejected = false,
+    Key? key,
+  }) : super(key: key);
 
   final MosqueDAO mosqueDAO;
+  final bool isRejected;
 
   @override
   State<CompleteProfile> createState() => _CompleteProfileState();
@@ -112,6 +117,22 @@ class _CompleteProfileState extends State<CompleteProfile> {
                               shrinkWrap: true,
                               physics: const BouncingScrollPhysics(),
                               children: [
+                                !widget.isRejected
+                                    ? const SizedBox.shrink()
+                                    : Column(
+                                        children: [
+                                          SizedBox(height: 2.h),
+                                          Text(
+                                            'Maklumat anda telak ditolak. Sila isi maklumat baharu',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 14.sp,
+                                              color: Colors.red,
+                                            ),
+                                          ),
+                                          SizedBox(height: 2.h),
+                                        ],
+                                      ),
                                 Text(
                                   'MAKLUMAT MASJID',
                                   textAlign: TextAlign.center,
