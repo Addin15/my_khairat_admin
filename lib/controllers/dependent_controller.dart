@@ -22,6 +22,8 @@ class DependentController {
         headers: headerswithToken(_token),
       );
 
+      log('Dependent' + response.body);
+
       if (response.statusCode == 200) {
         List dependents = jsonDecode(response.body);
 
@@ -63,6 +65,62 @@ class DependentController {
     } catch (e) {
       log(e.toString());
       return null;
+    }
+  }
+
+  static Future<bool> acceptDependent(String id) async {
+    try {
+      SecureStorage _secureStorage = SecureStorage();
+      String _token = await _secureStorage.read('token');
+
+      String url = '${Config.hostName}/committee/dependent/accept';
+
+      var response = await post(
+        Uri.parse(url),
+        body: jsonEncode({
+          'id': id,
+        }),
+        headers: headerswithToken(_token),
+      );
+
+      log(response.body);
+
+      if (response.statusCode == 200) {
+        return true;
+      }
+
+      return false;
+    } catch (e) {
+      log(e.toString());
+      return false;
+    }
+  }
+
+  static Future<bool> rejectDependent(String id) async {
+    try {
+      SecureStorage _secureStorage = SecureStorage();
+      String _token = await _secureStorage.read('token');
+
+      String url = '${Config.hostName}/committee/dependent/reject';
+
+      var response = await post(
+        Uri.parse(url),
+        body: jsonEncode({
+          'id': id,
+        }),
+        headers: headerswithToken(_token),
+      );
+
+      log(response.body);
+
+      if (response.statusCode == 200) {
+        return true;
+      }
+
+      return false;
+    } catch (e) {
+      log(e.toString());
+      return false;
     }
   }
 }

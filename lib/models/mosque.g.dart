@@ -24,13 +24,19 @@ class MosqueAdapter extends TypeAdapter<Mosque> {
       postcode: fields[4] as String?,
       state: fields[5] as String?,
       address: fields[6] as String?,
+      bankName: fields[7] as String?,
+      bankOwnerName: fields[8] as String?,
+      bankAccountNo: fields[9] as String?,
+      monthlyFee: fields[10] as double?,
+      expireMonth: fields[11] as int?,
+      expireYear: fields[12] as int?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Mosque obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(13)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -44,7 +50,19 @@ class MosqueAdapter extends TypeAdapter<Mosque> {
       ..writeByte(5)
       ..write(obj.state)
       ..writeByte(6)
-      ..write(obj.address);
+      ..write(obj.address)
+      ..writeByte(7)
+      ..write(obj.bankName)
+      ..writeByte(8)
+      ..write(obj.bankOwnerName)
+      ..writeByte(9)
+      ..write(obj.bankAccountNo)
+      ..writeByte(10)
+      ..write(obj.monthlyFee)
+      ..writeByte(11)
+      ..write(obj.expireMonth)
+      ..writeByte(12)
+      ..write(obj.expireYear);
   }
 
   @override

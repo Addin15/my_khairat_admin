@@ -48,6 +48,8 @@ class _MembersState extends State<Members> with TickerProviderStateMixin {
         ],
         builder: (context, child) {
           MemberDAO memberDAO = Provider.of<MemberDAO>(context, listen: true);
+          DependentDAO dependentDAO =
+              Provider.of<DependentDAO>(context, listen: true);
           return Scaffold(
             body: Container(
               width: 100.w,
@@ -93,10 +95,34 @@ class _MembersState extends State<Members> with TickerProviderStateMixin {
                           ),
                         ),
                       ),
-                      Icon(
-                        Ionicons.person_add_outline,
-                        color: AppColor.primary,
-                        size: 16.sp,
+                      Badge(
+                        showBadge: dependentDAO.pendingDependents.isEmpty
+                            ? false
+                            : true,
+                        position: BadgePosition.topEnd(),
+                        padding: EdgeInsets.symmetric(horizontal: 5.w),
+                        badgeContent: Container(
+                          padding: EdgeInsets.all(2.sp),
+                          child: Text(
+                            dependentDAO.pendingDependents.length >= 10
+                                ? '9+'
+                                : dependentDAO.pendingDependents.length
+                                    .toString(),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12.sp,
+                            ),
+                          ),
+                        ),
+                        child: Container(
+                          width: double.infinity,
+                          margin: EdgeInsets.symmetric(horizontal: 2.w),
+                          child: Icon(
+                            Ionicons.person_add_outline,
+                            color: AppColor.primary,
+                            size: 16.sp,
+                          ),
+                        ),
                       ),
                     ],
                   ),

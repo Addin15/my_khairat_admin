@@ -26,16 +26,22 @@ class Mosque extends HiveObject {
   @HiveField(6)
   String? address;
 
+  @HiveField(7)
   String? bankName;
 
+  @HiveField(8)
   String? bankOwnerName;
 
+  @HiveField(9)
   String? bankAccountNo;
 
+  @HiveField(10)
   double? monthlyFee;
 
+  @HiveField(11)
   int? expireMonth;
 
+  @HiveField(12)
   int? expireYear;
 
   Mosque({

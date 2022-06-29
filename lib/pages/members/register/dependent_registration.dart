@@ -6,6 +6,7 @@ import 'package:my_khairat_admin/constants/widget_constants.dart';
 import 'package:my_khairat_admin/models/dependent.dart';
 import 'package:my_khairat_admin/models/member.dart';
 import 'package:my_khairat_admin/pages/members/register/add_dependent.dart';
+import 'package:my_khairat_admin/pages/members/register/view_dependent_registration.dart';
 import 'package:my_khairat_admin/pages/members/register/view_member_registration.dart';
 import 'package:my_khairat_admin/styles/app_color.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +25,7 @@ class _DependentRegistrationState extends State<DependentRegistration> {
     return Consumer<MemberDAO>(builder: (context, memberDAO, child) {
       List<Member> members = memberDAO.pendingMembers;
       return Consumer<DependentDAO>(builder: (context, dependentDAO, child) {
-        List<Dependent> dependents = dependentDAO.dependents;
+        List<Dependent> dependents = dependentDAO.pendingDependents;
         return Column(
           children: [
             Row(
@@ -62,25 +63,22 @@ class _DependentRegistrationState extends State<DependentRegistration> {
             ),
             SizedBox(height: 1.h),
             Expanded(
-              child: members.isEmpty
+              child: dependents.isEmpty
                   ? Container(
                       alignment: Alignment.center,
                       child: const Text('Tiada pendaftaran'),
                     )
                   : ListView.builder(
                       scrollDirection: Axis.vertical,
-                      itemCount: members.length,
+                      itemCount: dependents.length,
                       physics: const BouncingScrollPhysics(),
                       itemBuilder: (BuildContext context, int index) {
-                        Member member = members[index];
+                        Dependent dependent = dependents[index];
                         return Container(
                           padding: EdgeInsets.all(1.h),
-                          child: memberCard(
-                            member: Member(
-                              name: member.name,
-                              ic: member.ic,
-                              villageName: member.villageName,
-                            ),
+                          child: dependentCard(
+                            dependent: dependent,
+                            dependentDAO: dependentDAO,
                           ),
                         );
                       },
@@ -92,8 +90,9 @@ class _DependentRegistrationState extends State<DependentRegistration> {
     });
   }
 
-  Widget memberCard({
-    required Member member,
+  Widget dependentCard({
+    required Dependent dependent,
+    required DependentDAO dependentDAO,
   }) {
     return SizedBox(
       child: Card(
@@ -108,7 +107,7 @@ class _DependentRegistrationState extends State<DependentRegistration> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                member.name!,
+                dependent.dependName!,
                 style: TextStyle(
                   fontSize: 14.sp,
                   fontWeight: FontWeight.bold,
@@ -116,14 +115,14 @@ class _DependentRegistrationState extends State<DependentRegistration> {
               ),
               SizedBox(height: 0.8.h),
               Text(
-                member.ic!,
+                'Hubungan: ' + dependent.relation!,
                 style: TextStyle(
                   fontSize: 12.sp,
                 ),
               ),
               SizedBox(height: 0.5.h),
               Text(
-                member.villageName!,
+                'Nama: ' + dependent.name!,
                 style: TextStyle(
                   fontSize: 12.sp,
                 ),
@@ -133,7 +132,17 @@ class _DependentRegistrationState extends State<DependentRegistration> {
                 alignment: Alignment.centerRight,
                 child: customTextButton(
                   label: 'Lihat Butiran',
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder: (context) => CheckDependentRegistration(
+                          dependent: dependent,
+                          dependentDAO: dependentDAO,
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
             ],

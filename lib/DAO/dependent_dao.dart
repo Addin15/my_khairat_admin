@@ -4,8 +4,10 @@ import 'package:my_khairat_admin/models/dependent.dart';
 
 class DependentDAO extends ChangeNotifier {
   List<Dependent> _dependents = [];
+  List<Dependent> _pendingDependents = [];
 
   List<Dependent> get dependents => _dependents;
+  List<Dependent> get pendingDependents => _pendingDependents;
 
   DependentDAO(String mosqueID) {
     initData(mosqueID);
@@ -14,7 +16,24 @@ class DependentDAO extends ChangeNotifier {
   initData(String mosqueID) async {
     List<Dependent> data = await DependentController.getDependents(mosqueID);
 
-    _dependents = data;
+    filterDependents(data);
+    notifyListeners();
+  }
+
+  filterDependents(List<Dependent> unfilteredDependents) {
+    List<Dependent> tempDependents = [];
+    List<Dependent> tempPendingDependents = [];
+
+    for (var dependent in unfilteredDependents) {
+      if (dependent.status == 'pending') {
+        tempPendingDependents.add(dependent);
+      } else if (dependent.status == 'completed') {
+        tempDependents.add(dependent);
+      }
+    }
+
+    _dependents = tempDependents;
+    _pendingDependents = tempPendingDependents;
     notifyListeners();
   }
 
@@ -27,6 +46,22 @@ class DependentDAO extends ChangeNotifier {
     }
 
     return false;
+  }
+
+  acceptDependent(String mosqueID, String id) async {
+    bool res = await DependentController.acceptDependent(id);
+
+    if (res) {
+      initData(mosqueID);
+    }
+  }
+
+  rejectDependent(String mosqueID, String id) async {
+    bool res = await DependentController.rejectDependent(id);
+
+    if (res) {
+      initData(mosqueID);
+    }
   }
 
   // Caught exception purpose
