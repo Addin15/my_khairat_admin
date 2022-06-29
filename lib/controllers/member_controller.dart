@@ -58,6 +58,7 @@ class MemberController {
           'person_name': map['person_name'],
           'person_ic': map['person_ic'],
           'person_phone': map['person_phone'],
+          'person_address': map['person_address'],
           'person_occupation': map['person_occupation'],
           'person_expire_month': map['person_expire_month'],
           'person_expire_year': map['person_expire_year'],
