@@ -133,7 +133,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
               ),
               MenuBox(
                 icon: 'assets/menu/announcement.png',
-                label: 'Tambah Pengunguman',
+                label: 'Tambah Pengumuman',
                 onTap: () => Navigator.push(
                     context,
                     CupertinoPageRoute(
