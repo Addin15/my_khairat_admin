@@ -150,7 +150,7 @@ class _EditBankDetailsState extends State<EditBankDetails> {
                           'bank_owner_name': _bankOwnerController.text,
                           'bank_account_no': _bankNoController.text,
                           'monthly_fee': _monthlyPaymentController.text,
-                        });
+                        }) ?? true;
 
                         if (res) {
                           Navigator.pop(context);
