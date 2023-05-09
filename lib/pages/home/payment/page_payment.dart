@@ -38,7 +38,7 @@ class _PagePaymentState extends State<PagePayment> {
     List<Payment> payments =
         await PaymentController.getPayments(widget.mosqueID);
     if (mounted) {
-      log('S' + payments.first.id.toString());
+      //log('S' + payments.first.id.toString());
       setState(() {
         this.payments = payments;
         isLoading = false;
@@ -73,6 +73,7 @@ class _PagePaymentState extends State<PagePayment> {
 
   @override
   Widget build(BuildContext context) {
+    int lastYear = DateTime.now().year - 1;
     if (isLoading) {
       return Container(
         color: Colors.white,
@@ -228,12 +229,16 @@ class _PagePaymentState extends State<PagePayment> {
                                 const Text('Tahun'),
                                 DropdownButton(
                                     isExpanded: true,
-                                    items: const [
-                                      DropdownMenuItem(
-                                        child: Text('2022'),
-                                        value: 2022,
-                                      )
-                                    ],
+                                    items: List.generate(
+                                      2,
+                                      (index) {
+                                        return DropdownMenuItem(
+                                          child: Text(
+                                              (lastYear + index).toString()),
+                                          value: lastYear + index,
+                                        );
+                                      },
+                                    ),
                                     value: selectedYear,
                                     onChanged: (int? year) {
                                       setState(() {

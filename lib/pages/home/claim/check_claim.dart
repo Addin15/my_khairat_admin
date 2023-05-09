@@ -174,7 +174,7 @@ class _CheckClaimState extends State<CheckClaim> {
                             height: 2.h,
                           ),
                           const Text(
-                            "Sebab-seba Meninggal",
+                            "Sebab-sebab Meninggal",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.grey),

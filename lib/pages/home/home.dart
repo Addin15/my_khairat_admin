@@ -41,126 +41,129 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
     return Container(
       width: 100.w,
       padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
-      child: Column(
-        children: [
-          SizedBox(height: 2.h),
-          Container(
-            height: 20.h,
-            width: double.infinity,
-            padding: EdgeInsets.symmetric(horizontal: 10.w),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.sp),
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  AppColor.primary,
-                  AppColor.secondary,
-                ],
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(height: 2.h),
+            Container(
+              height: 20.h,
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(horizontal: 10.w),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.sp),
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    AppColor.primary,
+                    AppColor.secondary,
+                  ],
+                ),
               ),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Container(
-                    alignment: Alignment.center,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          '${mosque!.name}',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.bold,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            '${mosque!.name}',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 1.h),
-                        TextButton(
-                          style: TextButton.styleFrom(
-                            padding: EdgeInsets.symmetric(horizontal: 10.w),
-                            backgroundColor: Colors.white,
-                          ),
-                          onPressed: () => Navigator.push(
-                            context,
-                            CupertinoPageRoute(
-                              builder: (context) => PageVillage(
-                                mosque: mosque,
+                          SizedBox(height: 1.h),
+                          TextButton(
+                            style: TextButton.styleFrom(
+                              padding: EdgeInsets.symmetric(horizontal: 10.w),
+                              backgroundColor: Colors.white,
+                            ),
+                            onPressed: () => Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                builder: (context) => PageVillage(
+                                  mosque: mosque,
+                                ),
+                              ),
+                            ),
+                            child: Text(
+                              (villages.isNotEmpty
+                                      ? '${villages.length}'
+                                      : 'Tiada') +
+                                  ' Kariah',
+                              style: TextStyle(
+                                color: AppColor.primary,
+                                fontSize: 12.sp,
                               ),
                             ),
                           ),
-                          child: Text(
-                            (villages.isNotEmpty
-                                    ? '${villages.length}'
-                                    : 'Tiada') +
-                                ' Kariah',
-                            style: TextStyle(
-                              color: AppColor.primary,
-                              fontSize: 12.sp,
-                            ),
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
+                  const Divider(
+                    color: Colors.white,
+                    thickness: 2,
+                    height: 2,
+                  ),
+                  SizedBox(height: 2.h),
+                ],
+              ),
+            ),
+            SizedBox(height: 2.h),
+            GridView(
+              physics: const BouncingScrollPhysics(),
+              shrinkWrap: true,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2, crossAxisSpacing: 2.w),
+              children: [
+                MenuBox(
+                  icon: 'assets/menu/edit.png',
+                  label: 'Kemaskini Kubur',
+                  onTap: () => Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => PageGrave(
+                                mosqueID: mosque.id!,
+                              ))),
                 ),
-                const Divider(
-                  color: Colors.white,
-                  thickness: 2,
-                  height: 2,
+                MenuBox(
+                  icon: 'assets/menu/announcement.png',
+                  label: 'Tambah Pengumuman',
+                  onTap: () => Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => PageAnnouncement(
+                                mosqueID: mosque.id!,
+                              ))),
                 ),
-                SizedBox(height: 2.h),
+                MenuBox(
+                  icon: 'assets/menu/record.png',
+                  label: 'Rekod Pembayaran',
+                  onTap: () => Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) =>
+                              PagePayment(mosqueID: mosque.id!))),
+                ),
+                MenuBox(
+                  icon: 'assets/menu/claim.png',
+                  label: 'Semak Tuntutan',
+                  onTap: () => Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) =>
+                              PageClaim(mosqueID: mosque.id!))),
+                ),
               ],
             ),
-          ),
-          SizedBox(height: 2.h),
-          GridView(
-            physics: const BouncingScrollPhysics(),
-            shrinkWrap: true,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, crossAxisSpacing: 2.w),
-            children: [
-              MenuBox(
-                icon: 'assets/menu/edit.png',
-                label: 'Kemaskini Kubur',
-                onTap: () => Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                        builder: (context) => PageGrave(
-                              mosqueID: mosque.id!,
-                            ))),
-              ),
-              MenuBox(
-                icon: 'assets/menu/announcement.png',
-                label: 'Tambah Pengumuman',
-                onTap: () => Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                        builder: (context) => PageAnnouncement(
-                              mosqueID: mosque.id!,
-                            ))),
-              ),
-              MenuBox(
-                icon: 'assets/menu/record.png',
-                label: 'Rekod Pembayaran',
-                onTap: () => Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                        builder: (context) =>
-                            PagePayment(mosqueID: mosque.id!))),
-              ),
-              MenuBox(
-                icon: 'assets/menu/claim.png',
-                label: 'Semak Tuntutan',
-                onTap: () => Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                        builder: (context) => PageClaim(mosqueID: mosque.id!))),
-              ),
-            ],
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

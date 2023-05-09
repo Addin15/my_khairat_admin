@@ -46,6 +46,7 @@ class _RegisterState extends State<Register> {
             color: Colors.white,
             child: SafeArea(
               child: Scaffold(
+                resizeToAvoidBottomInset: false,
                 body: Container(
                   padding: EdgeInsets.only(left: 5.w, right: 5.w, top: 6.h),
                   child: Column(

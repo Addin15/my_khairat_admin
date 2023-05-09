@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:my_khairat_admin/DAO/mosque_dao.dart';
@@ -189,6 +190,14 @@ class _RenewPlanState extends State<RenewPlan> {
                   child: customTextButton(
                       label: 'Hantar',
                       onPressed: () async {
+                        await Fluttertoast.showToast(msg: "Sila tunggu...");
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text("Sending Message"),
+                        ));
+                        Text(
+                          "hello",
+                          textAlign: TextAlign.center,
+                        );
                         if (_formKey.currentState!.validate() &&
                             image != null) {
                           await widget.planDAO.makePayment({
@@ -197,6 +206,7 @@ class _RenewPlanState extends State<RenewPlan> {
                           }, image!);
 
                           if (mounted) {
+                            Fluttertoast.showToast(msg: "Maklumat bayaran telah dihantar untuk pengesahan.");
                             Navigator.pop(context);
                           }
                         }
